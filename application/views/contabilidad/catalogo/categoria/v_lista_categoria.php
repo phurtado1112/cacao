@@ -12,13 +12,12 @@
                 <div class="span3 well">
                     <h4><center>Lista de categoria de cuentas</center></h4>
                     <div class="navbar navbar-inner block-header">
-                        <?php echo $link; ?>
+                        <?php 
+                        echo $link;
+                        ?>
                     </div>
-                    <?php echo form_open(); ?>
-                    <?php echo form_input(); ?>
-                    <?php echo form_submit('botonSubmit', '  Buscar  '); ?>
-                    <?php echo form_close(); ?>
-                    <div class="block-content collapse in"> 
+                    
+                    <div class="block-content collapse in" id="resultado"> 
                         
                             <?php  
                             
@@ -32,6 +31,7 @@
         </div>
         <script src="<?php echo base_url();?>js/jquery-2.1.3.min.js"></script>
         <script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>js/ajax-select.js"></script>
+        <script src="<?php echo base_url(); ?>js/jquery-select.js"></script>
+        <script src="<?php echo base_url(); ?>js/ajax-busqueda.js"></script>
     </body>
 </html>
