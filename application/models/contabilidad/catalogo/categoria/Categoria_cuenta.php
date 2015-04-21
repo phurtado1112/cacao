@@ -26,11 +26,12 @@ class Categoria_cuenta extends CI_Model{
         
     }
     
-    public function leer($estado) {
+    public function leer($estado){
         
         if($estado== 0 || $estado==1){
         $query = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado='.$estado.'');
         }
+        
         return $query->result_array();
         
     }
@@ -60,6 +61,21 @@ class Categoria_cuenta extends CI_Model{
         $option = $lista;
         return $option;
       }
+      
+      public function buscar($campo,$valor){
+          
+          if($valor != NULL && !empty($campo)){
+         
+        // $query = $this->db->query('select idcategoria_cuenta,categoria,nombre,estado from categoria_cuenta_view WHERE estado > 0 AND '.$campo.'like %'.$valor.'%');
+        $query = $this->db->where($campo,$valor);
+         $query = $this->db->where('estado','1');
+        $query = $this->db->get('categoria_cuenta_view');
+            
+        }
+        
+        return $query->result_array();
+      }
+      
    
 }
 
