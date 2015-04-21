@@ -11,7 +11,7 @@
     </button>
       <select id="modulo" class="navbar-brand" style="border: none; background: none">
           <option value="1" selected="TRUE">Contabilidad</option>
-          <option value="2">Administracion</option>
+          <option value="2">Administración</option>
           <option value="3">Bancos</option>
       </select>
   </div>
