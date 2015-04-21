@@ -21,10 +21,12 @@ class C_Grupo extends CI_Controller{
             
                     $data['link']='<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/crear" class="btn btn-success">Crear Nuevo Grupo de Cuentas</a> '.
                             '<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/leer/0" class="btn btn-success">Listar Grupos de cuentas Inactivas</a>';
-                    $encabezados = array('ID','Grupo','Nivel','Nivel Anterior','Categoria','Edicion','Inactivacion');
+                    $encabezados = array('No°','Grupo','Nivel','Nivel Anterior','Categoria','Edicion','Inactivacion');
                     
                    while(count($sql)!=$i){ 
                        $id = $sql[$i]['idgrupo_cuenta'];
+                       unset($sql[$i]['idgrupo_cuenta']);
+                       array_unshift($sql[$i],$i);
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/modificar/'.$id.'">Editar</a>');
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/cambiar_estado/'.$id.'/0">Inactivar</a>');
 
@@ -35,10 +37,12 @@ class C_Grupo extends CI_Controller{
             
             if($estado==0){
                     $data['link']='<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/leer/1" class="btn btn-success">Listar Grupos Activos</a>';
-                    $encabezados = array('ID','Grupo','Nivel','Nivel Anterior','Categoria','Activacion');
+                    $encabezados = array('No°','Grupo','Nivel','Nivel Anterior','Categoria','Activacion');
 
                    while(count($sql)!=$i){ 
                        $id = $sql[$i]['idgrupo_cuenta'];
+                       unset($sql[$i]['idgrupo_cuenta']);
+                       array_unshift($sql[$i],$i);
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/grupo/c_grupo/cambiar_estado/'.$id.'/1">Activar</a>');
 
                        $i++;

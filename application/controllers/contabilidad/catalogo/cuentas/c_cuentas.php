@@ -22,10 +22,12 @@ class C_Cuentas extends CI_Controller{
             
                     $data['link']='<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/crear" class="btn btn-success">Crear Nueva Cuenta Contable</a> '.
                             '<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/leer/0" class="btn btn-success">Listar Cuentas Inactivas</a>';
-                    $encabezados = array('ID','Cuenta','Naturaleza de cuenta','Grupo de cuentas','Edicion','Inactivacion');
+                    $encabezados = array('No°','Cuenta','Naturaleza de cuenta','Grupo de cuentas','Edicion','Inactivacion');
                     
                    while(count($sql)!=$i){ 
                        $id = $sql[$i]['idcuenta_contable'];
+                       unset($sql[$i]['idcuenta_contable']);
+                       array_unshift($sql[$i],$i);
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/modificar/'.$id.'">Editar</a>');
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/cambiar_estado/'.$id.'/0">Inactivar</a>');
 
@@ -36,10 +38,12 @@ class C_Cuentas extends CI_Controller{
             
             if($estado==0){
                     $data['link']='<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/leer/1" class="btn btn-success">Listar Cuentas Activas</a>';
-                    $encabezados = array('ID','Cuenta','Naturaleza de cuenta','Grupo de cuentas','Activacion');
+                    $encabezados = array('No°','Cuenta','Naturaleza de cuenta','Grupo de cuentas','Activacion');
 
                    while(count($sql)!=$i){ 
                        $id = $sql[$i]['idcuenta_contable'];
+                       unset($sql[$i]['idcuenta_contable']);
+                       array_unshift($sql[$i],$i);
                        array_push($sql[$i],'<a href="'.base_url().'index.php/contabilidad/catalogo/cuentas/c_cuentas/cambiar_estado/'.$id.'/1">Activar</a>');
 
                        $i++;
