@@ -20,7 +20,7 @@
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="<?php echo base_url(); ?>index.php">Inicio</a></li>
+      <li class="active"><a href="<?php echo base_url(); ?>index.php/administracion/administracion">Inicio</a></li>
     </ul>
     
     <div id="modulo_menu" >  
