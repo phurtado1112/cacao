@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-fixed-top" role="navigation">
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
   <div class="navbar-header">
@@ -10,7 +10,7 @@
       <span class="icon-bar"></span>
     </button>
       <select id="modulo" class="navbar-brand" style="border: none; background: none">
-          <option value="1" selected="TRUE">Contabilidad</option>
+          <option value="1" selected>Contabilidad</option>
           <option value="2">Administracion</option>
           <option value="3">Bancos</option>
       </select>
@@ -20,7 +20,7 @@
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="<?php echo base_url(); ?>index.php">Inicio</a></li>
+      <li class=""><a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad">Inicio</a></li>
     </ul>
     
        <ul class="nav navbar-nav">
@@ -29,11 +29,11 @@
          <!-- ////-->
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Transacciones <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/AsientoDiario/C_asiento_diario_recurrente/">Asientos de Diario Recurrentes</a></li>
+          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/AsientoDiario/C_asiento_diario_recurrente/">Asientos de Diario Recurrentes</a></li>
           <li class="divider"></li>
           <li><a href="#">Calculo depreciacion de Activos Fijos</a></li>
           <li class="divider"></li>
-          <li><a href="#">Crear Asientos de Diario</a></li>
+          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
           <li class="divider"></li>
           <li><a href="#">Mayorizar Asientos de Diario</a></li>
         </ul>
@@ -48,11 +48,11 @@
         <ul class="dropdown-menu">
             <li><a href="<?php echo base_url();?>">Activos Fijos</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/c_cuentas/leer/1">Catálogo de Cuentas</a></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas">Catálogo de Cuentas</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/c_categoria/leer/1">Categorías de Cuentas</a></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria">Categorías de Cuentas</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/c_grupo/leer/1">Grupos de Cuentas</a></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo">Grupos de Cuentas</a></li>
         </ul>
         <!-- ////-->
       </li>
