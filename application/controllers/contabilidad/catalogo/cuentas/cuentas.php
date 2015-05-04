@@ -67,7 +67,7 @@ class Cuentas extends CI_Controller {
         $this->table->set_heading($encabezados);
         $data['cuentas'] = $sql;
 
-        $this->load->view('contabilidad/catalogo/cuentas/lista_cuentas_view', $data);
+        $this->load->view('contabilidad/catalogo/cuentas/cuentas_lista_view', $data);
     }
 
     public function buscar() {
@@ -140,11 +140,11 @@ class Cuentas extends CI_Controller {
 
                 $this->leer(1);
             } else {
-                $this->load->view('contabilidad/catalogo/cuentas/crea_cuentas_view', $data);
+                $this->load->view('contabilidad/catalogo/cuentas/cuentas_crea_view', $data);
             }
         } else {
 
-            $this->load->view('contabilidad/catalogo/cuentas/crea_cuentas_view', $data);
+            $this->load->view('contabilidad/catalogo/cuentas/cuentas_crea_view', $data);
         }
     }
 
@@ -172,10 +172,10 @@ class Cuentas extends CI_Controller {
                 $this->Catalogo_cuentas_model->modificar($idcatalogo);
                 $this->leer(1);
             } else {
-                $this->load->view('contabilidad/catalogo/cuentas/edita_cuentas_view', $data);
+                $this->load->view('contabilidad/catalogo/cuentas/cuentas_edita_view', $data);
             }
         } else {
-            $this->load->view('contabilidad/catalogo/cuentas/edita_cuentas_view', $data);
+            $this->load->view('contabilidad/catalogo/cuentas/cuentas_edita_view', $data);
         }
     }
 

@@ -68,7 +68,7 @@ class Grupo extends CI_Controller {
         $this->table->set_heading($encabezados);
         $data['gruposcuentas'] = $sql;
 
-        $this->load->view('contabilidad/catalogo/grupo/lista_grupo_view', $data);
+        $this->load->view('contabilidad/catalogo/grupo/grupo_lista_view', $data);
     }
 
     public function crear() {
@@ -91,15 +91,15 @@ class Grupo extends CI_Controller {
 
             if ($this->form_validation->run() == TRUE) {
 
-                $this->Grupo_cuenta->agregar();
+                $this->Grupo_cuentas_model->agregar();
 
                 $this->leer(1);
             } else {
-                $this->load->view('contabilidad/catalogo/grupo/crea_grupo_view', $data);
+                $this->load->view('contabilidad/catalogo/grupo/grupo_crea_view', $data);
             }
         } else {
 
-            $this->load->view('contabilidad/catalogo/grupo/crea_grupo_view', $data);
+            $this->load->view('contabilidad/catalogo/grupo/grupo_crea_view', $data);
         }
     }
 
@@ -116,7 +116,6 @@ class Grupo extends CI_Controller {
         $nivel = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
 
-        $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['titulo_superior'] = $this->Grupo_cuentas_model->lista_grupo();
 
         $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
@@ -126,13 +125,13 @@ class Grupo extends CI_Controller {
         if ($this->input->post()) {
 
             if ($this->form_validation->run() == TRUE) {
-                $this->Grupo_cuenta->modificar($idgrupo);
+                $this->Grupo_cuentas_model->modificar($idgrupo);
                 $this->leer(1);
             } else {
-                $this->load->view('contabilidad/catalogo/grupo/edita_grupo_view', $data);
+                $this->load->view('contabilidad/catalogo/grupo/grupo_edita_view', $data);
             }
         } else {
-            $this->load->view('contabilidad/catalogo/grupo/edita_grupo_view', $data);
+            $this->load->view('contabilidad/catalogo/grupo/grupo_edita_view', $data);
         }
     }
 

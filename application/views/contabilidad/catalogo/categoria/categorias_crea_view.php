@@ -1,19 +1,10 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-
-        <title>Crear Categoria</title>
-    </head>
-    <body>
+ <body>
         <div class="container">
             <div class="row">
                 <div class="span3 well">
                     <div class="navbar navbar-inner block-header">
                         <h4 class="fa fa-pencil-square-o fa-lg col-lg-offset-5"> Crear Nueva Categoría</h4></br>
-                        <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/categoria/categoria/leer/1" class="btn btn-success fa fa-reply-all fa-lg"> Lista de Cuentas</a>
+                        <a href="index/1" class="btn btn-success fa fa-reply-all fa-lg"> Lista de Cuentas</a>
                     </div>
                     <div class="block-content collapse in">
                         <?php
