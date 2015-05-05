@@ -46,7 +46,11 @@
             'maxlength' => '120',
             'size' => '40',
             'value' => '',
+<<<<<<< HEAD
             'class' => 'form-group',
+=======
+            'class' => 'input-sm',
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
             'placeholder' => 'Descripcion del asiento',
         );
         $no_cuenta_contable = array(//idcuenta_contable
@@ -131,7 +135,11 @@
                         <div class="col-md-4"><?php echo form_dropdown('idtasa_cambio',$idtasa_cambio); ?></div>
                         <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
                         <div class="col-md-4 col-md-offset-4"><?php echo form_input($descripcion_asiento_diario) ?></div></div>
+<<<<<<< HEAD
                     <table class="table table-striped">
+=======
+                    <table class="table table-striped ">
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -142,17 +150,31 @@
                             </tr>
                         </thead>
                          <tr id="clone" style="display:none">
+<<<<<<< HEAD
                                 <td><?php echo form_dropdown('nivel',$nivel); ?></td>
                                 <td><?php echo form_dropdown('grupo_cuenta',$grupo_cuenta); ?></td>
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
+=======
+                             <td></td>
+                                <td><?php echo form_dropdown('nivel',$nivel); ?></td>
+                                <td><?php echo form_dropdown('grupo_cuenta',$grupo_cuenta); ?></td>
+<!--                                <td><?php echo form_input($descripcion_cuenta_contable); ?></td>-->
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                                 <td><?php echo form_input($balance_debito); ?></td>
                                 <td><?php echo form_input($balance_credito); ?></td>
                             </tr>
                         <tbody >
                             <tr>
+<<<<<<< HEAD
                                 <td><?php echo form_dropdown('nivel',$nivel); ?></td>
                                 <td><?php echo form_dropdown('grupo_cuenta',$grupo_cuenta); ?></td>
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
+=======
+                                <td></td>
+                                <td><?php echo form_dropdown('nivel',$nivel); ?></td>
+                                <td><?php echo form_dropdown('grupo_cuenta',$grupo_cuenta); ?></td>
+<!--                                <td><?php echo form_input($descripcion_cuenta_contable); ?></td>-->
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                                 <td><?php echo form_input($balance_debito); ?></td>
                                 <td><?php echo form_input($balance_credito); ?></td>
                             </tr>

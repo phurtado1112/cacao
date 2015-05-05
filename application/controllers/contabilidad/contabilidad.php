@@ -5,7 +5,9 @@ class Contabilidad extends CI_Controller{
     public function __construct() {
         parent::__construct();   
         $this->load->helper('url');
-        $this->load->view('modules/menu/menu_contabilidad');
+        $data['titulo']='Contabilidad';
+        $this->load->view('modules/menu/menu_contabilidad',$data);
+        $this->load->view('modules/foot');
 
     }
     

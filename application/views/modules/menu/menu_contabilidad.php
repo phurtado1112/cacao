@@ -1,4 +1,13 @@
-<nav class="navbar navbar-default" role="navigation">
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
+        <meta charset="UTF-8">
+        <title><?php echo $titulo; ?></title>
+    </head>
+<nav class="navbar navbar-fixed-top" role="navigation">
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
   <div class="navbar-header">
@@ -10,7 +19,7 @@
       <span class="icon-bar"></span>
     </button>
       <select id="modulo" class="navbar-brand" style="border: none; background: none">
-          <option value="1" selected="TRUE">Contabilidad</option>
+          <option value="1" selected>Contabilidad</option>
           <option value="2">Administracion</option>
           <option value="3">Bancos</option>
       </select>
@@ -20,7 +29,11 @@
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
+<<<<<<< HEAD
       <li class="active"><a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad">Inicio</a></li>
+=======
+      <li class=""><a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad">Inicio</a></li>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
     </ul>
     
        <ul class="nav navbar-nav">
@@ -50,7 +63,11 @@
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas">Catálogo de Cuentas</a></li>
             <li class="divider"></li>
+<<<<<<< HEAD
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria">Categorías de Cuentas</a></li>
+=======
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria/index/1">Categorías de Cuentas</a></li>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo">Grupos de Cuentas</a></li>
         </ul>

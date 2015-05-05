@@ -115,15 +115,20 @@
                         <div class="col-md-4 col-md-offset-4">Fecha de Creacion</div></div>
                     <div class="row">
                         <div class="col-md-4"><?=form_dropdown('idorigen_asiento_diario',$idorigen_asiento_diario);?></div>
+<<<<<<< HEAD
                         <?php echo form_hidden('fecha_creacion', date('Y-m-d'));?>//////////////
                         <?php echo form_hidden('fecha_fiscal', date('Y-m-d'));?>//////////////
 
+=======
+                        <?php echo form_hidden('fecha_creacion', date('Y-m-d'));?>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                         
                         <div class="col-md-4 col-md-offset-4"><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">Moneda de Transacción</div></div>
                     <div class="row">
+<<<<<<< HEAD
                         <div class="col-md-4"><?php echo form_dropdown('idmoneda', $idmoneda) ?></div></div>//////
                     <div class="row">
                         <div class="col-md-4">Tipo de Cambio</div></div>
@@ -131,6 +136,15 @@
                         <div class="col-md-4"><?php echo form_dropdown('idtasa_cambio',$idtasa_cambio); ?></div>//////
                         <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
                         <div class="col-md-4 col-md-offset-4"><?php echo form_input($descripcion_asiento_diario) ?></div></div>//////
+=======
+                        <div class="col-md-4"><?php echo form_dropdown('idmoneda', $idmoneda) ?></div></div>
+                    <div class="row">
+                        <div class="col-md-4">Tipo de Cambio</div></div>
+                    <div class="row">
+                        <div class="col-md-4"><?php echo form_dropdown('idtasa_cambio',$idtasa_cambio); ?></div>
+                        <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
+                        <div class="col-md-4 col-md-offset-4"><?php echo form_input($descripcion_asiento_diario) ?></div></div>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -141,9 +155,14 @@
                                 <th>Crédito</th>
                             </tr>
                         </thead>
+<<<<<<< HEAD
                             <tr id="clone" style="display:none">
                              <td><div class="numero_asiento"></div></td>
                              <?php echo form_hidden('fecha_fiscal', date('Y-m-d'));?>//////////////
+=======
+                         <tr id="clone" style="display:none">
+                             <td><div class="numero_asiento"></div></td>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                              
                                 <td><?=  form_dropdown('idcuenta_contable', $idcuenta_contable);?></td>
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
@@ -153,7 +172,10 @@
                         <tbody>
                             <tr>
                                 <td><div class="numero_asiento"></div></td>
+<<<<<<< HEAD
                                 <?php echo form_hidden('fecha_fiscal', date('Y-m-d'));?>//////////////
+=======
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                                 
                                 <td><?=  form_dropdown('idcuenta_contable', $idcuenta_contable);?></td>
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
@@ -162,7 +184,11 @@
                             </tr>
                         </tbody>
                     </table>
+<<<<<<< HEAD
                     <a href="#" class="btn btn-primary btn-lg " role="button">Guardar</a>
+=======
+                    <a href="#" class="btn btn-primary btn-lg " role="button" id="guardar">Guardar</a>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
                     <a href="<?php echo base_url();?>" class="btn btn-default btn-lg " role="button">Cancelar</a>
                     
                     <div  style="float:right;" id="add-delete">
@@ -176,6 +202,10 @@
         <script src="<?php echo base_url(); ?>bootstrap/js/jquery-2.1.3.min.js"></script>
         <script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>public/js/select-ajax.js"></script>
+<<<<<<< HEAD
         <script src="<?php echo base_url(); ?>public/js/asiento_diario/ajax-agregar-campos-adr.js"></script>
+=======
+        <script src="<?php echo base_url(); ?>public/js/asiento_diario/ajax-asiento-diario.js"></script>
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
     </body>
 </html>

@@ -58,6 +58,20 @@ class Catalogo_cuentas_model extends CI_Model{
         $option = $lista;
         return $option;
       }
+      
+       public function buscar($campo,$valor){
+          
+          if($valor != NULL && !empty($campo)){
+         
+        $query = $this->db->query("select idcuenta_contable,cuenta,naturaleza,grupo_cuenta, estado from catalogo_cuenta_view WHERE estado > 0 AND ".$campo." like '".$valor."%'");
+       
+            
+        }
+        
+        return $query->result_array();
+      }
+      
+      
    
 }
 

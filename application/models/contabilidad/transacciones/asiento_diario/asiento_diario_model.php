@@ -20,8 +20,11 @@ class Asiento_diario_model extends CI_Model {
        $form_data = $this->input->post();
        unset($form_data['botonSubmit']);
        $this->db->insert('asiento_diario',$form_data);
+<<<<<<< HEAD
        
        
+=======
+>>>>>>> c624373c90fda3b99490ea3309c22bd4a749c6ba
    }
    
     public function encontrar_por_id($idasiento_diario = NULL) {
