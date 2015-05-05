@@ -20,6 +20,7 @@
                         <table class="table table-striped table-bordered ">
                             <tr>
                                 <th>Nombre de la Categoria</th>
+                                
                                 <th><?php echo form_input('categoria_cuenta',$lista_por_id[0]['categoria']).validation_errors('categoria_cuenta');?></th>
                             </tr>
                             <tr>
