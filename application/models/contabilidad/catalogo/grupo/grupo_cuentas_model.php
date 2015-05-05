@@ -60,6 +60,17 @@ class Grupo_cuentas_model extends CI_Model{
         $option = $lista;
         return $option;
       }
+      
+      public function buscar($campo,$valor){
+          
+          if($valor != NULL && !empty($campo)){
+         
+        $query = $this->db->query("select idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior, categoria , estado from grupo_cuenta_view WHERE estado > 0 AND ".$campo." like '".$valor."%'");
+            
+        }
+        
+        return $query->result_array();
+      }
    
 }
 

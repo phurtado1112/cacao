@@ -52,3 +52,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = "cacao";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+/////Ruta para paginacion/////
+
+///categorias
+//$route['contabilidad/catalogo/categoria/categoria/index/1/(:num)'] = "contabilidad/catalogo/categoria/categoria/index/1";
+//$route['contabilidad/catalogo/categoria/categoria/categorias_listar_inactivas/(:num)'] = "contabilidad/catalogo/categoria/categoria/categorias_listar_inactivas/";
+
+//$route['contabilidad/catalogo/categoria/categoria/index/page/(:any)/(:any)/(:num)'] = "contabilidad/catalogo/categoria/categoria/index/";
+//$route['contabilidad/catalogo/categoria/categoria/index/page/(:any)/(:any)/(:num)'] = "contabilidad/catalogo/categoria/categoria/index/";
+//grupos
+
+//cuentas
