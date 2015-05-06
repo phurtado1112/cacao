@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Bienvenido</title>
-        <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
     </head>
@@ -26,8 +26,8 @@
         </div>
 
 <!--        <h1>Login<a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad"></a></h1>-->
-        <script src="<?php echo base_url(); ?>bootstrap/js/jquery-2.1.3.min.js"></script>
-        <script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/jquery-2.1.3.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>public/js/ajax-select.js"></script>
     </body>
 
