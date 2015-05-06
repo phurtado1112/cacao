@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
+    <body>
 <nav class="navbar navbar-fixed-top" role="navigation">
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
@@ -38,13 +39,11 @@
          <!-- ////-->
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Transacciones <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
           <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/AsientoDiario/C_asiento_diario_recurrente/">Asientos de Diario Recurrentes</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Cálculo Depreciación de Activos Fijos</a></li>
-          <li class="divider"></li>
-          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
-          <li class="divider"></li>
           <li><a href="#">Mayorizar Asientos de Diario</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Cálculo Depreciación de Activos Fijos</a></li>   
         </ul>
         <!-- ////-->
       </li>
@@ -55,13 +54,11 @@
           <!-- ////-->
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url();?>">Activos Fijos</a></li>
-            <li class="divider"></li>
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas">Catálogo de Cuentas</a></li>
-            <li class="divider"></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo">Grupos de Cuentas</a></li>
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria/index/1">Categorías de Cuentas</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo">Grupos de Cuentas</a></li>
+            <li><a href="<?php echo base_url();?>">Activos Fijos</a></li>
         </ul>
         <!-- ////-->
       </li>
@@ -116,4 +113,3 @@
     
   </div>
 </nav>
-</html>>

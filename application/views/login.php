@@ -28,7 +28,6 @@
 <!--        <h1>Login<a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad"></a></h1>-->
         <script src="<?php echo base_url(); ?>public/js/jquery-2.1.3.min.js"></script>
         <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>public/js/jquery-select.js"></script>
     </body>
 
 </html>

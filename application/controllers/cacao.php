@@ -3,13 +3,12 @@
 class Cacao extends CI_Controller{
  
     public function __construct() {
-        parent::__construct();   
-        $this->load->helper('url');
-
+        parent::__construct(); 
+        $this->load->view('login');
     }
     
     public function index() {
-         $this->load->view('login');
+         
     }
     
 }
