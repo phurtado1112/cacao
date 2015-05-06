@@ -13,7 +13,7 @@
                         
                         <table class="table table-striped table-bordered ">
                             <tr>
-                                <th>Nombre de la Cuenta Cuentable</th>
+                                <th>Nombre de la Cuenta Contable</th>
                                 <th><?php echo form_input('cuenta_contable').validation_errors('cuenta_contable');?></th>
                             </tr>
                             <tr>
@@ -34,8 +34,8 @@
                 </div>
             </div>
         </div>
-        <script src="<?php echo base_url();?>bootstrap/js/jquery-2.1.3.min.js"></script>
-        <script src="<?php echo base_url();?>bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url();?>public/js/jquery-2.1.3.min.js"></script>
+        <script src="<?php echo base_url();?>public/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>public/js/jquery-select.js"></script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <meta charset="UTF-8">
