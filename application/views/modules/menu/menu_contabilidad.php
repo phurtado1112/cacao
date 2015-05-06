@@ -40,7 +40,7 @@
         <ul class="dropdown-menu">
           <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/AsientoDiario/C_asiento_diario_recurrente/">Asientos de Diario Recurrentes</a></li>
           <li class="divider"></li>
-          <li><a href="#">Calculo depreciacion de Activos Fijos</a></li>
+          <li><a href="#">Cálculo Depreciación de Activos Fijos</a></li>
           <li class="divider"></li>
           <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
           <li class="divider"></li>
