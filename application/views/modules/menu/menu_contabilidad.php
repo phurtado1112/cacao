@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <meta charset="UTF-8">
-        <title><?php echo $titulo; ?></title><?php echo $titulo; ?>
+        <title><?php echo $titulo; ?></title>
     </head>
 <nav class="navbar navbar-fixed-top" role="navigation">
   <!-- El logotipo y el icono que despliega el menú se agrupan
@@ -20,7 +20,7 @@
     </button>
       <select id="modulo" class="navbar-brand" style="border: none; background: none">
           <option value="1" selected>Contabilidad</option>
-          <option value="2">Administracion</option>
+          <option value="2">Administración</option>
           <option value="3">Bancos</option>
       </select>
   </div>
