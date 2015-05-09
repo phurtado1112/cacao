@@ -16,6 +16,22 @@ class Categorias_cuentas_model extends CI_Model{
        $numero_registros = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado='.$estado.'');
         return $numero_registros->num_rows();
     }
+    //busqueda por ajax      
+    public function buscar_categoria($campo,$valor,$inicio,$num_por_pagina){
+          
+        if($valor !="" && !empty($campo)){
+            $query = $this->db->query("select idcategoria_cuenta,categoria,nombre,estado from categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
+          
+        }
+        return $query->result_array();
+      }
+      
+    public function numero_categorias_buscadas($campo,$valor) {
+       $numero_registros = $this->db->query("SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta");
+        return $numero_registros->num_rows();
+    }
+    
+    
     //agregar registros 
     public function agregar_categoria(){
         
@@ -51,7 +67,7 @@ class Categorias_cuentas_model extends CI_Model{
     
 /// metodo para listar por nombre
     
-     function lista_categoria() {
+     function categoria_lista() {
         $query = $this->db->query('select idcategoria_cuenta,categoria_cuenta from categoria_cuenta WHERE estado > 0');
         $dropdowns = $query->result_array();
         foreach ($dropdowns as $dropdown) {
@@ -61,23 +77,7 @@ class Categorias_cuentas_model extends CI_Model{
         return $option;
       }
       
-      
-      
-      
-//busqueda por ajax      
-      public function buscar_categoria($campo,$valor,$inicio,$num_por_pagina){
-          
-        if($valor !="" && !empty($campo)){
-            $query = $this->db->query("select idcategoria_cuenta,categoria,nombre,estado from categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
-          
-        }
-        return $query->result_array();
-      }
-      
-      public function numero_categorias_buscadas($campo,$valor) {
-       $numero_registros = $this->db->query("SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta");
-        return $numero_registros->num_rows();
-    }
+
    
 }
 

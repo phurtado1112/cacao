@@ -55,7 +55,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas">Catálogo de Cuentas</a></li>
-            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo">Grupos de Cuentas</a></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo/index/1">Grupos de Cuentas</a></li>
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria/index/1">Categorías de Cuentas</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Activos Fijos</a></li>

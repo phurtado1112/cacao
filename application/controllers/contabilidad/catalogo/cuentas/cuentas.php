@@ -85,9 +85,7 @@ class Cuentas extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad',$data);
         $this->load->view('contabilidad/catalogo/cuentas/cuentas_lista_inactivos_view',$data);
         
-        
     }
-
 
     public function cuenta_crear() {
         $this->load->helper('form');

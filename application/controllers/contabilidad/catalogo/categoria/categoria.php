@@ -18,12 +18,12 @@ class Categoria extends CI_Controller {
             $this->load->view('contabilidad/catalogo/categoria/categorias_lista_view');
         } else if ($var == 0) {
             $this->load->view('contabilidad/catalogo/categoria/categorias_lista_inactivos_view');
-        }
-        $this->load->view('modules/foot');
+        }  
+        $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
 
     public function categorias_listar($inicio = 0) {
-        
+
         //configuramos la url de la paginacion
         $config['base_url'] = base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categorias_listar';
         $config['div'] = '#resultado';
@@ -54,7 +54,6 @@ class Categoria extends CI_Controller {
 
         //cargamos nuestra vista
         $this->load->view('contabilidad/catalogo/categoria/categoria_lista_ajax_view', $data);
-        
     }
 
     public function categorias_listar_inactivas($inicio = 0) {
@@ -98,46 +97,46 @@ class Categoria extends CI_Controller {
             $campo = filter_input(INPUT_POST, 'campo');
             $valor = filter_input(INPUT_POST, 'valor');
 
+            //configuramos la url de la paginacion
+            $config['base_url'] = base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categorias_buscar'; //index?
+            $config['div'] = '#resultado';
+            $config['show_count'] = true;
+            $config['cur_page'] = base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_buscar';
+            $config['total_rows'] = $this->Categorias_cuentas_model->numero_categorias_buscadas($campo, $valor);
+            $config['per_page'] = 10;
+            $config['num_links'] = 4;
+            $config['additional_param'] = "{'campo': '" . $campo . "','valor': '" . $valor . "'}";
+            $config['uri_segment'] = 6;
+            //configuracion de estilo de paginacion 
+            $config['cur_tag_open'] = '<li class="active"><a href="#">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li>';
+            $config['num_tag_close'] = '</li>';
+            $config['next_tag_open'] = '<li>';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_tag_open'] = '<li>';
+            $config['prev_tag_close'] = '</li>';
+            //cargamos la librería con nuestra configuracion
+            $this->jquery_pagination->initialize($config);
+
+
+            //obtemos los valores
+            $paginacion = $this->jquery_pagination->create_links();
+
             if (!empty($campo) && !empty($valor)) {
-
-                //configuramos la url de la paginacion
-                $config['base_url'] = base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_buscar'; //index?
-                $config['div'] = '#resultado';
-                $config['show_count'] = true;
-                $config['cur_page'] = base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_buscar';
-                $config['total_rows'] = $this->Categorias_cuentas_model->numero_categorias_buscadas($campo, $valor);
-                $config['per_page'] = 10;
-                $config['num_links'] = 4;
-                $config['additional_param'] = "{'campo': '" . $campo . "','valor': '" . $valor . "'}";
-                $config['uri_segment'] = 6;
-                //configuracion de estilo de paginacion 
-                $config['cur_tag_open'] = '<li class="active"><a href="#">';
-                $config['cur_tag_close'] = '</a></li>';
-                $config['num_tag_open'] = '<li>';
-                $config['num_tag_close'] = '</li>';
-                $config['next_tag_open'] = '<li>';
-                $config['next_tag_close'] = '</li>';
-                $config['prev_tag_open'] = '<li>';
-                $config['prev_tag_close'] = '</li>';
-                //cargamos la librería con nuestra configuracion
-                $this->jquery_pagination->initialize($config);
-
-
-                //obtemos los valores
-                $query_categoria = $this->Categorias_cuentas_model->buscar_categoria($campo, $valor, $inicio, $config['per_page']);
-                $paginacion = $this->jquery_pagination->create_links();
-
-                $data['titulo'] = 'Lista de categorias';
-                $data['num'] = $inicio;
-                $data['consulta_categorias'] = $query_categoria;
-                $data['paginacion'] = $paginacion;
-
-                $this->uri->segment(6);
-                //cargamos nuestra vista
-                $this->load->view('contabilidad/catalogo/categoria/categoria_lista_ajax_view', $data);
+                $categoria_query = $this->Categorias_cuentas_model->buscar_categoria($campo, $valor, $inicio, $config['per_page']);
             } else if (!empty($campo) && empty($valor)) {
-                $this->index(1);
+                $categoria_query = $this->Categorias_cuentas_model->categorias_cuentas_paginacion(1, $inicio, $config['per_page']);
             }
+
+            $data['titulo'] = 'Lista de categorias';
+            $data['num'] = $inicio;
+            $data['consulta_categorias'] = $categoria_query;
+            $data['paginacion'] = $paginacion;
+
+            $this->uri->segment(6);
+            //cargamos nuestra vista
+            $this->load->view('contabilidad/catalogo/categoria/categoria_lista_ajax_view', $data);
         }
     }
 
@@ -158,13 +157,12 @@ class Categoria extends CI_Controller {
             } else {
                 $this->load->view('modules/menu/menu_contabilidad', $data);
                 $this->load->view('contabilidad/catalogo/categoria/categorias_crea_view', $data);
-                
             }
         } else {
             $this->load->view('modules/menu/menu_contabilidad', $data);
             $this->load->view('contabilidad/catalogo/categoria/categorias_crea_view', $data);
         }
-        $this->load->view('modules/foot');
+        $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
 
     public function categoria_cambiar_estado($idcategorias, $estado) {
@@ -201,7 +199,7 @@ class Categoria extends CI_Controller {
             $this->load->view('modules/menu/menu_contabilidad');
             $this->load->view('contabilidad/catalogo/categoria/categorias_edita_view', $data);
         }
-        $this->load->view('modules/foot');
+        $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
 
 }

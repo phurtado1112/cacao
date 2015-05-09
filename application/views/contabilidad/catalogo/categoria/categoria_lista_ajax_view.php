@@ -20,8 +20,8 @@ if (!empty($consulta_categorias)) {
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_modificar/' . $id . '" class="fa fa-pencil fa-fw">Editar</a>' . "</td>
-                        <td>" . '<a id="inactivar" href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/' . $id . '/0" class="fa fa-ban fa-fw">Inactivar</a>' .
-        "</tr>";
+                        <td>" . '<a class="fa fa-ban fa-fw inactivar" value="'.$id.'">Inactivar</a>' .
+                        "</tr>";
 
         $i++;
     }
@@ -51,7 +51,7 @@ if (!empty($consulta_categorias)) {
                         <td>" . $i . "</td>
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/' . $id . '/1">Activar</a>' .
+                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/' . $id . '/1" class="fa fa-retweet fa-fw">Activar</a>' .
         "</tr>";
 
         $i++;
