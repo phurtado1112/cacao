@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="span3 well">
                     <div class="navbar navbar-inner block-header">
-                        <a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo/index" class="btn btn-success">Volver a lista de Grupos</a>
+                        <a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo/index" class="btn btn-success"> Regresar</a>
                     </div>
                     <div class="block-content collapse in">
                         <?php 
@@ -22,7 +22,7 @@
                         <table class="table table-striped table-bordered ">
                             <tr>
                                 <th>Nombre del Grupo</th>
-                                <th><?php echo form_input('grupo_cuenta',$lista_por_id[0]['grupo_cuenta']).validation_errors('grupo_cuenta');?></th>
+                                <th><?php echo form_input('grupo_cuenta',$lista_por_id[0]['grupo_cuenta']); echo form_error('grupo_cuenta');?></th>
                             </tr>
                             <tr>
                                 <th>Nivel</th>

@@ -4,7 +4,7 @@
                 <div class="span3 well">
                     <div class="navbar navbar-inner block-header">
                         <h4 class="fa fa-pencil-square-o fa-lg col-lg-offset-5"> Crear Nueva Cuenta</h4></br>
-                        <a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas/index" class="btn btn-success fa fa-reply-all fa-lg"> Lista de Cuentas</a>
+                        <a href="<?php echo base_url();?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success fa fa-reply-all fa-lg"> Regresar</a>
                     </div>
                     <div class="block-content collapse in">
                         <?php 
@@ -14,7 +14,7 @@
                         <table class="table table-striped table-bordered ">
                             <tr>
                                 <th>Nombre de la Cuenta Contable</th>
-                                <th><?php echo form_input('cuenta_contable').validation_errors('cuenta_contable');?></th>
+                                <th><?php echo form_input('cuenta_contable');echo form_error('cuenta_contable');?></th>
                             </tr>
                             <tr>
                                 <th>Naturaleza de la cuenta</th>
@@ -22,7 +22,7 @@
                             </tr>
                             <tr>
                                 <th>Estructura Base</th>
-                                <th><?=form_dropdown('idgrupo_cuenta',$idgrupocuenta);?></th>
+                                <th><?=form_dropdown('idgrupo_cuenta',$idgrupo_cuenta);?></th>
                             </tr>
                         </table>
                         

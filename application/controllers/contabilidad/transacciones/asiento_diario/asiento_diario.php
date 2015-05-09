@@ -13,8 +13,7 @@ public function index() {
     }
     
      public function listar(){
-         $data['titulo'] = 'Listar Asiento de Diario';
-        $this->load->view('modules/menu/menu_contabilidad',$data);
+        $this->load->view('modules/menu/menu_contabilidad');
         $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
         $vista = $this->Asiento_diario_model->listar();
         $data['asiento_diario'] = $vista;
@@ -24,9 +23,9 @@ public function index() {
     }
     
      public function crear(){
-         
-        $data['titulo'] = 'Crear Asiento de Diario';
+         $data['titulo']='Crear Asiento de Diario';
         $this->load->view('modules/menu/menu_contabilidad',$data);
+        
         $this->load->helper('form');
         $this->load->library('form_validation');
         
@@ -40,8 +39,9 @@ public function index() {
         $data['idtasa_cambio'] = $this->Tasa_cambio_model->lista_tasa_cambio();
         
         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
-        $data['idcuenta_contable'] = $this->Catalogo_cuentas_model->catalogo_lista();
+        $data['idcuenta_contable'] = $this->Catalogo_cuentas_model->catalogo_cuentas_paginacion(1,0,5);
         
+        $this->load->view('modules/asiento_diario_categoria_pop',$data); 
         
         
         
@@ -107,6 +107,7 @@ public function index() {
         }
     }
         
+    
         
     
 }    

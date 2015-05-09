@@ -14,7 +14,7 @@
                 <table class="table table-striped table-bordered ">
                     <tr>
                         <th>Nombre de la Categoría</th>
-                        <th><?php echo form_input('categoria_cuenta') . validation_errors('categoria_cuenta'); ?></th>
+                        <th><?php echo form_input('categoria_cuenta');echo form_error('categoria_cuenta'); ?></th>
                     </tr>
                     <tr>
                         <th>Estructura Base</th>

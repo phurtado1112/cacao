@@ -62,7 +62,7 @@
             'maxlength' => '120',
             'size' => '50',
             'value' => '',
-            'class' => 'form-group',
+            'class' => 'form-group descripcion',
             'placeholder' => 'Descripcion Cta. Contable',
         );
         $balance_credito = array(//balance_credito
@@ -74,6 +74,7 @@
             'class' => 'form-group',
             'placeholder' => 'Crédito',
         );
+        
         $balance_debito = array(//balance_debito
             'name' => 'balance_debito',
             'id' => 'balance_debito',
@@ -109,7 +110,8 @@
                 <div class="form-control">Asiento Recurrente</div>
                 <div class="span3 well">
 
-                    <?= form_open(); ?> 
+ 
+             <?= form_open(); ?> 
                     <div class="row">
                         <div class="col-md-4">Origen Asiento Diario</div>
                         <div class="col-md-4 col-md-offset-4">Fecha de Creacion</div></div>
@@ -126,9 +128,7 @@
                     <div class="row">
                         <div class="col-md-4">Tipo de Cambio</div></div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div id="tasa"><input type="text" readonly value="<?=$cambio="lol";?>" style=""></div>
-                        </div>
+                        <div class="col-md-4"><?php echo form_dropdown('idtasa_cambio',$idtasa_cambio); ?></div>
                         <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
                         <div class="col-md-4 col-md-offset-4"><?php echo form_input($descripcion_asiento_diario) ?></div></div>
                     <table class="table table-striped">
@@ -141,19 +141,34 @@
                                 <th>Crédito</th>
                             </tr>
                         </thead>
-                         <tr id="clone" style="display:none">
-                             <td><div class="numero_asiento"></div></td>
-                             
-                                <td><?=  form_dropdown('idcuenta_contable', $idcuenta_contable);?></td>
+                        
+                        <tbody>
+                            <tr id="clone" style="display: none">
+                                <td><div class="numero_asiento"></div></td>
+                                <td> 
+                                    <div class="input-group"style="width: 150px;" >
+                                        <input type="text"   class="form-control buscar">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default buscar_cuenta"   type="button"><i class="fa-search fa flg" ></i></button>
+                                        </span>
+                                    </div>
+                                </td>
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
                                 <td><?php echo form_input($balance_debito); ?></td>
                                 <td><?php echo form_input($balance_credito); ?></td>
-                            </tr>
+                            </tr>                          
+                        </tbody>
                         <tbody>
                             <tr>
                                 <td><div class="numero_asiento"></div></td>
-                                
-                                <td><?=  form_dropdown('idcuenta_contable', $idcuenta_contable);?></td>
+                                <td><div class="input-group"style="width: 150px;" >
+                                        <input type="text"   class="form-control buscar">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
+                                        </span>
+                                    </div>
+                                </td>
+
                                 <td><?php echo form_input($descripcion_cuenta_contable); ?></td>
                                 <td><?php echo form_input($balance_debito); ?></td>
                                 <td><?php echo form_input($balance_credito); ?></td>
@@ -171,9 +186,9 @@
                 </div>
             </div>
         </div>
-        <script src="<?php echo base_url(); ?>bootstrap/js/jquery-2.1.3.min.js"></script>
-        <script src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>public/js/select-ajax.js"></script>
-        <script src="<?php echo base_url(); ?>public/js/asiento_diario/ajax-asiento-diario.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/jquery-2.1.3.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/jquery-select.js"></script>
+        <script src="<?php echo base_url(); ?>public/js/contabilidad/asiento_diario/ajax-asiento-diario.js"></script>
     </body>
 </html>

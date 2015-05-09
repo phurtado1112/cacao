@@ -41,6 +41,7 @@ class Asiento_diario_model extends CI_Model {
          $this->db->update('idasiento_diario',$form_data);
     }
     
-   
+  
+ 
   
 }

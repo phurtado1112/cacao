@@ -1,7 +1,7 @@
+
 $(document).ready(function(){
     
-  //alert($('#descripcion_cuenta_contable:last').attr('name').charAt('28'));
-    
+ 
      function scrollWin() {
     $('html,body').animate({
         scrollTop: $("#add-delete").offset().top
@@ -24,16 +24,34 @@ $(document).ready(function(){
           scrollWin();
     });
     
-    $("#select1").change(function(event){
-            var id = $("#select1").find(':selected').val();
-            $("#select2").load('genera-select.php?id='+id);
-        });
-    
-    
-    
-    
-    $("#guardar").on("click",function(){
-        open("http://localhost/cacao/index.php/bancos/banco",'Sizewindow',"width=200,height=200,scrollbars=no,toolbar=no,directories=no");
-    });
    
+ $(".buscar_cuenta").on("click",function(){
+   
+    mostrar();
+    });
+    
+   
+     
+    
+  
 }); 
+
+  
+$("input#buscar_c").click(function (){
+    var valor =$(this).attr('name');
+    var arreglo = valor.split("/");
+    var id = arreglo[0];
+    var descripcion =arreglo[1];
+    $('#listar').fadeOut('slow');
+    $(".buscar").val(id);
+    $(".descripcion").val(descripcion);
+    
+   });  
+   
+  function mostrar(){
+        $("#listar").fadeIn('slow');
+    }
+   
+   
+   
+   
