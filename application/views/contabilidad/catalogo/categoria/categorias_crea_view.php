@@ -3,7 +3,7 @@
         <div class="span3 well">
             <div class="navbar navbar-inner block-header">
                 <h4 class="fa fa-pencil-square-o fa-lg col-lg-offset-5"> Crear Nueva Categoría</h4></br>
-                <a href="index/1" class="btn btn-success fa fa-reply-all fa-lg"> Lista de Cuentas</a>
+                <a href="index/1" class="btn btn-success fa fa-reply-all fa-lg">Regresar</a>
             </div>
             <div class="block-content collapse in">
                 <?php

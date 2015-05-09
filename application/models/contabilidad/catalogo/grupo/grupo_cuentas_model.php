@@ -7,24 +7,38 @@ class Grupo_cuentas_model extends CI_Model{
          $this->load->database();
     }
     
+     //listar activos e inactivos 
+    public function grupo_cuentas_paginacion($estado,$inicio,$num_por_pagina) {
+       $datos = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.' ORDER BY idgrupo_cuenta LIMIT '.$inicio.','.$num_por_pagina.'');
+       return $datos->result_array();
+    }
+    // numero de registros activos e inactivos
+    public function numero_grupo_cuentas($estado) {
+       $numero_registros = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.'');
+        return $numero_registros->num_rows();
+    }
+     public function grupo_buscar($campo,$valor,$inicio,$num_por_pagina){
+        if($valor !="" && !empty($campo)){
+         
+        $query = $this->db->query("select idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior, categoria , estado from grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idgrupo_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
+            
+        }
+        return $query->result_array();
+      }
+    
+    public function numero_grupo_ciuentas_buscadas($campo,$valor) {
+       $numero_registros = $this->db->query("SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idgrupo_cuenta");
+        return $numero_registros->num_rows();
+    }
+    
+    
+    
     public function grupo_agregar(){
         
         $form_data = $this->input->post();
         unset($form_data['botonSubmit']);
         
         $this->db->insert('grupo_cuenta',$form_data);
-    }
-    
-    // numero de registros activos e inactivos
-    public function numero_grupo_cuentas($estado) {
-       $numero_registros = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.'');
-        return $numero_registros->num_rows();
-    }
-    
-      //listar activos e inactivos 
-    public function grupo_cuentas_paginacion($estado,$inicio,$num_por_pagina) {
-       $datos = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.' ORDER BY idgrupo_cuenta LIMIT '.$inicio.','.$num_por_pagina.'');
-       return $datos->result_array();
     }
     
     public function encontrar_por_id($idgrupo = NULL) {
@@ -37,7 +51,6 @@ class Grupo_cuentas_model extends CI_Model{
         return $query->result_array(); 
         
     }
-    
    
     public function grupo_modificar($idgrupo){
          $form_data = $this->input->post();
@@ -47,7 +60,7 @@ class Grupo_cuentas_model extends CI_Model{
          $this->db->update('grupo_cuenta',$form_data);
     }
     
-    public function cambiar_estado($idgrupo,$estado){
+    public function grupo_cambiar_estado($idgrupo,$estado){
          
         $this->db->query('UPDATE grupo_cuenta SET estado='.$estado.' WHERE idgrupo_cuenta='.$idgrupo );
          
@@ -64,17 +77,7 @@ class Grupo_cuentas_model extends CI_Model{
         $option = $lista;
         return $option;
       }
-      
-      public function buscar($campo,$valor){
-          
-          if($valor != NULL && !empty($campo)){
-         
-        $query = $this->db->query("select idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior, categoria , estado from grupo_cuenta_view WHERE estado > 0 AND ".$campo." like '".$valor."%'");
-            
-        }
-        
-        return $query->result_array();
-      }
+     
    
 }
 
