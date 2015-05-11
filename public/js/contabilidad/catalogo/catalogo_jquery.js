@@ -1,27 +1,69 @@
-$(document).ready(function(){
-    
-function busqueda(){
-    var valor=$('#valor').val();
-     var campo=$('#campo option:selected').val();
-    
-	$.ajax({
-	    url:"http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/buscar",
-	    type:"post",
-	    data:"valor="+valor+"&campo="+campo,
-	    success:function(data){
-                            
-                    $("#resultado").html(data);
+var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/index/1";
+var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/index/0";
+
+var url_actual = window.location.href;
+
+
+
+    if (url_actual === url1) {
+        var controlador = "cuentas_listar";
+    } else if (url_actual === url2) {
+        var controlador = "cuentas_listar_inactivas";
+    }
+
+    $(document).on("ready", function () {
+
+        $.ajax({
+            url: 'http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/' + controlador,
+            type: 'POST',
+            success: function (data) {
+                $("#resultado").html(data);
             }
-                        
-           			});
-}    
-  
-   $("#buscar").on('click',function () {
-       busqueda();
-  });
-  
-  $("#valor").on('keypress',function () {
-       busqueda();
-  });
-   
-}); 
+
+        });
+
+
+        function busqueda() {
+           
+            var valor = $('#valor').val();
+            var campo = $('#campo option:selected').val();
+           
+            $.ajax({
+                url: "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/cuentas_buscar",
+                type: "post",
+                data: "valor=" + valor + "&campo=" + campo,
+                success: function (data) {
+
+                    $("#resultado").html(data);
+                }
+
+            });
+
+        }
+
+
+        function confirmar(val) {
+            var res = confirm("¿Esta seguro que desea desactivar esta cuenta?");
+            if (res === true) {
+                window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_cambiar_estado/"+val+"/0";
+            } else if (res === false) {
+                return 0;
+            }
+
+        }
+
+        $("#buscar").on('click', function () {
+           busqueda();
+           
+        });
+
+        $("#valor").on('keypress', function () {
+            busqueda();
+        });
+
+        $("#resultado").on('click', ".inactivar", function () {
+            confirmar($(this).attr("value"));
+        });
+
+
+    });
