@@ -141,7 +141,7 @@ class Categoria extends CI_Controller {
     }
 
     public function categoria_crear() {
-        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]');
+        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]|alpha');
 
         $this->load->model('contabilidad/catalogo/categoria/Estructura_base_model');
         $data['idestructura_base'] = $this->Estructura_base_model->lista_dropdown();

@@ -146,14 +146,20 @@ class Cuentas extends CI_Controller {
     
     public function cuenta_crear() {
      
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[3]');
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|alpha');
+        $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
 
         $tipocuenta = array('A' => 'Acreedora', 'D' => 'Deudora');
         $data['tipocuenta'] = $tipocuenta;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['idgrupo_cuenta'] = $this->Grupo_cuentas_model->lista_grupo();
-
+        
+        $idcuenta_contable = array(
+              'name'        => 'idcuenta_contable',
+              'id'          => 'idcuenta_contable',
+            );
+        $data['idcuenta_contable']=$idcuenta_contable;
 
         if ($this->input->post()) {
 
@@ -161,22 +167,22 @@ class Cuentas extends CI_Controller {
 
                 $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
                 $this->Catalogo_cuentas_model->agregar_catalogo();
-
                 
                 header('Location:' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/index/1');
             } else {
                 $this->load->view('contabilidad/catalogo/cuentas/cuentas_crea_view', $data);
+                $this->load->view('modules/foot/contabilidad/catalogo_foot');
             }
         } else {
 
             $this->load->view('contabilidad/catalogo/cuentas/cuentas_crea_view', $data);
+            $this->load->view('modules/foot/contabilidad/catalogo_foot');
         }
     }
 
     public function cuenta_modificar($idcatalogo) {
 
-        $this->form_validation->set_rules('cuenta_contable', 'Categoria', 'required|min_length[4]');
-        $this->form_validation->set_rules('cuenta_contable', 'Categoria', 'required|min_length[4]');
+        $this->form_validation->set_rules('cuenta_contable', 'Categoria', 'required|min_length[2]|alpha');
 
         $data['idcatalogo'] = $idcatalogo;
 
@@ -188,6 +194,12 @@ class Cuentas extends CI_Controller {
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['idgrupocuenta'] = $this->Grupo_cuentas_model->lista_grupo();
+        
+        $idcuenta_contable = array(
+              'name'        => 'idcuenta_contable',
+              'id'          => 'idcuenta_contable',
+            );
+        $data['idcuenta_contable']=$idcuenta_contable;
 
         if($this->input->post()){
             
@@ -197,14 +209,13 @@ class Cuentas extends CI_Controller {
                 header('Location:'.base_url().'index.php/contabilidad/catalogo/cuentas/cuentas/index/1');
           
             }else{
-                $this->load->view('modules/menu/menu_contabilidad');
                 $this->load->view('contabilidad/catalogo/cuentas/cuentas_edita_view',$data);
             }
             
         }else{
-            $this->load->view('modules/menu/menu_contabilidad');
             $this->load->view('contabilidad/catalogo/cuentas/cuentas_edita_view',$data);
         }
+        $this->load->view('modules/foot/contabilidad/catalogo_foot');
     }
 
     

@@ -1,8 +1,6 @@
 var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/index/1";
 var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/index/0";
-
 var url_actual = window.location.href;
-
 if (url_actual === url1) {
     var controlador = "categorias_listar";
 } else if (url_actual === url2) {
@@ -19,21 +17,24 @@ $(document).on("ready", function () {
         }
 
     });
-
-
     function busqueda() {
         var valor = $('#valor').val();
         var campo = $('#campo option:selected').val();
-        $.ajax({
-            url: "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/categorias_buscar",
-            type: "post",
-            data: "valor=" + valor + "&campo=" + campo,
-            success: function (data) {
+        
+        if ( isNaN(valor)|| valor==="") {
+            $.ajax({
+                url: "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/categorias_buscar",
+                type: "post",
+                data: "valor=" + valor + "&campo=" + campo,
+                success: function (data) {
 
-                $("#resultado").html(data);
-            }
+                    $("#resultado").html(data);
+                }
 
-        });
+            });
+        } else {
+            alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
+        }
 
     }
 
@@ -51,14 +52,10 @@ $(document).on("ready", function () {
     $("#buscar").on('click', function () {
         busqueda();
     });
-
     $("#valor").on('keypress', function () {
         busqueda();
     });
-
     $("#resultado").on('click', ".inactivar", function () {
         confirmar($(this).attr("value"));
     });
-
-
 });

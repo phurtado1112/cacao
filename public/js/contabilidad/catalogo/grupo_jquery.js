@@ -19,15 +19,15 @@ $(document).ready(function () {
         }
 
     });
+    
+    
 
-    function busqueda() {
-        var valor = $('#valor').val();
-        var campo = $('#campo option:selected').val();
-
+    function busqueda(val,camp) {
+        
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupos_buscar",
             type: "post",
-            data: "valor=" + valor + "&campo=" + campo,
+            data: "valor=" + val + "&campo=" + camp,
             success: function (data) {
 
                 $("#resultado").html(data);
@@ -35,6 +35,27 @@ $(document).ready(function () {
 
         });
     }
+    
+    function valida(){
+    var valor = $('#valor').val();
+    var campo = $('#campo option:selected').val();
+    
+    if (valor !== "" &&!isNaN(valor)&& (campo === "nivel_anterior" ||campo ==="nivel")) { 
+        busqueda(valor,campo);
+        
+    } else if ( valor !== "" && isNaN(valor)&& (campo === "nivel_anterior" ||campo ==="nivel")){
+            alert("Solo se aceptan numeros para esta busqueda");
+            
+        }else if (valor !== "" && isNaN(valor)&& (campo === "grupo_cuenta" ||campo ==="categoria")){
+            busqueda(valor,campo);
+            
+        }else if (valor !== "" && !isNaN(valor)&& (campo === "grupo_cuenta" ||campo ==="categoria")){
+            alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
+            
+        }else if ( valor ===""){
+            busqueda(valor,campo);
+        }
+    }    
     
      function confirmar(val) {
         var res = confirm("¿Esta seguro que desea desactivar esta categoria?");
@@ -47,11 +68,11 @@ $(document).ready(function () {
     }
 
     $("#buscar , #recargar").on('click', function () {
-        busqueda();
+        valida;
     });
 
     $("#valor").on('keypress', function () {
-        busqueda();
+        valida();
     });
     
     $("#resultado").on('click', ".inactivar", function () {
