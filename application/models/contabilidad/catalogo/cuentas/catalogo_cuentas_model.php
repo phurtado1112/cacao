@@ -12,7 +12,7 @@ class Catalogo_cuentas_model extends CI_Model {
 
         $form_data = $this->input->post();
         unset($form_data['botonSubmit']);
-
+        
         $this->db->insert('catalogo_cuenta', $form_data);
     }
 
