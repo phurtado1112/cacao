@@ -23,25 +23,6 @@ class Asiento_diario extends CI_Controller {
 
     public function asiento_diario_crear() {
 
-        $tipo_de_cambio = array(//idtasa_cambio
-            'name' => 'tipo_de_cambio',
-            'id' => 'tipo_de_cambio',
-            'maxlength' => '10',
-            'size' => '15',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Tipo de Cambio',
-        );
-        $moneda = array(//idtasa_cambio
-            'Opcion1' => 'Opcion1',
-            'Opcion2' => 'Opcion2',
-            'Opcion3' => 'Opcion3',
-        );
-        $origen = array(//idorigen_asiento_diario   
-            'Opcion1' => 'Opcion1',
-            'Opcion2' => 'Opcion2',
-            'Opcion3' => 'Opcion3',
-        );
         $numero_transaccion = array(//numero_transaccion
             'name' => 'numero_transaccion',
             'id' => 'numero_transaccion',
@@ -69,66 +50,13 @@ class Asiento_diario extends CI_Controller {
             'class' => 'form-group',
             'placeholder' => 'No. Cta Contable',
         );
-        $descripcion_cuenta_contable = array(//descripcion_cuenta_contable
-            'name' => 'descripcion_cuenta_contable',
-            'id' => 'descripcion_cuenta_contable/0',
-            'maxlength' => '120',
-            'size' => '50',
-            'value' => '',
-            'class' => 'form-group descripcion',
-            'placeholder' => 'Descripcion Cta. Contable',
-        );
-        $balance_credito = array(//balance_credito
-            'name' => 'balance_credito',
-            'id' => 'balance_credito/0',
-            'maxlength' => '20',
-            'size' => '10',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Crédito',
-        );
-
-        $balance_debito = array(//balance_debito
-            'name' => 'balance_debito',
-            'id' => 'balance_debito/0',
-            'maxlength' => '20',
-            'size' => '10',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Débito',
-        );
-        $total_credito = array(//total_credito
-            'name' => 'total_credito',
-            'id' => 'total_credito',
-            'maxlength' => '20',
-            'size' => '10',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Crédito',
-        );
-        $total_debito = array(//total_debito
-            'name' => 'total_debito',
-            'id' => 'total_debito',
-            'maxlength' => '20',
-            'size' => '10',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Débito',
-        );
+        
         $dias = array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado");
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
-        $data['total_debito'] = $total_debito;
-        $data['total_credito'] = $total_credito;
-        $data['balance_debito'] = $balance_debito;
-        $data['balance_credito'] = $balance_credito;
-        $data['descripcion_cuenta_contable'] = $descripcion_cuenta_contable;
         $data['no_cuenta_contable'] = $no_cuenta_contable;
         $data['descripcion_asiento_diario'] = $descripcion_asiento_diario;
         $data['numero_transaccion'] = $numero_transaccion;
-        $data['$origen'] = $origen;
-        $data['moneda'] = $moneda;
-        $data['tipo_de_cambio'] = $tipo_de_cambio;
 
         $data['dias'] = $dias;
         $data['meses'] = $meses;
