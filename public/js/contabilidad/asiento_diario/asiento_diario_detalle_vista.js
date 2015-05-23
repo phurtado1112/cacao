@@ -1,8 +1,7 @@
 
 $(document).ready(function () {
     //////////////// agregar cuentas de detalles de asiento///////////////
-
-
+    
     //////////////// agregar campos de detalles de asiento///////////////
     function scrollWin() {
         $('html,body').animate({
@@ -19,15 +18,14 @@ $(document).ready(function () {
         var creado = $('#clone').clone();
         $('#clone').hide();
 
-        creado.attr('class', 'agregado').insertAfter('tbody#campos_agregados>tr:last');
-
+        creado.attr('class', 'asiento_diario_detalle agregado').insertAfter('tbody#campos_agregados>tr:last');
+        
         creado.attr('id', id_campo + 1);
-
 
         var id_padre = creado.attr("id");
 
-        creado.find('td:nth-child(1)>div').html(parseInt(id_padre) + 1);
-
+        creado.find('td:nth-child(1)>div').html(parseInt(id_padre));
+        creado.find('td:nth-child(1)>.numero_transaccion').val(parseInt(id_padre));
 
         var id_cuenta_defecto = creado.find('#idcuenta_contable_').attr('id');
         var id_cuenta_final = id_cuenta_defecto + id_padre;
@@ -43,11 +41,11 @@ $(document).ready(function () {
 
         var id_debito_defecto = 'balance_debito_';
         var id_debito_final = id_debito_defecto + id_padre;
-        creado.find('td:nth-child(4)>input').attr('id', id_debito_final).attr('name', id_debito_final);
+        creado.find('td:nth-child(4)>input').attr('id', id_debito_final).attr('name', id_debito_final).validarCampoNumero('.0123456789');;
 
         var id_credito_defecto = 'balance_credito_';
         var id_credito_final = id_credito_defecto + id_padre;
-        creado.find('td:nth-child(5)>input').attr('id', id_credito_final).attr('name', id_credito_final);
+        creado.find('td:nth-child(5)>input').attr('id', id_credito_final).attr('name', id_credito_final).validarCampoNumero('.0123456789');;
     });
 
     $("#quitar").on('click', function () {
@@ -56,7 +54,68 @@ $(document).ready(function () {
 
         scrollWin();
     });
+    
+//   $("#campos_agregados").on('click', ".campo_debito",function () {
+//        alert($(this).attr("value"));
+//        if($(this).val()==="0"){
+//           $(this).attr("value","");
+//       }
+//    });
+//    
+//    $("#campos_agregados").on('click', ".campo_credito",function () {
+//        alert($(this).attr("value"));
+//        if($(this).val()==="0"){
+//           $(this).attr("value","");
+//       }
+//    });
+//    
+//    $("#guardar").on("mousemove", function () {
+//
+//        $(".campo_debito").each(
+//                function () {
+//                    if ($(this).val()===""){
+//                        $(this).val(0);
+//                    }
+//              }
+//        );
+//
+//        $(".campo_credito").each(
+//                function () {
+//                    if ($(this).val()===""){
+//                        $(this).val(0);
+//                    }
+//              }
+//        );
+//
+//    });
 
+/////validacion que solo debito o solo credito
+    
+    $("#campos_agregados").on('keyup', ".campo_debito",function () {
+        
+        var  id_original=$(this).attr("id");
+        var idcampo = parseInt(id_original.substr(id_original.length-1,id_original.length));
+        
+        var campo = '#balance_credito_'+idcampo;
+        var campo_vecino = '#balance_debito_'+idcampo;
+        
+        $(campo).val("0.0");
+        calcular_total2();
+
+    });
+    
+    $("#campos_agregados").on('keyup', ".campo_credito",function () {
+        
+        var  id_original=$(this).attr("id");
+        var idcampo = parseInt(id_original.substr(id_original.length-1,id_original.length));
+        
+        var campo = '#balance_debito_'+idcampo;
+        var campo_vecino = '#balance_credito_'+idcampo;
+        
+        $(campo).val("0.0");
+        calcular_total();
+
+    });
 
 
     //////////////seleccion de moneda/cambio ///////////////
@@ -77,9 +136,9 @@ $(document).ready(function () {
     });
 
     //////////////seleccion de cuentas///////////////
-    function busqueda(fin) {
-        ///talves pasando la var valor_ref 
-        var tag = '#idcuenta_contable_' + fin;
+    function busqueda_cuenta() {
+        
+        var tag = '#cuenta_contable_buscar';
 
         var valor = $(tag).val();
 
@@ -93,14 +152,22 @@ $(document).ready(function () {
             }
         });
     }
+    
+    $('#buscar_cuenta').on("click",function(){
+        busqueda_cuenta();
+         
+    });
 
     function asig_valores() {
-        $("#resultado").on("click", "input#buscar_c", function () {
-            var val = $("#listar").data("id_ref");
+        $("#resultado").on("click", "tr#buscar_c", function () {
+            
+            var val = $("body").data("id_ref");
             var valor = $(this).attr('name');
             var arreglo = valor.split("/");
             var id = arreglo[0];
             var descripcion = arreglo[1];
+            
+            $('#cuenta_contable_buscar').val("");
 
             $('#listar').fadeOut('slow');
 
@@ -109,51 +176,40 @@ $(document).ready(function () {
 
             $(campo_cuenta).val(id);
             $(campo_descripcion).val(descripcion);
-
+            
         });
     }
 
     function mostrar() {
         $("#listar").fadeIn("fast");
+        
+        busqueda_cuenta();
 
     }
 
     $("#campos_agregados").on("click", ".buscar_cuenta", function () {
         var referencia = $(this).attr("id");
         var valor_ref = referencia.charAt(referencia.length - 1);
-
+        
         mostrar();
-        busqueda(valor_ref);
-
-        $("#listar").data("id_ref", valor_ref);
-        if (asig_valores()) {
-            $("#listar").removeData("id_ref", valor_ref);
-        }
-
-    });
-
-    $("#campos_agregados").on("keypress", ".buscar", function () {
-        var referencia = $(this).attr("id");
-        var valor_ref = referencia.charAt(referencia.length - 1);
-
-        mostrar();
-        busqueda(valor_ref);
-
-        $("#listar").data("id_ref", valor_ref);
-        if (asig_valores()) {
-            $("#listar").removeData("id_ref", valor_ref);
-        }
-
+        
+        $("body").data("id_ref", valor_ref);
+        
+        
+        asig_valores();
+        
     });
 
     $("#cerrar_pop").on("click", function () {
+        $('#cuenta_contable_buscar').val("");
         $("#listar").hide();
     });
 
     /////////////////////////montos de debito y credito///////////////
-
+    
     function calcular_total() {
         var debito_total = 0;
+        
         $(".campo_debito").each(
                 function () {
                     var numero;
@@ -203,26 +259,7 @@ $(document).ready(function () {
         calcular_total2();
     });
 
-    $(document).on("mousemove", function () {
-
-        $(".campo_debito").each(
-                function () {
-                    if (isNaN(eval($(this).val()))) {
-                        $(this).val(0);
-                    }
-                }
-        );
-
-    $(".campo_credito").each(
-                    function () {
-                        if (isNaN(eval($(this).val()))) {
-                            $(this).val(0);
-                        }
-                    }
-            );
-    });
-
-
+    
 
     (function (a) {
         a.fn.validarCampoNumero = function (b) {
@@ -235,10 +272,12 @@ $(document).ready(function () {
         };
     })(jQuery);
 
-    $(".campo_debito").validarCampoNumero('0123456789');
-    $(".campo_credito").validarCampoNumero('0123456789');
-    
-    
+    $(".campo_debito").validarCampoNumero('.0123456789');
+    $(".campo_credito").validarCampoNumero('.0123456789');
+    //////busqueda de pop-up/////////////
+     $("#cuenta_contable_buscar").validarCampoNumero('-0123456789');
+     
+     
           
 });
 

@@ -5,21 +5,59 @@ class Asiento_diario extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $data['titulo'] = 'Crear Asiento de Diario';
+    }
+
+   public function index() {
+        $data['titulo'] = 'Crear Asiento de Diario';
         $this->load->view('modules/menu/menu_contabilidad', $data);
-    }
-
-    public function index() {
-
-        $this->asiento_diario_listar();
-    }
-
-    public function asiento_diario_listar() {
         $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
-        $vista = $this->Asiento_diario_model->listar();
+        $vista = $this->Asiento_diario_model->asiento_diario_listar();
         $data['asiento_diario'] = $vista;
-
-        $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_lista_view', $data);
+        
+        $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_lista_view',$data);
+        $this->load->view('modules/foot/contabilidad/asiento_diario_foot');
     }
+
+    public function asiento_diario_listar($inicio=0) {
+        $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
+        
+        //configuramos la url de la paginacion
+        $config['base_url'] = base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_listar'; //index?
+        $config['div'] = '#resultado';
+        $config['show_count'] = true;
+        $config['cur_page'] = base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_listar';
+        $config['total_rows'] = $this->Asiento_diario_model->asiento_diario_listar_num();
+        $config['per_page'] = 10;
+        $config['num_links'] = 4;
+        $config['uri_segment'] = 6;
+        //configuracion de estilo de paginacion 
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        //cargamos la librería con nuestra configuracion
+        $this->jquery_pagination->initialize($config);
+        
+        
+        //obtemos los valores
+        $asiento_diario_query = $this->Asiento_diario_model->asiento_diario_paginacion($inicio, $config['per_page']);
+        
+        $paginacion = $this->jquery_pagination->create_links();
+
+        $data['num'] = $inicio;
+        $data['consulta_asiento_diario'] = $asiento_diario_query;
+        $data['paginacion'] = $paginacion;
+        
+        //cargamos nuestra vista
+        $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_lista_ajax_view', $data);
+        
+        
+    }
+
 
     public function asiento_diario_crear() {
 
@@ -71,25 +109,78 @@ class Asiento_diario extends CI_Controller {
         $dato = $this->Tasa_cambio_model->lista_tasa_cambio();
         $final = end($dato);
         $data['idtasa_cambio'] = $final;
-
-
-        if ($this->input->post()) {
-
-            if ($this->form_validation->run() == TRUE) {
-                $this->load->model('contabilidad/transacciones/asiento_diario/Origen_asiento_diario_model');
-                $this->Origen_asiento_diario_model->crear();
-
-                $this->listar();
-            } else {
-                $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_crear_view', $data);
-            }
-        } else {
-            $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_crear_view', $data);
-        }
-
+        
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_crear_view', $data);
         $this->load->view('modules/pop_up/asiento_diario_cuentas_pop');
-        $this->load->view('modules/foot/contabilidad/asiento_diario_foot');
+        $this->load->view('modules/foot/contabilidad/asiento_diario_crear_foot');
     }
+    
+    ////////////////funcion para guardar datos////////////////////
+    
+    public function asiento_diario_guardar(){
+        $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
+        
+        $numero_asiento_diario = filter_input(INPUT_POST, 'numero_asiento_diario');
+        $idorigen_asiento_diario = filter_input(INPUT_POST, 'idorigen_asiento_diario');
+        $descripcion_asiento_diario = filter_input(INPUT_POST, 'descripcion_asiento_diario');
+        $fecha_creacion = filter_input(INPUT_POST, 'fecha_creacion');
+        $fecha_fiscal = filter_input(INPUT_POST, 'fecha_fiscal');
+        $usuario_creacion = filter_input(INPUT_POST, 'usuario_creacion');
+        $idtasa_cambio = filter_input(INPUT_POST, 'idtasa_cambio');
+        $balance_debito = filter_input(INPUT_POST, 'balance_debito');
+        $balance_credito = filter_input(INPUT_POST, 'balance_credito');
+        
+        
+        $this->Asiento_diario_model->asiento_diario_crear($numero_asiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario,
+        $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito);
+        
+        $dato = $this->Asiento_diario_model->volver_idasiento_diario();
+        $final = end($dato);
+        echo $final['idasiento_diario'];
+        
+         
+    }
+
+//////////////////////////funcion para cambiar fecha y tasa cambio//////////////////////
+    public function buscar_fecha (){
+        
+        $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_buscada');    
+        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
+        $fecha_encontrada = $this->Tasa_cambio_model->tasa_cambio_encontrar_por_fecha($fecha_tipo_cambio);
+        if(count($fecha_encontrada)==0){
+           echo 'vacio'; 
+        }else{
+        
+        echo $fecha_encontrada[0]['tasa_cambio']."/".$fecha_encontrada[0]['idtasa_cambio'];
+        }
+        
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public function asiento_diario_detalle_guardar(){
+       $this->load->model('contabilidad/transacciones/asiento_diario_detalle/Asiento_diario_detalle_model');
+        
+        $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
+        $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
+        $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
+        $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
+        $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
+        $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
+        
+        //echo $idasiento_diario. "  " . $numero_transacciones . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " . $monto_moneda_nacional . "  " . $monto_moneda_extranjera;
+        
+        $this->Asiento_diario_detalle_model->asiento_diario_detalle_crear(
+                $idasiento_diario,$numero_transacciones,$idcuenta_contable,$tipo_transaccion,
+                $monto_moneda_nacional,$monto_moneda_extranjera
+                );
+        
+        
+    }
+
+
+    
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -138,41 +229,6 @@ class Asiento_diario extends CI_Controller {
         $this->uri->segment(6);
         //cargamos nuestra vista
         $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_cuentas_ajax_view', $data);
-    }
-
-    public function asiento_diario_modificar($idasiento_diario) {
-        $this->load->view('modules/menu/menu_contabilidad');
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-        //$this->form_validation->set_rules('categoria_cuenta','Categoria','required|min_length[4]');
-
-        $data['$idasiento_diario'] = $idasiento_diario;
-
-        $this->load->model('AD/Origen_asiento_diario');
-        $data['idorigen_asiento_diario'] = $this->Origen_asiento_diario->lista_dropdown();
-
-        $this->load->model('AD/Tasa_cambio');
-        $data['idtasa_cambio'] = $this->Tasa_cambio->lista_dropdown();
-
-        $this->load->model('AD/Tipo_moneda');
-        $data['idmoneda'] = $this->Tipo_moneda->lista_dropdown();
-
-        $this->load->model('AD/Ad');
-        $data['lista_por_id'] = $this->Ad->encontrar_por_id($idasiento_diario);
-
-
-        if ($this->input->post()) {
-
-            if ($this->form_validation->run() == TRUE) {
-                $this->load->model('AD/Ad');
-                $this->Ad->modificar($idasiento_diario);
-                $this->leer(1);
-            } else {
-                $this->load->view('AD/v_editar_ad', $data);
-            }
-        } else {
-            $this->load->view('AD/v_editar_ad', $data);
-        }
     }
 
 }
