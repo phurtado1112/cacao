@@ -18,7 +18,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4"><?= form_dropdown('idorigen_asiento_diario', $idorigen_asiento_diario); ?></div>
+            <div class="col-md-4"><?= form_dropdown($idorigen_asiento_diario,$lista_origen_asiento_diario); ?></div>
         </div>
 
         <div class="row">
@@ -28,16 +28,19 @@
         <div class="row">
             <div class="col-md-4">Tipo de Cambio</div></div>
         <div class="row">
-            <div class="col-md-4" style="z-index: 1000; position: absolute">
+            
+            <div class="col-md-4" >
                 
-                <input type="text" disabled value="1" id="tasa_cambio"  >
-
-                <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" maxlength="4" size="4" value="1"> </input></div>
+            <input type="text" readonly="reaonly" id="tasa_cambio" value="1" >
+            <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
+                
+            </div>
 
             <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
-            <div class="col-md-4 col-md-offset-4"><input  type="text" placeholder="Descripcion AD" id="descripcion_asiento_diario"></input></div>
+            <div class="col-md-4 col-md-offset-4"><textarea  type="text" placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" style="width: 300px;height: 80px"></textarea></div>
         </div>
         <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
+        
         <input id="usuario_creacion"  placeholder="usuario" size="4"></input>
         
         <input id="numero_asiento_diario" placeholder="Numero AD" class="col-md-4 col-md-offset-4"></input>

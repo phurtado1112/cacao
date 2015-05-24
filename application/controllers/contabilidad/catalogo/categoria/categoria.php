@@ -41,6 +41,10 @@ class Categoria extends CI_Controller {
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
         $config['prev_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
         //cargamos la librería con nuestra configuracion
         $this->jquery_pagination->initialize($config);
 
@@ -75,6 +79,10 @@ class Categoria extends CI_Controller {
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
         $config['prev_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
         //estableciendo la configuracion de paginacion
         $this->jquery_pagination->initialize($config);
 
@@ -116,6 +124,10 @@ class Categoria extends CI_Controller {
             $config['next_tag_close'] = '</li>';
             $config['prev_tag_open'] = '<li>';
             $config['prev_tag_close'] = '</li>';
+            $config['last_tag_open'] = '<li>';
+            $config['last_tag_close'] = '</li>';
+            $config['first_tag_open'] = '<li>';
+            $config['first_tag_close'] = '</li>';
             //cargamos la librería con nuestra configuracion
             $this->jquery_pagination->initialize($config);
 

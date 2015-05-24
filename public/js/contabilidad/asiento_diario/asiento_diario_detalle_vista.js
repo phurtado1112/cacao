@@ -117,24 +117,6 @@ $(document).ready(function () {
 
     });
 
-
-    //////////////seleccion de moneda/cambio ///////////////
-
-    $("#tasa_cambio").hide();
-
-    $("#moneda>select").change(function () {
-
-        var elegido = $(this).val();
-
-        if (elegido == 1) {
-            $("#tasa_cambio").hide();
-
-        } else if (elegido == 2) {
-            $("#tasa_cambio").show();
-        }
-
-    });
-
     //////////////seleccion de cuentas///////////////
     function busqueda_cuenta() {
         

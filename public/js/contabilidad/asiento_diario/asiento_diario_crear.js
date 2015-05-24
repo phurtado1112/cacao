@@ -27,6 +27,7 @@ $(document).ready(function () {
     });
             
     //////////////seleccion de moneda/cambio ///////////////
+    
     $("#moneda>select").change(function () {
         var fecha=$("#recoge_fecha").val();
         
@@ -40,7 +41,7 @@ $(document).ready(function () {
 //
         }else if (elegido == 2 &&  fecha==='') {
             alert("Usted necesita introducir fecha de creacion");
-            
+            $("#tasa_cambio").val("ND");
         }
     });
     
@@ -52,21 +53,21 @@ $(document).ready(function () {
              buscar_fecha();
         }
             });
+            
 
     function buscar_fecha() {
+        
         $("#recoge_fecha").val();   
         var fecha_buscada = $("#recoge_fecha").val();
+        
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/buscar_fecha',
             type: 'POST',
             data: "fecha_buscada=" + fecha_buscada,
             success: function (data) {
-
-
                 if (data === 'vacio') {
-
                     alert('No existe ningun tipo de cambio asociado a esta fecha');
-
+                    $("#tasa_cambio").val("ND");
                 }
                 else {
                   
@@ -74,7 +75,6 @@ $(document).ready(function () {
                     $("#tasa_cambio").val(arreglo[0]);
                     $("#idtasa_cambio").val(arreglo[1]);
                         
-
                 }
             }
         });

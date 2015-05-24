@@ -22,11 +22,11 @@ class Asiento_diario_model extends CI_Model {
    }
    
    public function asiento_diario_crear($numero_asiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario,
-           $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito
+        $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito
            ){
-             $this->db->query("insert into asiento_diario(
+             $this->db->query("INSERT INTO asiento_diario(
              numero_asiento_diario, idorigen_asiento_diario, descripcion_asiento_diario, fecha_creacion, fecha_fiscal, usuario_creacion, idtasa_cambio, balance_debito, balance_credito
-             ) values( ".$numero_asiento_diario.",".$idorigen_asiento_diario.",'".$descripcion_asiento_diario."', '".$fecha_creacion."','".$fecha_fiscal."','".$usuario_creacion."',".$idtasa_cambio.",".$balance_debito.",".$balance_credito.")");
+             ) VALUES( ".$numero_asiento_diario.",".$idorigen_asiento_diario.",'".$descripcion_asiento_diario."', '".$fecha_creacion."','".$fecha_fiscal."','".$usuario_creacion."',".$idtasa_cambio.",".$balance_debito.",".$balance_credito.")");
             }
             
             

@@ -1,6 +1,6 @@
 
    function guardar(){
-       var idorigen_asiento_diario = $("#idorigen_asiento_diario>select").val();
+       var idorigen_asiento_diario = $("#idorigen_asiento_diario>selected").val();
         var descripcion_asiento_diario = $("#descripcion_asiento_diario").val();
         var numero_asiento_diario = $("#numero_asiento_diario").val();
         var usuario_creacion = $("#usuario_creacion").val();

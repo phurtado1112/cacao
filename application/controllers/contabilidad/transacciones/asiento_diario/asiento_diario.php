@@ -27,7 +27,7 @@ class Asiento_diario extends CI_Controller {
         $config['show_count'] = true;
         $config['cur_page'] = base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_listar';
         $config['total_rows'] = $this->Asiento_diario_model->asiento_diario_listar_num();
-        $config['per_page'] = 10;
+        $config['per_page'] = 15;
         $config['num_links'] = 4;
         $config['uri_segment'] = 6;
         //configuracion de estilo de paginacion 
@@ -35,6 +35,10 @@ class Asiento_diario extends CI_Controller {
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
@@ -60,47 +64,22 @@ class Asiento_diario extends CI_Controller {
 
 
     public function asiento_diario_crear() {
-
-        $numero_transaccion = array(//numero_transaccion
-            'name' => 'numero_transaccion',
-            'id' => 'numero_transaccion',
-            'maxlength' => '20',
-            'size' => '10',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'No. Linea',
-        );
-        $descripcion_asiento_diario = array(//descripcion_asiento_diario
-            'name' => 'descripcion_asiento_diario',
-            'id' => 'descripcion_asiento_diario',
-            'maxlength' => '120',
-            'size' => '40',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'Descripcion del asiento',
-        );
-        $no_cuenta_contable = array(//idcuenta_contable
-            'name' => 'no_cuenta_contable',
-            'id' => 'no_cuenta_contable',
-            'maxlength' => '20',
-            'size' => '15',
-            'value' => '',
-            'class' => 'form-group',
-            'placeholder' => 'No. Cta Contable',
-        );
         
         $dias = array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado");
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-
-        $data['no_cuenta_contable'] = $no_cuenta_contable;
-        $data['descripcion_asiento_diario'] = $descripcion_asiento_diario;
-        $data['numero_transaccion'] = $numero_transaccion;
+        
+        $idorigen_asiento_diario = array(
+            'name' => 'idorigen_asiento_diario',
+            'id' => 'idorigen_asiento_diario',
+            'class' => 'form-group',
+        );
+        $data['idorigen_asiento_diario']  = $idorigen_asiento_diario;
 
         $data['dias'] = $dias;
         $data['meses'] = $meses;
 
         $this->load->model('contabilidad/transacciones/asiento_diario/Origen_asiento_diario_model');
-        $data['idorigen_asiento_diario'] = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
+        $data['lista_origen_asiento_diario'] = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
 
         $this->load->model('contabilidad/transacciones/asiento_diario/Tipo_moneda_model');
         $data['idmoneda'] = $this->Tipo_moneda_model->lista_moneda();
@@ -131,7 +110,8 @@ class Asiento_diario extends CI_Controller {
         $balance_debito = filter_input(INPUT_POST, 'balance_debito');
         $balance_credito = filter_input(INPUT_POST, 'balance_credito');
         
-        
+       // echo $numero_asiento_diario."  ".$idorigen_asiento_diario."  ".$descripcion_asiento_diario."  ".$fecha_creacion."  ".$fecha_fiscal."  ".$usuario_creacion."  ".$idtasa_cambio."  ".$balance_debito."  ".$balance_credito;
+ 
         $this->Asiento_diario_model->asiento_diario_crear($numero_asiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario,
         $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito);
         

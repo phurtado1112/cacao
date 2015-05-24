@@ -49,4 +49,3 @@ if (!empty($consulta_asiento_diario)) {
     echo '<h4>No se encontraron Asientos de diario</h4>';
 }
                
-                ?>
