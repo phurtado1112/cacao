@@ -21,7 +21,6 @@ $(document).ready(function () {
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $(function () {
-            $("#recoge_fecha").datepicker();
             $("#fecha_fiscal").datepicker();
         });
     });
@@ -29,7 +28,7 @@ $(document).ready(function () {
     //////////////seleccion de moneda/cambio ///////////////
     
     $("#moneda>select").change(function () {
-        var fecha=$("#recoge_fecha").val();
+        var fecha=$("#fecha_fiscal").val();
         
         var elegido = $(this).val();
 
@@ -40,12 +39,12 @@ $(document).ready(function () {
             buscar_fecha();
 //
         }else if (elegido == 2 &&  fecha==='') {
-            alert("Usted necesita introducir fecha de creacion");
+            alert("Usted necesita introducir fecha fiscal");
             $("#tasa_cambio").val("ND");
         }
     });
     
-    $("#recoge_fecha").change(function () {
+    $("#fecha_fiscal").change(function () {
          var elegido = $("#moneda>select").val();
     
          if (elegido == 2 ) {
@@ -58,7 +57,7 @@ $(document).ready(function () {
     function buscar_fecha() {
         
         $("#recoge_fecha").val();   
-        var fecha_buscada = $("#recoge_fecha").val();
+        var fecha_buscada = $("#fecha_fiscal").val();
         
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/buscar_fecha',
@@ -79,5 +78,52 @@ $(document).ready(function () {
             }
         });
     };
+    
+    function generar_num_ad() {
+        var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
+        
+        var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value="+idorigen_asiento_diario+"]").text();
+        
+        $.ajax({
+            url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_numero',
+            type: 'POST',
+            data: "origen_asiento_diario="+origen_asiento_diario,
+            success: function (data) {
+                
+                if(data===""){
+                    var numero_ad = origen_asiento_diario+"00000001";
+                     $("#numero_asiento_diario").val(numero_ad);
+                     
+                }else if(data!=="" ){
+                    var numero_ad = eval(data.substr(2,9));
+                    var num_sum = eval(numero_ad)+1;
+                    var cant_ceros =8-(num_sum.toString().length);
+                    var i=0;
+                    var str_ceros = "";
+                    
+                    while(i<cant_ceros){
+                        var cero = "0"; 
+                        str_ceros = str_ceros + cero;
+                        
+                        i++;
+                    }
+                    
+                    var num_ad = origen_asiento_diario+str_ceros+(num_sum.toString());
+                    
+                     $("#numero_asiento_diario").val(num_ad);
+                     
+                }
+            },
+            error:function () {
+                alert("Error al generar el Numero de Asiento");
+            }
+        });
+    };
+    
+    generar_num_ad();
+    
+    $("select#idorigen_asiento_diario").on("change",function(){
+        generar_num_ad();
+    });
 
 });

@@ -1,6 +1,6 @@
-<div class="container"> </br></br></br>
+<div class="container">
     <div class="row">
-        <div class="form-control">Asiento Recurrente</div>
+        <div class="form-control">Asiento de Diario</div>
         <div class="span3 well">
 
             <div class="row">
@@ -8,7 +8,8 @@
                 <div class="col-md-4">Origen Asiento Diario</div>
 
                 <div class="col-md-4 col-md-offset-4">Fecha de Creacion</div>
-                <input  type="text" id="recoge_fecha"></input>   
+                <div class="col-md-4 col-md-offset-4"  ><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
+                <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d')?>"></input> 
 
             <div class="col-md-4 col-md-offset-4">
                 Fecha Fiscal
@@ -43,10 +44,12 @@
         
         <input id="usuario_creacion"  placeholder="usuario" size="4"></input>
         
-        <input id="numero_asiento_diario" placeholder="Numero AD" class="col-md-4 col-md-offset-4"></input>
+        <input id="numero_asiento_diario" readonly="readonly" type="text"></input>
 
         <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
-        <table class="table table-striped">
+        <div style="overflow:auto;height: 300px;">
+        
+        <table class="table table-striped" >
             <thead>
                 <tr>
                     <th>No.</th>
@@ -75,6 +78,7 @@
 
             </tr> 
             <!--------------------------------------------------------------------------------------------------------->                
+            
             <tbody id="campos_agregados">
                 <tr id="1" class="asiento_diario_detalle">
                     <td><div class="numero_asiento">1</div><input type="hidden" class="numero_transaccion" value="1"></td>
@@ -91,18 +95,23 @@
                     <td><input id="balance_credito_1" name ='balance_credito_0' type="text" value="" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                 </tr>
             </tbody>
-            <div style="float:right;">
-                <td><input id="total_debito" name ='total_debito' value="0.0" type="text" readonly="readonly"  style="background:white;" maxlength=10 size=10 class='form-control' ></td>
-                <td><input id="total_credito" name ='total_credito'value="0.0" type="text" readonly="readonly"  style="background:white;" maxlength=10 size=10 class='form-control'></td>
-            </div>
+            
         </table>
+            
+        </div>    
+            
         <button class="btn btn-primary btn-lg " id="guardar">Guardar</button>
         <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index" class="btn btn-default btn-lg " role="button">Cancelar</a>
 
-        <div  style="float:right;" id="add-delete">
+        <div  style="float:right;" id="add-delete" class="col-md-4">
             <a class="btn btn-primary" role="button" id="agregar">+</a>
             <a class="btn btn-primary" role="button" id="quitar" style="margin-left:5px;">-</a>
         </div>
+        
+        <div style="float:right;" class="col-md-4">
+                <td><input id="total_debito" name ='total_debito' value="0.0" type="text" readonly="readonly"  style="background:white;" maxlength=10 size=10 class='form-control' ></td>
+                <td><input id="total_credito" name ='total_credito'value="0.0" type="text" readonly="readonly"  style="background:white;" maxlength=10 size=10 class='form-control'></td>
+            </div>
     </div>
 </div>
 </div>

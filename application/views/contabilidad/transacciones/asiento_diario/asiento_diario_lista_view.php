@@ -1,4 +1,4 @@
-<div class="container"> </br></br></br>
+<div class="container">
 
     <div class="span3 well">
         <h4 class="fa fa-align-justify fa-lg col-lg-offset-5">Asiento Diario</h4></br>

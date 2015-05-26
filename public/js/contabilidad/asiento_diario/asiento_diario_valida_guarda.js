@@ -11,7 +11,8 @@ function guardar_asiento_diario() {
     var fecha_fiscal = $("#fecha_fiscal").val();
 
     var tasa_cambio = $("#tasa_cambio").val();
-
+    var transacciones = validar_transacciones();
+    var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value="+idorigen_asiento_diario+"]").text();
 
     if (descripcion_asiento_diario == null || descripcion_asiento_diario.length == 0) {
         alert('Es necesario el campo de descripcion');
@@ -23,36 +24,41 @@ function guardar_asiento_diario() {
         alert('Es necesario el campo de Fecha Fiscal');
 
     }
-    if (tasa_cambio === "ND" || tasa_cambio.length == 0) {
+    else if (tasa_cambio === "ND" || tasa_cambio.length == 0) {
         alert('El tipo de cambio no es valido');
 
-    } else {
+    } 
+    else if (transacciones[0] > 0 && transacciones[1] === 0) {
+        alert("Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe llenar los montos vacios con '0' ó cualquier numero.");
+
+    } 
+    else if (transacciones[1] > 0 && transacciones[0] === 0) {
+        alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion.");
+
+    } 
+    else if (transacciones[1] > 0 && transacciones[0] > 0) {
+        alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
+                "\n\ \n\Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe llenar los montos vacios con '0' ó cualquier numero.");
+    
+    }
+    else if (balance_credito !== balance_debito ) {
+        alert("Usted debe balancear el asiento para poder guardarlo");
+    
+    }
+    else if (transacciones[0] === 0 && transacciones[1] === 0) {
+        
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_guardar',
             type: 'POST',
             data: "idorigen_asiento_diario=" + idorigen_asiento_diario + "&numero_asiento_diario=" + numero_asiento_diario + "&descripcion_asiento_diario=" + descripcion_asiento_diario +
                     "&idtasa_cambio=" + idtasa_cambio + "&balance_debito=" + balance_debito + "&balance_credito=" + balance_credito + "&usuario_creacion=" + usuario_creacion + "&fecha_creacion=" + fecha_creacion +
-                    "&fecha_fiscal=" + fecha_fiscal,
+                    "&fecha_fiscal=" + fecha_fiscal+"&origen_asiento_diario="+origen_asiento_diario,
             success: function (data) {
-                alert('Asiento Diario Creado');
-                
-                var transacciones = validar_transacciones();
-                if (transacciones[0] === 0 && transacciones[1] === 0) {
-                    guardar_transacciones(data);
+                guardar_transacciones(data);
 
-                } else if (transacciones[0] > 0 && transacciones[1] === 0) {
-                    alert("Usted tiene " + transacciones[0] + " montos vacios:\n\-Debe llenar los montos vacios con '0' ó cualquier numero.");
-
-                } else if (transacciones[1] > 0 && transacciones[0] === 0) {
-                    alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion.");
-
-                } else if (transacciones[1] > 0 && transacciones[0] > 0) {
-                    alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
-                            "\n\ \n\Usted tiene " + transacciones[0] + " montos vacios:\n\-Debe llenar los montos vacios con '0' ó cualquier numero.");
-                }
             },
             error: function () {
-                alert('Erro al crear Asiento Diario');
+                alert('Error al crear Asiento Diario');
             }
 
         });
@@ -61,8 +67,7 @@ function guardar_asiento_diario() {
 }
 
 function validar_transacciones() {
-    var credito_not = 0;
-    var debito_not = 0;
+    var montos_vacios = 0;
     var idcuenta_contable_not = 0;
 
     $(".asiento_diario_detalle").each(function () {
@@ -72,26 +77,22 @@ function validar_transacciones() {
         var idcuenta_contable = $(this).find(".idcuenta_contable").val();
 
 
-        if (debito === "") {
-            debito_not++;
+        if (debito === "" && credito === "") {
+            montos_vacios++;
         }
-
-        if (credito === "") {
-            credito_not++;
-
-        }
-        if (idcuenta_contable === "") {
+        else if (idcuenta_contable === "") {
             idcuenta_contable_not++;
 
         }
 
     });
-    var campos_vacios = [debito_not + credito_not, idcuenta_contable_not];
+    var campos_vacios = [montos_vacios, idcuenta_contable_not];
     return campos_vacios;
 }
 
 function guardar_transacciones(idasiento_diario_creado) {
-    
+        var numero_transacciones_totales = $(".numero_transaccion:last").val();
+
     $(".asiento_diario_detalle").each(function () {
         var idasiento_diario = idasiento_diario_creado;
 
@@ -116,16 +117,19 @@ function guardar_transacciones(idasiento_diario_creado) {
             var monto_moneda_extranjera = debito * valor_tasa_cambio;
 
         }
-
+        
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_guardar",
             type: "post",
             data: "idasiento_diario=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
-            success: function (data) {
-                alert(data + "Transacciones guardadas con exito");
+            success: function () {
+                if(numero_transacciones_totales === numero_transacciones){
+                alert("Asiento de Diario creado con exito");
+                location.reload(true);
+            }
             },
             error: function () {
-                alert("Eror en el proceso de guradado de transacciones");
+                alert("Error en el proceso de guradado de transacciones");
             }
         });
     });
@@ -133,16 +137,7 @@ function guardar_transacciones(idasiento_diario_creado) {
 
 
 
-
-
-
-
-
-
 $(document).ready(function () {
-
-
-
 
     $("#guardar").on("click", function () {
         guardar_asiento_diario();
