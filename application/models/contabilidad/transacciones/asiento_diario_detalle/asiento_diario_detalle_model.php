@@ -19,31 +19,25 @@ class Asiento_diario_detalle_model extends CI_Model {
                VALUES(".$idasiento_diario.",".$numero_transacciones.",'".$idcuenta_contable."','".$tipo_transaccion."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
     }
     
-    
-    
-
-    public function listar() {
-        $this->load->database();
-        $query = $this->db->query('select idasiento_diario, numero_asiento_diario, origen, descripcion_asiento_diario, fecha_creacion, balance_debito, balance_credito from asiento_diario_view where idasiento_diario >0');
-
-        return $query->result_array();
-    }
-
-    public function encontrar_por_id($idasiento_diario = NULL) {
+    public function asiento_diario_detalle_por_id_ad($idasiento_diario = NULL) {
         if ($idasiento_diario != NULL) {
 
             $query = $this->db->where('idasiento_diario', $idasiento_diario);
-            $query = $this->db->get('asiento_diario_view');
+            $query = $this->db->get('asiento_diario_detalle');
         }
         return $query->result_array();
     }
+    
+    public function asiento_diario_detalle_modificar($idasiento_diario_detalle,
+            $idasiento_diario,$numero_transacciones,$idcuenta_contable, $tipo_transaccion,$monto_moneda_nacional,
+            $monto_moneda_extranjera) {
 
-    public function modificar($idasiento_diario) {
-        $form_data = $this->input->post();
-        unset($form_data['botonSubmit']);
-
-        $this->db->where('idasiento_diario', $idasiento_diario);
-        $this->db->update('idasiento_diario', $form_data);
+        $this->db->query("UPDATE asiento_diario_detalle SET
+            idasiento_diario = ".$idasiento_diario.",numero_transacciones = ".$numero_transacciones.",idcuenta_contable = '".$idcuenta_contable."', 
+            tipo_transaccion = '".$tipo_transaccion."',monto_moneda_nacional = ".$monto_moneda_nacional.", monto_moneda_extranjera = ".$monto_moneda_extranjera."
+            WHERE idasiento_diario_detalle = ".$idasiento_diario_detalle."");
     }
+    
+
 
 }

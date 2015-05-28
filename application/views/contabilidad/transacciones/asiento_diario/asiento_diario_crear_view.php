@@ -42,8 +42,8 @@
         </div>
         <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
         
-        <input id="usuario_creacion"  placeholder="usuario" size="4"></input>
-        
+        <input id="usuario_creacion" type="hidden" placeholder="usuario" size="4"></input>
+        Numero Asiento diario:
         <input id="numero_asiento_diario" readonly="readonly" type="text"></input>
 
         <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        

@@ -250,5 +250,52 @@ class Asiento_diario extends CI_Controller {
         }
         
     }
+    
+    public function asiento_diario_modificar($num_ad,$id_ad ) {
+        
+        $dias = array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado");
+        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        
+        $idorigen_asiento_diario = array(
+            'name' => 'idorigen_asiento_diario',
+            'id' => 'idorigen_asiento_diario',
+            'class' => 'form-group',
+        );
+        $data['idorigen_asiento_diario']  = $idorigen_asiento_diario;
+
+        $data['dias'] = $dias;
+        $data['meses'] = $meses;
+        
+        $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
+        $data['asiento_diario'] = $this->Asiento_diario_model->asiento_diario_encontrar_por_num_ad($num_ad);
+        
+        $this->load->model('contabilidad/transacciones/asiento_diario_detalle/Asiento_diario_detalle_model');
+        $data['ad_detalle'] = $this->Asiento_diario_detalle_model->asiento_diario_detalle_por_id_ad($id_ad);
+        
+        $this->load->model('contabilidad/transacciones/asiento_diario/Origen_asiento_diario_model');
+        $data['lista_origen_asiento_diario'] = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
+
+        $this->load->model('contabilidad/transacciones/asiento_diario/Tipo_moneda_model');
+        $data['idmoneda'] = $this->Tipo_moneda_model->lista_moneda();
+
+//        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
+//        $dato = $this->Tasa_cambio_model->lista_tasa_cambio();
+//        $final = end($dato);
+//        $data['idtasa_cambio'] = $final;
+////        
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_edita_view', $data);
+        $this->load->view('modules/pop_up/asiento_diario_cuentas_pop');
+        $this->load->view('modules/foot/contabilidad/asiento_diario_editar_foot');
+    }
+    
+     public function cuenta_por_id(){
+         $idcatalogo = filter_input(INPUT_POST, 'idcuenta_contable');  
+         
+         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
+        $lista_por_id = $this->Catalogo_cuentas_model->encontrar_por_id($idcatalogo);
+        
+         print $lista_por_id[0]['cuenta'];
+    }
 
 }

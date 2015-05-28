@@ -20,7 +20,8 @@ if (!empty($consulta_asiento_diario)) {
                 
                    
                     foreach ($consulta_asiento_diario as $ad) {
-                        $id = $ad['numero_asiento_diario'];
+                        $num_ad = $ad['numero_asiento_diario'];
+                        $id_ad = $ad['idasiento_diario'];
                         echo"
                         <tr>
                         
@@ -30,8 +31,8 @@ if (!empty($consulta_asiento_diario)) {
                         <td>" . $ad['fecha_creacion'] . "</td>
                         <td>" . $ad['balance_debito'] . "</td>
                         <td>" . $ad['balance_credito'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/AD/C_Ad/modificar/' . $id . '">Editar</a> -- '
-                        . '<a href="index.php/AD/Ad?idasiento_diario=' . $id . '&operacion=desactivar">Eliminar</a>' . "</td>
+                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/' . $num_ad . '/'.$id_ad.'">Editar</a> -- '
+                        . '<a href="index.php/AD/Ad?idasiento_diario=' . $num_ad . '&operacion=desactivar">Eliminar</a>' . "</td>
                         </tr>";
                     }
                     
