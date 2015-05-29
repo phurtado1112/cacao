@@ -41,16 +41,16 @@ class Asiento_diario_model extends CI_Model {
         
     }
     
-     public function asiento_diario_modificar($idasiento_diario,
-        $numero_asiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario,
+     public function asiento_diario_modificar($numero_asiento_diario,
+         $idorigen_asiento_diario, $descripcion_asiento_diario,
         $fecha_modificacion, $fecha_fiscal, $usuario_modificacion, $idtasa_cambio, $balance_debito, $balance_credito
            ){
-             $this->db->query("UPDATE asiento_diario
-             numero_asiento_diario = '".$numero_asiento_diario."',idorigen_asiento_diario =".$idorigen_asiento_diario.","
+             $this->db->query("UPDATE asiento_diario SET
+             idorigen_asiento_diario =".$idorigen_asiento_diario.","
              . " descripcion_asiento_diario = '".$descripcion_asiento_diario."', fecha_modificacion = '".$fecha_modificacion."', "
              . "fecha_fiscal = '".$fecha_fiscal."', usuario_modificacion = '".$usuario_modificacion."', idtasa_cambio = ".$idtasa_cambio.",
                 balance_debito = ".$balance_debito.", balance_credito = ".$balance_credito."
-             WHERE idasiento_diario =".$idasiento_diario."");
+             WHERE numero_asiento_diario = '".$numero_asiento_diario."'");
     }
     
     

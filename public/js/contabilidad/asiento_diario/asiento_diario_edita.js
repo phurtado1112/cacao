@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    obtener_cambio_dolar();
     
     var valor_origen = $("#valor_origen_ad").val();
     $("select#idorigen_asiento_diario").find("option[value="+valor_origen+"]").attr("selected","selected");
@@ -43,6 +44,7 @@ $(document).ready(function () {
     //////////////seleccion de moneda/cambio ///////////////
     
     $("#moneda>select").change(function () {
+        obtener_cambio_dolar();
         var fecha=$("#fecha_fiscal").val();
         
         var elegido = $(this).val();
@@ -60,6 +62,7 @@ $(document).ready(function () {
     });
     
     $("#fecha_fiscal").change(function () {
+        obtener_cambio_dolar();
          var elegido = $("#moneda>select").val();
     
          if (elegido == 2 ) {
@@ -67,6 +70,32 @@ $(document).ready(function () {
              buscar_fecha();
         }
             });
+            
+    function obtener_cambio_dolar(){
+
+    var fecha_buscada = $("#fecha_fiscal").val();
+
+    var valor_tasa_cambio_dolar;
+    $.ajax({
+        url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/buscar_fecha',
+        type: 'POST',
+        data: "fecha_buscada=" + fecha_buscada,
+        success: function (data) {
+            
+            if(data==="vacio"){
+             valor_tasa_cambio_dolar = 0;
+             $("#valor_dolar").val(valor_tasa_cambio_dolar);
+             
+            }else {
+            var arreglo = data.split('/');
+            valor_tasa_cambio_dolar = parseInt(arreglo[0]);
+             $("#valor_dolar").val(valor_tasa_cambio_dolar);
+            }
+            
+        }
+    });
+
+}
             
 
     function buscar_fecha() {

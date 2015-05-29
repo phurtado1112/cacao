@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    obtener_cambio_dolar();
     $(function () {
 //        estilo del datepicker para dar formato en idioma español
         $.datepicker.regional['es'] = {
@@ -28,6 +29,7 @@ $(document).ready(function () {
     //////////////seleccion de moneda/cambio ///////////////
     
     $("#moneda>select").change(function () {
+        obtener_cambio_dolar();
         var fecha=$("#fecha_fiscal").val();
         
         var elegido = $(this).val();
@@ -37,7 +39,7 @@ $(document).ready(function () {
 
         } else if (elegido == 2 &&  fecha!=''){
             buscar_fecha();
-//
+            
         }else if (elegido == 2 &&  fecha==='') {
             alert("Usted necesita introducir fecha fiscal");
             $("#tasa_cambio").val("ND");
@@ -46,7 +48,9 @@ $(document).ready(function () {
     
     $("#fecha_fiscal").change(function () {
          var elegido = $("#moneda>select").val();
-    
+         
+             obtener_cambio_dolar();
+         
          if (elegido == 2 ) {
              
              buscar_fecha();
@@ -56,7 +60,6 @@ $(document).ready(function () {
 
     function buscar_fecha() {
         
-        $("#recoge_fecha").val();   
         var fecha_buscada = $("#fecha_fiscal").val();
         
         $.ajax({
@@ -73,11 +76,37 @@ $(document).ready(function () {
                     var arreglo = data.split('/');
                     $("#tasa_cambio").val(arreglo[0]);
                     $("#idtasa_cambio").val(arreglo[1]);
-                        
+                           
                 }
             }
         });
-    };
+    }
+    
+    function obtener_cambio_dolar(){
+
+    var fecha_buscada = $("#fecha_fiscal").val();
+
+    var valor_tasa_cambio_dolar;
+    $.ajax({
+        url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/buscar_fecha',
+        type: 'POST',
+        data: "fecha_buscada=" + fecha_buscada,
+        success: function (data) {
+            
+            if(data==="vacio"){
+             valor_tasa_cambio_dolar = 0;
+             $("#valor_dolar").val(valor_tasa_cambio_dolar);
+             
+            }else {
+            var arreglo = data.split('/');
+            valor_tasa_cambio_dolar = parseInt(arreglo[0]);
+             $("#valor_dolar").val(valor_tasa_cambio_dolar);
+            }
+            
+        }
+    });
+
+}
     
     function generar_num_ad() {
         var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
@@ -95,8 +124,8 @@ $(document).ready(function () {
                      $("#numero_asiento_diario").val(numero_ad);
                      
                 }else if(data!=="" ){
-                    var numero_ad = eval(data.substr(2,9));
-                    var num_sum = eval(numero_ad)+1;
+                    var numero_ad = parseInt(data.substr(2,10));
+                    var num_sum = numero_ad+1;
                     var cant_ceros =8-(num_sum.toString().length);
                     var i=0;
                     var str_ceros = "";

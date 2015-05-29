@@ -41,8 +41,8 @@
             <div class="col-md-4 col-md-offset-4"><textarea  type="text" placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" style="width: 300px;height: 80px"></textarea></div>
         </div>
         <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
-        
-        <input id="usuario_creacion" type="hidden" placeholder="usuario" size="4"></input>
+        <input id="valor_dolar" type="hidden" ></input>
+        <input id="usuario_creacion" type="hidden" value="cacao"></input>
         Numero Asiento diario:
         <input id="numero_asiento_diario" readonly="readonly" type="text"></input>
 
@@ -93,6 +93,20 @@
                     <td><input id="descripcion_cuenta_contable_1" name ='descripcion_cuenta_contable'  style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
                     <td><input id="balance_debito_1" name ='balance_debito_0' type="text" value="" maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                     <td><input id="balance_credito_1" name ='balance_credito_0' type="text" value="" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                </tr>
+                <tr id="2" class="asiento_diario_detalle">
+                    <td><div class="numero_asiento">2</div><input type="hidden" class="numero_transaccion" value="2"></td>
+                    <td><div class="input-group"style="width: 150px;" >
+                            <input type="text" id="idcuenta_contable_2" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
+                            <span class="input-group-btn">
+                                <button id="b_2" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
+                            </span>
+                        </div>
+                    </td>
+
+                    <td><input id="descripcion_cuenta_contable_2" name ='descripcion_cuenta_contable'  style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
+                    <td><input id="balance_debito_2" name ='balance_debito_1' type="text" value="" maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
+                    <td><input id="balance_credito_2" name ='balance_credito_1' type="text" value="" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                 </tr>
             </tbody>
             
