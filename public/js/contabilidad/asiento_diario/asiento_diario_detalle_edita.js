@@ -23,7 +23,7 @@ $(document).ready(function () {
             });
             val++;
         });
-        $("html").data("num_reg", val-1);
+        $("html").data("num_reg", val - 1);
     }
 
     asig_valores_recuperados();
@@ -49,12 +49,12 @@ $(document).ready(function () {
         creado.attr('id', id_campo + 1);
 
         var id_padre = creado.attr("id");
-            
-        if (parseInt(id_campo) < parseInt($("html").data("num_reg"))) {
-            creado.attr("class", "ad_detalle_editar agregado");
-            
-        } 
-        
+//            
+//        if (parseInt(id_campo) < parseInt($("html").data("num_reg"))) {
+//            creado.attr("class", "ad_detalle_editar agregado");
+//            
+//        } 
+
         creado.find('td:nth-child(1)>div').html(parseInt(id_padre));
         creado.find('td:nth-child(1)>.numero_transaccion').val(parseInt(id_padre));
 
@@ -90,11 +90,12 @@ $(document).ready(function () {
         generar_transacciones();
     });
 
-    $("#quitar").on('click', function () {
-
-        $('.agregado:last').remove();
+     $("#campos_agregados").on('click',".quitar", function () {
+        $(this).parents("tr.agregado").remove();
 
         scrollWin();
+        calcular_total();
+        calcular_total2();
     });
 
 

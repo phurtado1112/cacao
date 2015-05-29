@@ -56,19 +56,21 @@
 
             <input id="idasiento_diario" type="hidden" value="<?php echo $asiento_diario[0]['idasiento_diario']; ?>"></input>
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
-            <div style="overflow:auto;height: 300px;">
+            <table class="table-striped">
+                <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
+                    <tr>
+                        <th style="padding:15px 15px 15px 10px;">No.</th>
+                        <th style="padding:15px 280px 15px 15px;">Cta Contable</th>
+                        <th style="padding:15px 240px 15px 15px;">Descripción</th>
+                        <th style="padding:15px 100px 15px 15px;">Débito</th>
+                        <th style="padding:15px;">Crédito</th>
+                    </tr>
+                </thead>
+            </table>
 
-                <table class="table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Cta Contable</th>
-                            <th>Descripción</th>
-                            <th>Débito</th>
-                            <th>Crédito</th>
-                        </tr>
-                    </thead>
 
+            <div style="overflow:auto;height: 400px;">
+                  <table class=" table table-striped">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
 
                     <tr id="clone" style="display: none" class="">
@@ -85,6 +87,7 @@
                         <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.0'></td>
                         <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.0'></td>
 
+                        <td><a class="btn btn-primary quitar" role="button" style="margin-left:5px;">-</a></td>
                     </tr> 
                     <!--------------------------------------------------------------------------------------------------------->                
 <!--<input type='hidden' id='idasiento_diario_detalle' value='".$ad_detalle['idasiento_diario_detalle']."'>-->
@@ -129,6 +132,8 @@
 
                             echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                                   <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                                      
+                                  <td><a class='btn btn-primary quitar' role='button' style='margin-left:5px;'>-</a></td>
                         </tr>";
 
 
@@ -149,7 +154,6 @@
 
             <div  style="float:right;" id="add-delete" class="col-md-4">
                 <a class="btn btn-primary" role="button" id="agregar">+</a>
-                <a class="btn btn-primary" role="button" id="quitar" style="margin-left:5px;">-</a>
             </div>
 
             <div style="float:right;" class="col-md-4">

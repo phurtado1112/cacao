@@ -28,7 +28,7 @@ class Asiento_diario_detalle_model extends CI_Model {
         return $query->result_array();
     }
     
-     public function asiento_diario_detalle_eliminar($numero_transacciones = NULL,$idasiento_diario = NULL) {
+    public function asiento_diario_detalle_eliminar($numero_transacciones = NULL,$idasiento_diario = NULL) {
         if ($numero_transacciones != NULL) {
 
             $query = $this->db->query("DELETE FROM asiento_diario_detalle WHERE idasiento_diario = ".$idasiento_diario." AND numero_transacciones = ".$numero_transacciones."");

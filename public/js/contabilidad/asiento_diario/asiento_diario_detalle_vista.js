@@ -48,11 +48,12 @@ $(document).ready(function () {
         creado.find('td:nth-child(5)>input').attr('id', id_credito_final).attr('name', id_credito_final).validarCampoNumero('.0123456789');;
     });
 
-    $("#quitar").on('click', function () {
-
-        $('.agregado:last').remove();
-
+    $("#campos_agregados").on('click',".quitar", function () {
+        $(this).parents("tr.agregado").remove();
+        
         scrollWin();
+         calcular_total();
+         calcular_total2();
     });
     
 //   $("#campos_agregados").on('click', ".campo_debito",function () {

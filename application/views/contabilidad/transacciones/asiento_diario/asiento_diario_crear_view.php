@@ -47,19 +47,22 @@
         <input id="numero_asiento_diario" readonly="readonly" type="text"></input>
 
         <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
-        <div style="overflow:auto;height: 300px;">
-        
-        <table class="table table-striped" >
-            <thead>
+        <table class="table-striped">
+            <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
                 <tr>
-                    <th>No.</th>
-                    <th>Cta Contable</th>
-                    <th>Descripción</th>
-                    <th>Débito</th>
-                    <th>Crédito</th>
+                    <th style="padding:15px 15px 15px 10px;">No.</th>
+                    <th style="padding:15px 280px 15px 15px;">Cta Contable</th>
+                    <th style="padding:15px 240px 15px 15px;">Descripción</th>
+                    <th style="padding:15px 100px 15px 15px;">Débito</th>
+                    <th style="padding:15px;">Crédito</th>
                 </tr>
             </thead>
-
+        </table>
+        
+        <div style="overflow:auto;height: 400px;">
+        
+        <table class="table table-striped" >
+            
             <!---------------------------------------elemento a clonar------------------------------------------------>
 
             <tr id="clone" style="display: none" class="">
@@ -73,9 +76,10 @@
                     </div>
                 </td>
                 <td><input id="descripcion_cuenta_contable_" name='descripcion_cuenta_contable_' style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
-                <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.0'></td>
-                <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.0'></td>
-
+                <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_debito' placeholder='0.0'></td>
+                <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_credito' placeholder='0.0'></td>
+                
+                <td><a class="btn btn-primary quitar" role="button" style="margin-left:5px;">-</a></td>
             </tr> 
             <!--------------------------------------------------------------------------------------------------------->                
             
@@ -91,8 +95,10 @@
                     </td>
 
                     <td><input id="descripcion_cuenta_contable_1" name ='descripcion_cuenta_contable'  style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
-                    <td><input id="balance_debito_1" name ='balance_debito_0' type="text" value="" maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
-                    <td><input id="balance_credito_1" name ='balance_credito_0' type="text" value="" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                    <td><input id="balance_debito_1" name ='balance_debito_0' type="text" value="" maxlength=14 size=10 class='form-control campo_debito' placeholder='0.0'></td>
+                    <td><input id="balance_credito_1" name ='balance_credito_0' type="text" value="" maxlength=14 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                    
+                    <td><a class="" role="button" style="background-color: white;"></a></td>
                 </tr>
                 <tr id="2" class="asiento_diario_detalle">
                     <td><div class="numero_asiento">2</div><input type="hidden" class="numero_transaccion" value="2"></td>
@@ -105,8 +111,10 @@
                     </td>
 
                     <td><input id="descripcion_cuenta_contable_2" name ='descripcion_cuenta_contable'  style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
-                    <td><input id="balance_debito_2" name ='balance_debito_1' type="text" value="" maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
-                    <td><input id="balance_credito_2" name ='balance_credito_1' type="text" value="" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                    <td><input id="balance_debito_2" name ='balance_debito_1' type="text" value="" maxlength=14 size=10 class='form-control campo_debito' placeholder='0.0'></td>
+                    <td><input id="balance_credito_2" name ='balance_credito_1' type="text" value="" maxlength=14 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                   
+                    <td><div class="quitar" style="width: 37px;"></div></td>
                 </tr>
             </tbody>
             
@@ -119,7 +127,6 @@
 
         <div  style="float:right;" id="add-delete" class="col-md-4">
             <a class="btn btn-primary" role="button" id="agregar">+</a>
-            <a class="btn btn-primary" role="button" id="quitar" style="margin-left:5px;">-</a>
         </div>
         
         <div style="float:right;" class="col-md-4">
