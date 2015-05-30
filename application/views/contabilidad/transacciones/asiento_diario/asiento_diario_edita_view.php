@@ -96,13 +96,8 @@
                         $i = 1;
                         foreach ($ad_detalle as $ad_detalle) {
 
-                            if ($i > 2) {
-                                $clase_extra = 'agregado';
-                            } else {
-                                $clase_extra = '';
-                            }
 
-                            echo"<tr id='" . $i . "' class='ad_detalle_editar " . $clase_extra . " '>
+                            echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>
                                 
                             <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $i . "'></td>
                             <td><div class='input-group' style='width: 150px;' >
@@ -141,12 +136,8 @@
                         }
                         ?>
 
-
-
                     </tbody>
-
                 </table>
-
             </div>    
 
             <button class="btn btn-primary btn-lg " id="editar">Editar</button>

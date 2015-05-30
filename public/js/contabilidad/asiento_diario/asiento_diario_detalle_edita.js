@@ -30,6 +30,7 @@ $(document).ready(function () {
 
     //////////////// agregar campos de detalles de asiento///////////////
     function scrollWin() {
+        
         $('html,body').animate({
             scrollTop: $("#add-delete").offset().top
         }, 1);
@@ -90,8 +91,21 @@ $(document).ready(function () {
         generar_transacciones();
     });
 
-     $("#campos_agregados").on('click',".quitar", function () {
-        $(this).parents("tr.agregado").remove();
+     $("#campos_agregados").on('click',".quitar", function (){
+         
+        if( $("tr.agregado:last").attr("id")>2){
+            $(this).parents("tr.agregado").remove();
+        }else{
+            alert("Necesita almenos 2 transacciones para guardar el asiento");
+        }
+        
+        var i=1;
+        $("tr.agregado").each(function(){
+            $(this).attr("id",i);
+            $(this).find('td:nth-child(1)>div').html(i);
+            $(this).find('td:nth-child(1)>.numero_transaccion').val(i);
+            i++;
+        });
 
         scrollWin();
         calcular_total();

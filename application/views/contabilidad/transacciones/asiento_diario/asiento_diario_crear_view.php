@@ -84,7 +84,7 @@
             <!--------------------------------------------------------------------------------------------------------->                
             
             <tbody id="campos_agregados">
-                <tr id="1" class="asiento_diario_detalle">
+                <tr id="1" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">1</div><input type="hidden" class="numero_transaccion" value="1"></td>
                     <td><div class="input-group"style="width: 150px;" >
                             <input type="text" id="idcuenta_contable_1" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
@@ -98,9 +98,9 @@
                     <td><input id="balance_debito_1" name ='balance_debito_0' type="text" value="" maxlength=14 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                     <td><input id="balance_credito_1" name ='balance_credito_0' type="text" value="" maxlength=14 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                     
-                    <td><a class="" role="button" style="background-color: white;"></a></td>
+                    <td><a class="btn btn-primary quitar" role="button" style="margin-left:5px;">-</a></td>
                 </tr>
-                <tr id="2" class="asiento_diario_detalle">
+                <tr id="2" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">2</div><input type="hidden" class="numero_transaccion" value="2"></td>
                     <td><div class="input-group"style="width: 150px;" >
                             <input type="text" id="idcuenta_contable_2" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
@@ -114,7 +114,7 @@
                     <td><input id="balance_debito_2" name ='balance_debito_1' type="text" value="" maxlength=14 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                     <td><input id="balance_credito_2" name ='balance_credito_1' type="text" value="" maxlength=14 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                    
-                    <td><div class="quitar" style="width: 37px;"></div></td>
+                    <td><a class="btn btn-primary quitar" role="button" style="margin-left:5px;">-</a></td>
                 </tr>
             </tbody>
             

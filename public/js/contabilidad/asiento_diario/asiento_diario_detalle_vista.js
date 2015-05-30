@@ -13,7 +13,7 @@ $(document).ready(function () {
         scrollWin();
 
         var id_campo = parseInt($("tbody#campos_agregados>tr:last").attr("id"));
-
+        
         $('#clone').show();
         var creado = $('#clone').clone();
         $('#clone').hide();
@@ -21,7 +21,7 @@ $(document).ready(function () {
         creado.attr('class', 'asiento_diario_detalle agregado').insertAfter('tbody#campos_agregados>tr:last');
         
         creado.attr('id', id_campo + 1);
-
+        
         var id_padre = creado.attr("id");
 
         creado.find('td:nth-child(1)>div').html(parseInt(id_padre));
@@ -49,7 +49,20 @@ $(document).ready(function () {
     });
 
     $("#campos_agregados").on('click',".quitar", function () {
-        $(this).parents("tr.agregado").remove();
+        
+        if( $("tr.asiento_diario_detalle:last").attr("id")>2){
+            $(this).parents("tr.agregado").remove();
+        }else{
+            alert("Necesita almenos 2 transacciones para guardar el asiento");
+        }
+        
+        var i=1;
+        $("tr.agregado").each(function(){
+            $(this).attr("id",i);
+            $(this).find('td:nth-child(1)>div').html(i);
+            $(this).find('td:nth-child(1)>.numero_transaccion').val(i);
+            i++;
+        });
         
         scrollWin();
          calcular_total();
