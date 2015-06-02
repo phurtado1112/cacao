@@ -3,21 +3,19 @@
 $i = $num + 1;
 
 if (!empty($consulta_cuentas)) {
-    echo"<table class='table table-striped table-bordered'>
-        <tr>
+    echo"<table class='table table-bordered table-condensed table-hover'>
+        <tr >
                                 <th>No°</th>
                                 <th>Cuenta</th>
-                                <th>Select</th>
                                
                             </tr> ";
     foreach ($consulta_cuentas as $cat) {
         $id = $cat['idcuenta_contable'];
         echo"
                                    
-                        <tr>
+                        <tr id='buscar_c' name='" . $id . '/' . $cat['cuenta'] . "'>
                         <td>" . $id . "</td>
                         <td>" . $cat['cuenta'] . "</td>
-                        <td>" . "<input type='button' id='buscar_c' value='Select' name='" . $id . '/' . $cat['cuenta'] . "'></input>" . "</td>
                         </tr>";
 
         $i++;
@@ -34,5 +32,5 @@ if (!empty($consulta_cuentas)) {
 } else {
 
 
-    echo '<h4>No se encontraron categorias de cuentas</h4>';
+    echo '<h4>No se encontraron cuentas</h4>';
 }

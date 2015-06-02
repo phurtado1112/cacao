@@ -41,6 +41,10 @@ class Cuentas extends CI_Controller {
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
         $config['prev_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
         //cargamos la librería con nuestra configuracion
         $this->jquery_pagination->initialize($config);
 
@@ -77,6 +81,10 @@ class Cuentas extends CI_Controller {
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
         $config['prev_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
         //estableciendo la configuracion de paginacion
         $this->jquery_pagination->initialize($config);
 
@@ -119,6 +127,10 @@ class Cuentas extends CI_Controller {
             $config['next_tag_close'] = '</li>';
             $config['prev_tag_open'] = '<li>';
             $config['prev_tag_close'] = '</li>';
+            $config['last_tag_open'] = '<li>';
+            $config['last_tag_close'] = '</li>';
+            $config['first_tag_open'] = '<li>';
+            $config['first_tag_close'] = '</li>';
             //cargamos la librería con nuestra configuracion
             $this->jquery_pagination->initialize($config);
 
@@ -146,7 +158,7 @@ class Cuentas extends CI_Controller {
     
     public function cuenta_crear() {
      
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|alpha');
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
 
         $tipocuenta = array('A' => 'Acreedora', 'D' => 'Deudora');

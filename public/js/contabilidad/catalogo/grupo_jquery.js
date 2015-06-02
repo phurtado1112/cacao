@@ -68,7 +68,7 @@ $(document).ready(function () {
     }
 
     $("#buscar , #recargar").on('click', function () {
-        valida;
+        valida();
     });
 
     $("#valor").on('keypress', function () {

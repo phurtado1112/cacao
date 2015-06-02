@@ -38,7 +38,7 @@ $(document).on("ready", function () {
         });
 
     }
-     
+
 
     function confirmar(val) {
         var res = confirm("¿Esta seguro que desea desactivar esta cuenta?");
