@@ -1,3 +1,14 @@
+function confirmar(val) {
+   
+        var res = confirm("¿Esta seguro que desea eliminar este asiento de diario?");
+        if (res === true) {
+            window.location.href = "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_eliminar/" + val;
+        } else if (res === false) {
+            return 0;
+        }
+        
+    }
+    
 $(document).on("ready", function () {
     
     $.ajax({
@@ -11,4 +22,8 @@ $(document).on("ready", function () {
         }
 
     });
-        });
+     $("#resultado").on("click", ".eliminar", function(){
+    confirmar($(this).attr("value"));
+    });
+});
+

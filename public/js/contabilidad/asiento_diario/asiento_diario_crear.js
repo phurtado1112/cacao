@@ -34,13 +34,14 @@ $(document).ready(function () {
         
         var elegido = $(this).val();
 
-        if (elegido == 1 ) {
+        if (elegido === "1" ) {
             $("#tasa_cambio").val(1);
+            $("#idtasa_cambio").val(1);
 
-        } else if (elegido == 2 &&  fecha!=''){
+        } else if (elegido === "2" &&  fecha!==''){
             buscar_fecha();
             
-        }else if (elegido == 2 &&  fecha==='') {
+        }else if (elegido === "2" &&  fecha==='') {
             alert("Usted necesita introducir fecha fiscal");
             $("#tasa_cambio").val("ND");
         }
@@ -51,7 +52,7 @@ $(document).ready(function () {
          
              obtener_cambio_dolar();
          
-         if (elegido == 2 ) {
+         if (elegido === "2" ) {
              
              buscar_fecha();
         }

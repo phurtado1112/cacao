@@ -32,7 +32,7 @@ if (!empty($consulta_asiento_diario)) {
                         <td>" . $ad['balance_debito'] . "</td>
                         <td>" . $ad['balance_credito'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/' . $num_ad . '/'.$id_ad.'">Editar</a> -- '
-                        . '<a href="index.php/AD/Ad?idasiento_diario=' . $num_ad . '&operacion=desactivar">Eliminar</a>' . "</td>
+                              . '<a class="fa fa-ban fa-fw eliminar" value="'.$id_ad.'">Eliminar</a>' ."</td>
                         </tr>";
                     }
                     

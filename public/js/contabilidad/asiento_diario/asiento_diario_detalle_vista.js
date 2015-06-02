@@ -61,12 +61,22 @@ $(document).ready(function () {
             $(this).attr("id",i);
             $(this).find('td:nth-child(1)>div').html(i);
             $(this).find('td:nth-child(1)>.numero_transaccion').val(i);
+            
+            $(this).find(".idcuenta_contable").attr("id","idcuenta_contable_"+i).attr("name","idcuenta_contable_"+i);
+            $(this).find('td:nth-child(2)>div>span>button').attr('id', "b_"+i).attr('name', "b_"+i);
+            
+            $(this).find('td:nth-child(3)>input').attr('id',"descripcion_cuenta_contable_"+i).attr('name', "descripcion_cuenta_contable_"+i);
+            
+            $(this).find('td:nth-child(4)>input').attr('id', "balance_debito_"+i).attr('name', "balance_debito_"+i);
+            
+            $(this).find('td:nth-child(5)>input').attr('id', "balance_credito_"+i).attr('name', "balance_credito_"+i);
+            
             i++;
         });
         
         scrollWin();
-         calcular_total();
-         calcular_total2();
+        calcular_total();
+        calcular_total2();
     });
     
 //   $("#campos_agregados").on('click', ".campo_debito",function () {

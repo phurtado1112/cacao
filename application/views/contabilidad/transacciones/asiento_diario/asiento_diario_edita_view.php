@@ -5,8 +5,6 @@
 
             <div class="row">
 
-                <div class="col-md-4">Origen Asiento Diario</div>
-
                 <div class="col-md-4 col-md-offset-4">Fecha de Edicion</div>
                 <div class="col-md-4 col-md-offset-4"  ><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
                 <input type="hidden" id="fecha_edicion" value="<?php echo date('Y-m-d') ?>"></input> 
@@ -22,7 +20,7 @@
 
             <div class="row">
                 <input id="valor_origen_ad" type="hidden" value="<?php echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">
-                <div class="col-md-4"><?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?></div>
+               
             </div>
 
             <div class="row">
@@ -37,7 +35,7 @@
                 <div class="col-md-4" >
 
                     <input type="text" readonly="reaonly" id="tasa_cambio" value="1" >
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="<?php echo $asiento_diario[0]['idtasa_cambio']?>">
 
                 </div>
 
@@ -77,11 +75,11 @@
                         <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>
                         <td> 
                             <div class="input-group"style="width: 150px;" >
-                                <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                                 <span class="input-group-btn">
                                     <button id="b_" class="btn btn-default buscar_cuenta" type="button"><i class="fa-search fa flg" ></i></button>
                                 </span>
-                            </div>
+                                <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
+                              </div>
                         </td>
                         <td><input id="descripcion_cuenta_contable_" name='descripcion_cuenta_contable_' style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
                         <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.0'></td>
@@ -99,22 +97,25 @@
 
                             echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>
                                 
-                            <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $i . "'></td>
+                            <td><div class='numero_asiento'>" . $i . "</div>
+                                    <input type='hidden' class='numero_transaccion_editar' value='" . $i . "'>
+                                    <input type='hidden' id='id_transaccion_editar' value='" .$ad_detalle['idasiento_diario_detalle']. "'>
+                                        </td>
                             <td><div class='input-group' style='width: 150px;' >
-                                    <input type='text' id='idcuenta_contable_" . $i . "' value='" . $ad_detalle['idcuenta_contable'] . "' class='form-control buscar idcuenta_contable' readonly='readonly'  style='background:white;'>
-                                    <span class='input-group-btn'>
+                            <span class='input-group-btn'>
                                         <button id='b_" . $i . "' class='btn btn-default buscar_cuenta'  type='button'><i class='fa-search fa flg'></i></button>
                                     </span>
-                                </div>
+                                    <input type='text' id='idcuenta_contable_" . $i . "' value='" . $ad_detalle['idcuenta_contable'] . "' class='form-control buscar idcuenta_contable' readonly='readonly'  style='background:white;'>
+                                 </div>
                             </td>
 
                             <td><input id='descripcion_cuenta_contable_" . $i . "' value='' name ='descripcion_cuenta_contable'  style='background:white;' readonly='readonly' maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
                                 
                             ";
-                            if ($ad_detalle['monto_moneda_nacional'] !== "") {
+                            if ($asiento_diario[0]['idtasa_cambio'] == 1) {
                                 $monto = $ad_detalle['monto_moneda_nacional'];
-                            } else if ($ad_detalle['monto_moneda_extranjera'] != "") {
-                                $monto = $ad_detalle['tipo_transaccion'];
+                            } else if ($asiento_diario[0]['idtasa_cambio'] > 1) {
+                                $monto = $ad_detalle['monto_moneda_extranjera'];
                             }
 
                             if ($ad_detalle['tipo_transaccion'] == "d") {

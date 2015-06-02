@@ -128,7 +128,7 @@ function guardar_transacciones(idasiento_diario_creado) {
         
         if(idmoneda === "1"){
             var monto_moneda_nacional = monto;
-            var monto_moneda_extranjera = monto * valor_dolar;
+            var monto_moneda_extranjera = monto / valor_dolar;
             
         }else if(idmoneda === "2"){
              var monto_moneda_nacional =  monto * valor_dolar;
