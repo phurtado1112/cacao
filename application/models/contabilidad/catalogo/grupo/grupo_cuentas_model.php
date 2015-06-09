@@ -9,7 +9,7 @@ class Grupo_cuentas_model extends CI_Model{
     
      //listar activos e inactivos 
     public function grupo_cuentas_paginacion($estado,$inicio,$num_por_pagina) {
-       $datos = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.' ORDER BY idgrupo_cuenta LIMIT '.$inicio.','.$num_por_pagina.'');
+       $datos = $this->db->query('SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado='.$estado.' AND idgrupo_cuenta > 0 ORDER BY idgrupo_cuenta LIMIT '.$inicio.','.$num_por_pagina.'');
        return $datos->result_array();
     }
     // numero de registros activos e inactivos
@@ -20,18 +20,16 @@ class Grupo_cuentas_model extends CI_Model{
      public function grupo_buscar($campo,$valor,$inicio,$num_por_pagina){
         if($valor !="" && !empty($campo)){
          
-        $query = $this->db->query("select idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior, categoria , estado from grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idgrupo_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
+        $query = $this->db->query("select idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior, categoria , estado from grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '%".$valor."%' ORDER BY idgrupo_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
             
         }
         return $query->result_array();
       }
     
     public function numero_grupo_ciuentas_buscadas($campo,$valor) {
-       $numero_registros = $this->db->query("SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idgrupo_cuenta");
+       $numero_registros = $this->db->query("SELECT idgrupo_cuenta,grupo_cuenta,nivel,nivel_anterior,categoria FROM grupo_cuenta_view WHERE estado=1 AND ".$campo." LIKE '%".$valor."%' ORDER BY idgrupo_cuenta");
         return $numero_registros->num_rows();
     }
-    
-    
     
     public function grupo_agregar(){
         
@@ -77,6 +75,21 @@ class Grupo_cuentas_model extends CI_Model{
         $option = $lista;
         return $option;
       }
+      
+      public function grupo_por_campo_condicion($campo,$valor,$campo_c=NULL,$valor_c=NULL) {
+        if($valor > 1 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor." AND  ".$campo_c."=".$valor_c."");
+            return $query->result_array(); 
+            
+        }else if($valor == 1 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor."");
+            return $query->result_array(); 
+            
+        }else if($valor == 0){
+            return 0;
+        } 
+        
+    }
      
    
 }

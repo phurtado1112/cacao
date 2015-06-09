@@ -1,25 +1,12 @@
+<div id="listar" class="overlay-container"> 
+    <div  class="window-container zoomout valor">
+        <button id='cerrar_pop' class="close">Cerrar</button>
+        <div class="row"><h4>Lista de Cuentas</h4>
+        <input type="text" id="cuenta_contable_buscar" class="col-sm-offset-4">
+        <button class="btn btn-default" id="buscar_cuenta" type="button"><i class="fa fa-search fa-sm"></i></button>
+        </div></br>
+        <div id="resultado" class="centered valor">
 
-
-
-
-
-
-
-
-<div id="listar" style=" height: 450px; width: 450px; overflow: auto; position: absolute; z-index: 1000; background: white; display: none; left:400px;bottom: 160px;"> 
-
-    <tr>
-        <h4 style='display: inline-block;'>Lista de Cuentas</h4><button id='cerrar_pop' style='margin-left: 260px; '>X</button>
-    </tr>
-
-    <input type="text" id="cuenta_contable_buscar" class="form-control buscar">
-    <span class="input-group-btn">
-        <button id="buscar_cuenta" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
-    </span>
-
-    <div id="resultado">
-
-
+        </div>
     </div>
 </div>
-

@@ -158,7 +158,7 @@ class Cuentas extends CI_Controller {
     
     public function cuenta_crear() {
      
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]');
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|xss_clean');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
 
         $tipocuenta = array('A' => 'Acreedora', 'D' => 'Deudora');
@@ -194,7 +194,7 @@ class Cuentas extends CI_Controller {
 
     public function cuenta_modificar($idcatalogo) {
 
-        $this->form_validation->set_rules('cuenta_contable', 'Categoria', 'required|min_length[2]|alpha');
+        $this->form_validation->set_rules('cuenta_contable', 'Categoria', 'required|min_length[2]|trim|xss_clean');
 
         $data['idcatalogo'] = $idcatalogo;
 
@@ -236,7 +236,7 @@ class Cuentas extends CI_Controller {
         $this->Catalogo_cuentas_model->cambiar_estado_catalogo($idcuenta_contable, $estado);
 
         if($estado==0){header('Location:'.base_url().'index.php/contabilidad/catalogo/cuentas/cuentas/index/1');}
-        elseif($estado==1) {header('Location:'.base_url().'index.php/contabilidad/catalogo/cuentas/cuentas/index/1');}
+        elseif($estado==1) {header('Location:'.base_url().'index.php/contabilidad/catalogo/cuentas/cuentas/index/0');}
         
     }
 

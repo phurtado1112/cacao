@@ -37,12 +37,12 @@ class Catalogo_cuentas_model extends CI_Model {
     //activar o inactivar
     public function cambiar_estado_catalogo($idcategorias, $estado) {
 
-        $this->db->query('UPDATE catalogo_cuenta SET estado=' . $estado . ' WHERE idcuenta_contable=' . $idcategorias);
+        $this->db->query("UPDATE catalogo_cuenta SET estado=" . $estado ." WHERE idcuenta_contable='" . $idcategorias."'");
     }
 
     //listar activos e inactivos 
     public function catalogo_cuentas_paginacion($estado, $inicio, $num_por_pagina) {
-        $datos = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . ' ORDER BY idcuenta_contable LIMIT ' . $inicio . ',' . $num_por_pagina . '');
+        $datos = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . ' AND idcuenta_contable > 0 ORDER BY idcuenta_contable LIMIT ' . $inicio . ',' . $num_por_pagina . '');
         return $datos->result_array();
     }
 
@@ -67,15 +67,14 @@ class Catalogo_cuentas_model extends CI_Model {
     public function catalogo_buscar($campo, $valor, $inicio, $num_por_pagina) {
 
         if ($valor != NULL && !empty($campo)) {
-
-            $query = $this->db->query("select idcuenta_contable,cuenta,naturaleza,grupo_cuenta, estado from catalogo_cuenta_view WHERE estado=1 AND " . $campo . " like '" . $valor . "%'ORDER BY idcuenta_contable LIMIT " . $inicio . "," . $num_por_pagina . "");
+            $query = $this->db->query("select idcuenta_contable,cuenta,naturaleza,grupo_cuenta, estado from catalogo_cuenta_view WHERE estado=1 AND " . $campo . " like '%" . $valor . "%'ORDER BY idcuenta_contable LIMIT " . $inicio . "," . $num_por_pagina . "");
         }
 
         return $query->result_array();
     }
 
     public function numero_cuentas_buscadas($campo, $valor) {
-        $numero_registros = $this->db->query("SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=1 AND " . $campo . " LIKE '" . $valor . "%' ORDER BY idcuenta_contable");
+        $numero_registros = $this->db->query("SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=1 AND " . $campo . " LIKE '%" . $valor . "%' ORDER BY idcuenta_contable");
         return $numero_registros->num_rows();
     }
 

@@ -17,6 +17,27 @@ $(document).on("ready", function () {
         }
 
     });
+    
+    var estructura_base = $("#categoria_grupo").val();
+     $("select[name=idcategoria_cuenta] option").each(function(){
+         
+          var text_option = $(this).text();
+          
+         if(text_option === estructura_base){
+             $(this).attr("selected","selected");
+         }
+     });
+     
+      var estructura_base = $("#nivel_anterior").val();
+     $("select[name=nivel_anterior] option").each(function(){
+         
+          var text_option = $(this).text();
+          
+         if(text_option === estructura_base){
+             $(this).attr("selected","selected");
+         }
+     });
+    
     function busqueda() {
         var valor = $('#valor').val();
         var campo = $('#campo option:selected').val();

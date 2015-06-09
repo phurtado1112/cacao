@@ -91,6 +91,7 @@ class Asiento_diario extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_crear_view', $data);
         $this->load->view('modules/pop_up/asiento_diario_cuentas_pop');
+        $this->load->view('modules/pop_up/introducir_tasa_cambio_pop');
         $this->load->view('modules/foot/contabilidad/asiento_diario_crear_foot');
     }
 
@@ -357,6 +358,16 @@ class Asiento_diario extends CI_Controller {
          
 
         header('Location:'.base_url().'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index');
+    }
+    
+     public function tasa_cambio_agregar() {
+        $this->load->model('administracion/Tasa_cambio_model');
+
+        $idmoneda = filter_input(INPUT_POST, 'idmoneda_agregar');
+        $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_tipo_cambio');
+        $tasa_cambio = filter_input(INPUT_POST, 'tasa_cambio');
+
+      $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda,$fecha_tipo_cambio,$tasa_cambio);
     }
 
 }

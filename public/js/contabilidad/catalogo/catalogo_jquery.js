@@ -19,8 +19,21 @@ $(document).on("ready", function () {
         }
 
     });
-
-
+    
+    var naturaleza_cuenta = $("#naturaleza_cuenta").val();
+    $("select[name=naturaleza_cuenta_contable]").find("option[value="+naturaleza_cuenta+"]").attr("selected","selected");
+    
+     var grupo_cuenta = $("#grupo_cuenta").val();
+     $("select[name=idgrupo_cuenta] option").each(function(){
+         
+          var text_option = $(this).text();
+          
+         if(text_option === grupo_cuenta){
+             $(this).attr("selected","selected");
+         }
+     });
+//   
+    
     function busqueda() {
 
         var valor = $('#valor').val();
