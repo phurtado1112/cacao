@@ -23,7 +23,9 @@ if (!empty($consulta_grupo)) {
                         <td>" . $cat['nivel_anterior'] . "</td>
                         <td>" . $cat['categoria'] . "</td>   
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/grupo/grupo/grupo_modificar/' . $id . '"class="fa fa-pencil fa-fw">Editar</a>' . "</td>
-                        <td>" . '<a class="fa fa-ban fa-fw inactivar" value="'.$id.'">Inactivar</a>' .
+                        <td>" . '<a class="fa fa-ban fa-fw inactivar" value="'.$id.'">Inactivar</a></td>' .
+                        
+
         "</tr>";
 
         $i++;
@@ -47,6 +49,7 @@ if (!empty($consulta_grupo)) {
                                 <th>Nivel Anterior</th>
                                 <th>Categoria</th>
                                 <th>Activar</th>
+                                <th>Eliminar</th>
                             </tr> ";
 
     foreach ($consulta_grupo_inactivos as $cate) {
@@ -60,7 +63,8 @@ if (!empty($consulta_grupo)) {
                         <td>" . $cate['nivel_anterior'] . "</td>
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/grupo/grupo/grupo_cambiar_estado/' . $id . '/1" class="fa fa-retweet fa-fw">Activar</a>' .
-        "</tr>";
+                        '<td><a  href="' . base_url() . 'index.php/contabilidad/catalogo/grupo/grupo/grupo_eliminar/' . $id . '" class="fa fa-retweet fa-fw">Eliminar</a></td>' .
+                "</tr>";
 
         $i++;
     }
@@ -75,6 +79,6 @@ if (!empty($consulta_grupo)) {
                                 </div>";
 } else {
 
-    echo '<h4>No se encontraron categorias de cuentas</h4>';
+    echo '<h4 class="col-lg-offset-5">No se encontraron categorias de cuentas</h4>';
 }
 

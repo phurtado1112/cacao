@@ -6,13 +6,13 @@
                 <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar cuentas contables</h4></br>
                 <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success fa fa-reply-all fa-lg"> Regresar</a>
             </div>
-            <div class="block-content collapse in">
+            <div class="block-content collapse in valor">
                 <?php
                 echo form_open();
                 echo form_hidden('idcuenta_contable', $idcatalogo);
                 ?>
 
-                <table class="table table-striped table-bordered ">
+                <table class="table table-striped ">
                     <tr>
                         <th>Numero de Cuenta</th>
                         <th><?php
@@ -23,29 +23,32 @@
                     </tr>
                     <tr>
                         <th>Descripcion de la Cuenta Contable</th>
-                        <th><?php echo form_input('cuenta_contable', $lista_por_id[0]['cuenta']);
+                        <th><?php
+                            echo form_input('cuenta_contable', $lista_por_id[0]['cuenta']);
                             echo form_error('cuenta_contable');
                             ?></th>
                     </tr>
                     <tr>
                         <th>Naturaleza de la Cuenta</th>
                         <td>
-<?= form_dropdown('naturaleza_cuenta_contable', $tipocuenta); ?>
+                            <input id="naturaleza_cuenta" type="hidden" value="<?php echo $lista_por_id[0]['naturaleza']?>">
+                            <?= form_dropdown('naturaleza_cuenta_contable', $tipocuenta); ?>
                         </td>
                     </tr>
                     <tr>
                         <th>Grupo Cuenta</th>
                         <td>
-<?= form_dropdown('idgrupo_cuenta', $idgrupocuenta); ?>
+                            <input id="grupo_cuenta" type="hidden" value="<?php echo $lista_por_id[0]['grupo_cuenta']?>">
+                            <?= form_dropdown('idgrupo_cuenta', $idgrupocuenta); ?>
                         </td>
                     </tr>
                 </table>
-
-                <?php
-                echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success"');
-                echo form_close();
-                ?>
             </div>
+            <?php
+            echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success"');
+            echo form_close();
+            ?>
+
         </div>
     </div>
 </div>

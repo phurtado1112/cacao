@@ -11,7 +11,7 @@
                 echo form_hidden('idcategoria_cuenta', $idcategorias);
                 ?>
 
-                <table class="table table-striped table-bordered ">
+                <table class="table table-striped  ">
                     <tr>
                         <th>Nombre de la Categoría</th>
                         <th><?php echo form_input('categoria_cuenta', $lista_por_id[0]['categoria']);echo form_error('categoria_cuenta'); ?></th>
@@ -19,6 +19,7 @@
                     <tr>
                         <th>Estructura Base</th>
                         <td>
+                            <input id="estructura_base" type="hidden" value="<?php echo $lista_por_id[0]['nombre'] ?>">
                             <?= form_dropdown('idestructura_base', $idestructurabase); ?>
                         </td>
                     </tr>

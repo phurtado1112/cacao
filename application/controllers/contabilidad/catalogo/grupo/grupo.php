@@ -8,12 +8,13 @@ class Grupo extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $data['titulo'] = 'Grupos Cuentas';
-        $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
     }
 
     public function index($var) {
+        $data['titulo'] = 'Grupos Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        
         if ($var == 1) {
             $this->load->view('contabilidad/catalogo/grupo/grupo_lista_view');
         } else if ($var == 0) {
@@ -148,12 +149,16 @@ class Grupo extends CI_Controller {
     }
 
     public function grupo_crear() {
-        $this->load->view('modules/menu/menu_contabilidad');
+        $data['titulo'] = 'Grupos Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
+        $this->form_validation->set_rules('nivel', 'Nivel', 'required|numeric');
+        $this->form_validation->set_rules('nivel_anterior', 'Nivel anterior', 'required|numeric');
+        
 
-        $nivel = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
+        $nivel = array('0' => ' ','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
@@ -181,16 +186,17 @@ class Grupo extends CI_Controller {
     }
 
     public function grupo_modificar($idgrupo) {
-        $this->load->view('modules/menu/menu_contabilidad');
+        $data['titulo'] = 'Grupos Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
         $data['idgrupo'] = $idgrupo;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['lista_por_id'] = $this->Grupo_cuentas_model->encontrar_por_id($idgrupo);
 
-        $nivel = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
+        $nivel = array('0'=>' ','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
@@ -226,6 +232,25 @@ class Grupo extends CI_Controller {
         }
     }
 
+    public function grupo_formulario_select() {
+        $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
+
+        $nivel = filter_input(INPUT_POST, 'nivel');
+        $categoria = filter_input(INPUT_POST, 'idcategoria');
+        
+        $grupo_nivel = $this->Grupo_cuentas_model->grupo_por_campo_condicion("nivel", $nivel,"idcategoria_cuenta",$categoria);
+       
+        if($grupo_nivel != 0){
+        foreach($grupo_nivel as $grupo_n){
+            $cero_option = "<option value=".$grupo_n['nivel']." >".$grupo_n['grupo_cuenta']."</option>";
+            $str_option = $str_option.$cero_option;
+            
+        }}else{
+            $str_option="<option value='' ></option>";
+        }
+            echo $str_option;
+    }
+    
 }
 
 /* Fin del archivo my_controller.php */

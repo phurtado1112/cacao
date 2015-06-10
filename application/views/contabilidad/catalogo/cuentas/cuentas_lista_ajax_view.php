@@ -15,15 +15,20 @@ if (!empty($consulta_cuentas)) {
                             </tr> ";
     foreach ($consulta_cuentas as $cat) {
         $id = $cat['idcuenta_contable'];
-       
-        
+        if ($cat['naturaleza'] == "A") {
+            $naturaleza = "Acreedora";
+            
+        } else if ($cat['naturaleza']) {
+            $naturaleza = "Deudora";
+        }
+
         echo"
                                    
                         <tr>
                         <td>" . $i . "</td>
-                        <td>" . $id." </td>
+                        <td>" . $id . " </td>
                         <td>" . $cat['cuenta'] . "</td>
-                        <td>" . $cat['naturaleza'] . "</td>
+                        <td>" . $naturaleza . "</td>
                         <td>" . $cat['grupo_cuenta'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_modificar/' . $id . '"class="fa fa-pencil fa-fw">Editar</a>' . "</td>
                         <td>" . '<a class="fa fa-ban fa-fw inactivar" value="' . $id . '">Inactivar</a>' .
@@ -49,11 +54,12 @@ if (!empty($consulta_cuentas)) {
                                 <th>Naturaleza</th>
                                 <th>Grupo Cuenta</th>
                                 <th>Activar</th>
+                                <th>Inactivar</th>
                             </tr> ";
 
     foreach ($consulta_cuentas_inactivas as $cate) {
         $id = $cate['idcuenta_contable'];
-        
+
         echo"
                                    
                         <tr>
@@ -62,7 +68,8 @@ if (!empty($consulta_cuentas)) {
                         <td>" . $cate['cuenta'] . "</td>
                         <td>" . $cate['naturaleza'] . "</td>
                         <td>" . $cate['grupo_cuenta'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_cambiar_estado/' . $id . '/1">Activar</a>' .
+                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_cambiar_estado/' . $id . '/1 " class="fa fa-retweet fa-fw">Activar</a></td>' .
+                        '<td><a href="' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_eliminar/' . $id . ' " class="fa fa-retweet fa-fw">Eliminar</a></td>' .
         "</tr>";
 
         $i++;
@@ -77,7 +84,7 @@ if (!empty($consulta_cuentas)) {
                                 </nav>
                                 </div>";
 } else {
-    echo '<h4>No se encontraron categorias de cuentas</h4>';
+    echo '<h4 class="col-lg-offset-5">No se encontraron categorias de cuentas</h4>';
 }
-?>
+
 

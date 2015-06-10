@@ -20,11 +20,21 @@ $(document).on("ready", function () {
 
     });
 
+    var naturaleza_cuenta = $("#naturaleza_cuenta").val();
+    $("select[name=naturaleza_cuenta_contable]").find("option[value=" + naturaleza_cuenta + "]").attr("selected", "selected");
 
-    function busqueda() {
+    var grupo_cuenta = $("#grupo_cuenta").val();
+    $("select[name=idgrupo_cuenta] option").each(function () {
 
-        var valor = $('#valor').val();
-        var campo = $('#campo option:selected').val();
+        var text_option = $(this).text();
+
+        if (text_option === grupo_cuenta) {
+            $(this).attr("selected", "selected");
+        }
+    });
+//   
+
+    function busqueda(campo,valor) {
 
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/cuentas_buscar",
@@ -49,14 +59,37 @@ $(document).on("ready", function () {
         }
 
     }
+    
+    function validar_busqueda(){
+       
+         var valor = $('#valor').val();
+        var campo = $('#campo').val();
+        
+        if ((!isNaN(valor)||valor==="" ) && campo === "idcuenta_contable") {
+            busqueda(campo,valor);
+            
+        }else if(isNaN(valor) && campo === "idcuenta_contable"){
+            alert("Busqueda por numero de cuenta solo admite valores numericos");
+            
+        }else if ((isNaN(valor)||valor==="") && (campo === "cuenta" || campo === "naturaleza" || campo==="grupo_cuenta")) {
+            busqueda(campo,valor);
+            
+        }else if((!isNaN(valor)) && (campo === "cuenta" || campo === "naturaleza" || campo==="grupo_cuenta")){
+            alert("Este tipo de busqueda solo admite valores no numericos");
+        }
+        
+    }
 
     $("#buscar").on('click', function () {
-        busqueda();
-
+        validar_busqueda();
     });
 
-    $("#valor").on('keypress', function () {
-        busqueda();
+    $("#valor").on('keyup', function () {
+       validar_busqueda();
+    });
+    
+    $("#campo").on('change', function () {
+       validar_busqueda();
     });
 
     $("#resultado").on('click', ".inactivar", function () {

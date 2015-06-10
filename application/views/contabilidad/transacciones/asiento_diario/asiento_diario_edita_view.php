@@ -93,8 +93,7 @@
                         <?php
                         $i = 1;
                         foreach ($ad_detalle as $ad_detalle) {
-
-
+                          
                             echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>
                                 
                             <td><div class='numero_asiento'>" . $i . "</div>

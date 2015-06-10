@@ -100,7 +100,6 @@ $(document).ready(function () {
 
 }
             
-
     function buscar_fecha() {
           
         var fecha_buscada = $("#fecha_fiscal").val();

@@ -8,7 +8,7 @@ class Categorias_cuentas_model extends CI_Model{
     }
     //listar activos e inactivos
     public function categorias_cuentas_paginacion($estado,$inicio,$num_por_pagina) {
-       $datos = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado='.$estado.' ORDER BY idcategoria_cuenta LIMIT '.$inicio.','.$num_por_pagina.'');
+       $datos = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado='.$estado.' AND idcategoria_cuenta > 0 ORDER BY nombre LIMIT '.$inicio.','.$num_por_pagina.'');
        return $datos->result_array();
     }
     // numero de registros activos e inactivos
@@ -20,14 +20,14 @@ class Categorias_cuentas_model extends CI_Model{
     public function buscar_categoria($campo,$valor,$inicio,$num_por_pagina){
           
         if($valor !="" && !empty($campo)){
-            $query = $this->db->query("select idcategoria_cuenta,categoria,nombre,estado from categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
+            $query = $this->db->query("select idcategoria_cuenta,categoria,nombre,estado from categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '%".$valor."%' ORDER BY idcategoria_cuenta LIMIT ".$inicio.",".$num_por_pagina."");
           
         }
         return $query->result_array();
       }
       
     public function numero_categorias_buscadas($campo,$valor) {
-       $numero_registros = $this->db->query("SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '".$valor."%' ORDER BY idcategoria_cuenta");
+       $numero_registros = $this->db->query("SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado=1 AND ".$campo." LIKE '%".$valor."%' ORDER BY idcategoria_cuenta");
         return $numero_registros->num_rows();
     }
     

@@ -78,40 +78,6 @@ $(document).ready(function () {
         calcular_total();
         calcular_total2();
     });
-    
-//   $("#campos_agregados").on('click', ".campo_debito",function () {
-//        alert($(this).attr("value"));
-//        if($(this).val()==="0"){
-//           $(this).attr("value","");
-//       }
-//    });
-//    
-//    $("#campos_agregados").on('click', ".campo_credito",function () {
-//        alert($(this).attr("value"));
-//        if($(this).val()==="0"){
-//           $(this).attr("value","");
-//       }
-//    });
-//    
-//    $("#guardar").on("mousemove", function () {
-//
-//        $(".campo_debito").each(
-//                function () {
-//                    if ($(this).val()===""){
-//                        $(this).val(0);
-//                    }
-//              }
-//        );
-//
-//        $(".campo_credito").each(
-//                function () {
-//                    if ($(this).val()===""){
-//                        $(this).val(0);
-//                    }
-//              }
-//        );
-//
-//    });
 
 /////validacion que solo debito o solo credito
     
@@ -161,7 +127,10 @@ $(document).ready(function () {
     
     $('#buscar_cuenta').on("click",function(){
         busqueda_cuenta();
-         
+    });
+    
+     $('#cuenta_contable_buscar').on("keypress",function(){
+        busqueda_cuenta();
     });
 
     function asig_valores() {
@@ -201,10 +170,21 @@ $(document).ready(function () {
         
         $("body").data("id_ref", valor_ref);
         
-        
         asig_valores();
         
     });
+    
+//    $("#campos_agregados").on("keypress", ".buscar_c", function () {
+//        var referencia = $(this).attr("id");
+//        var valor_ref = referencia.charAt(referencia.length - 1);
+//        
+//        mostrar();
+//        
+//        $("body").data("id_ref", valor_ref);
+//        
+//        asig_valores();
+//        
+//    });
 
     $("#cerrar_pop").on("click", function () {
         $('#cuenta_contable_buscar').val("");

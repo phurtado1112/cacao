@@ -6,7 +6,7 @@ if (!empty($consulta_categorias)) {
     . " <tr>
                                 <th>No°</th>
                                 <th>Categoría</th>
-                                <th>Clasificación Principal</th>
+                                <th>Tipo</th>
                                 <th>Modificar</th>
                                 <th>Desactivar</th>
                             </tr> ";
@@ -39,19 +39,21 @@ if (!empty($consulta_categorias)) {
     . " <tr>
                                 <th>No°</th>
                                 <th>Categoría</th>
-                                <th>Clasificación Principal</th>
+                                <th>Tipo</th>
                                 <th>Activar</th>
+                                <th>Eliminar</th>
                             </tr> ";
 
     foreach ($consulta_categorias_inactivas as $cate) {
         $id = $cate['idcategoria_cuenta'];
         echo"
                                    
-                        <tr>
+        <tr>
                         <td>" . $i . "</td>
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/' . $id . '/1" class="fa fa-retweet fa-fw">Activar</a>' .
+                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/" . $id . "/1' class='fa fa-retweet fa-fw'>Activar</a></td>
+                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_eliminar/" . $id . "' class='fa fa-retweet fa-fw'>Eliminar</a></td>" .
         "</tr>";
 
         $i++;
@@ -67,6 +69,6 @@ if (!empty($consulta_categorias)) {
                                 </div>";
 } else {
 
-    echo "<h3 align='center'>No se encontraron resultados<h3>";
+    echo '<h4 class="col-lg-offset-5">No se encontraron resultados<h4>';
 }
 

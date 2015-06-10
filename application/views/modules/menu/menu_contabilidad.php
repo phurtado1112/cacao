@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/jquery-ui.css" />
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
+     
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
@@ -40,7 +42,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Transacciones <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
-          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/AsientoDiario/C_asiento_diario_recurrente/">Asientos de Diario Recurrentes</a></li>
+          <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">Asientos de Diario Recurrentes</a></li>
           <li><a href="#">Mayorizar Asientos de Diario</a></li>
           <li class="divider"></li>
           <li><a href="#">Cálculo Depreciación de Activos Fijos</a></li>   
