@@ -61,7 +61,7 @@ class Asiento_diario extends CI_Controller {
         $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_lista_ajax_view', $data);
     }
 
-    public function asiento_diario_crear() {
+    public function asiento_diario_crear($id_adr = NULL) {
         $data['titulo'] = 'Crear Asiento de Diario';
 
         $dias = array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado");
@@ -82,11 +82,21 @@ class Asiento_diario extends CI_Controller {
 
         $this->load->model('contabilidad/transacciones/asiento_diario/Tipo_moneda_model');
         $data['idmoneda'] = $this->Tipo_moneda_model->lista_moneda();
+        ////consultas para AD recurrentes
+        
+       
 
-//        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
-//        $dato = $this->Tasa_cambio_model->lista_tasa_cambio();
-//        $final = end($dato);
-//        $data['idtasa_cambio'] = $final;
+        if($id_adr) {
+            $this->load->model('contabilidad/transacciones/asiento_diario_recurrente/Asiento_diario_recurrente_model');
+            $data['asiento_diario_recurrente'] = $this->Asiento_diario_recurrente_model->ad_recurrente_encontrar_por_id($id_adr);
+
+            $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
+            $data['ad_detalle_recurrente'] = $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_por_id_adr($id_adr);
+        
+        }else{
+             $data['asiento_diario_recurrente']="";
+             $data['ad_detalle_recurrente']="";
+        }
 
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->view('contabilidad/transacciones/asiento_diario/asiento_diario_crear_view', $data);
@@ -323,7 +333,7 @@ class Asiento_diario extends CI_Controller {
 
     public function asiento_diario_detalle_editar() {
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle/Asiento_diario_detalle_model');
-        
+
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
@@ -336,38 +346,37 @@ class Asiento_diario extends CI_Controller {
 
         $this->Asiento_diario_detalle_model->asiento_diario_detalle_modificar($idasiento_diario
                 , $numero_transacciones, $idcuenta_contable
-           , $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera);
+                , $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera);
 //        
     }
-    
-    
-     public function asiento_diario_detalle_eliminar() {
+
+    public function asiento_diario_detalle_eliminar() {
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle/Asiento_diario_detalle_model');
-        
+
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
 
 //        echo $idasiento_diario."  ".$numero_transacciones;
 
-        $this->Asiento_diario_detalle_model->asiento_diario_detalle_eliminar($numero_transacciones ,$idasiento_diario );
+        $this->Asiento_diario_detalle_model->asiento_diario_detalle_eliminar($numero_transacciones, $idasiento_diario);
     }
-    
-     public function asiento_diario_eliminar($idasiento_diario){
-         $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
-         $this->Asiento_diario_model->asiento_diario_eliminar($idasiento_diario);
-         
 
-        header('Location:'.base_url().'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index');
+    public function asiento_diario_eliminar($idasiento_diario) {
+        $this->load->model('contabilidad/transacciones/asiento_diario/Asiento_diario_model');
+        $this->Asiento_diario_model->asiento_diario_eliminar($idasiento_diario);
+
+
+        header('Location:' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index');
     }
-    
-     public function tasa_cambio_agregar() {
+
+    public function tasa_cambio_agregar() {
         $this->load->model('administracion/Tasa_cambio_model');
 
         $idmoneda = filter_input(INPUT_POST, 'idmoneda_agregar');
         $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_tipo_cambio');
         $tasa_cambio = filter_input(INPUT_POST, 'tasa_cambio');
 
-      $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda,$fecha_tipo_cambio,$tasa_cambio);
+        $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda, $fecha_tipo_cambio, $tasa_cambio);
     }
 
 }

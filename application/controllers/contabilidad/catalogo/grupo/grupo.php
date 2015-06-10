@@ -153,7 +153,7 @@ class Grupo extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
         $this->form_validation->set_rules('nivel', 'Nivel', 'required|numeric');
         $this->form_validation->set_rules('nivel_anterior', 'Nivel anterior', 'required|numeric');
         
@@ -190,7 +190,7 @@ class Grupo extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
         $data['idgrupo'] = $idgrupo;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');

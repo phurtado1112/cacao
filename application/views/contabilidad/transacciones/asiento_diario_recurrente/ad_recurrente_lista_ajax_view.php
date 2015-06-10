@@ -38,7 +38,7 @@ if (!empty($consulta_ad_recurrente)) {
                         <td>" . $ad['balance_debito'] . "</td>
                         <td>" . $ad['balance_credito'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/ad_recurrente_modificar/'.$id_ad.'">Editar</a> -- '
-                              . '<a class="eliminar_ad" value="'.$id_ad.'">Eliminar</a>' . "</td>
+                              . '<a class="eliminar_ad" value="'.$id_ad.'">Eliminar</a>--<a class="usar_ad" href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_crear/'.$id_ad.'">Usar</a>' . "</td>
                         </tr>";
                         
                         $i++;

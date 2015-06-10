@@ -67,7 +67,7 @@ class Catalogo_cuentas_model extends CI_Model {
     public function catalogo_buscar($campo, $valor, $inicio, $num_por_pagina) {
 
         if ($valor != NULL && !empty($campo)) {
-            $query = $this->db->query("select idcuenta_contable,cuenta,naturaleza,grupo_cuenta, estado from catalogo_cuenta_view WHERE estado=1 AND " . $campo . " like '%" . $valor . "%'ORDER BY idcuenta_contable LIMIT " . $inicio . "," . $num_por_pagina . "");
+            $query = $this->db->query("select idcuenta_contable,cuenta,naturaleza,grupo_cuenta, estado from catalogo_cuenta_view WHERE estado=1 AND " . $campo . " like '%" . $valor . "%' ORDER BY idcuenta_contable LIMIT " . $inicio . "," . $num_por_pagina . "");
         }
 
         return $query->result_array();
