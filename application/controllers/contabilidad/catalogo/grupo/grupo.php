@@ -209,7 +209,7 @@ class Grupo extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]|callback_not_numeric');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|callback_not_numeric');
         
          $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
         
