@@ -53,7 +53,7 @@ if (!empty($consulta_categorias)) {
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
                         <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/" . $id . "/1' class='fa fa-retweet fa-fw'>Activar</a></td>
-                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_eliminar/" . $id . "' class='fa fa-retweet fa-fw'>Eliminar</a></td>" .
+                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_eliminar/" . $id . "' class='fa fa-trash fa-fw'>Eliminar</a></td>" .
         "</tr>";
 
         $i++;

@@ -167,7 +167,8 @@ class Cuentas extends CI_Controller {
     public function cuenta_crear() {
         
         $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]|callback_not_numeric');
-        $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]|is_unique[catalogo_cuenta.idcuenta_contable]');
+        $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
+        $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required');
         
         $this->form_validation->set_message('is_unique', 'El campo nombre de cuenta no puede repetirce');
         $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede contener numeros');
@@ -206,6 +207,8 @@ class Cuentas extends CI_Controller {
     public function cuenta_modificar($idcatalogo) {
         
         $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]|callback_not_numeric');
+        $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
+        $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required');
         
         $this->form_validation->set_message('is_unique', 'El campo nombre de cuenta no puede repetirce');
         $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede contener numeros');

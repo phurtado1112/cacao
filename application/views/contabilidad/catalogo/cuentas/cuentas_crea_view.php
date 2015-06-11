@@ -10,7 +10,7 @@
                 echo form_open();
                 ?>
 
-                <table class="table table-striped ">
+                <table class="table">
                     <tr>
                         <th>Numero de la Cuenta</th>
                         <th>

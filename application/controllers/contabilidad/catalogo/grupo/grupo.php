@@ -147,16 +147,27 @@ class Grupo extends CI_Controller {
             $this->load->view('contabilidad/catalogo/grupo/grupo_lista_ajax_view', $data);
         }
     }
+    
+     public function not_numeric($var) {
+        if(!is_numeric($var)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public function grupo_crear() {
         $data['titulo'] = 'Grupos Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
+        
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]|callback_not_numeric');
         $this->form_validation->set_rules('nivel', 'Nivel', 'required|numeric');
         $this->form_validation->set_rules('nivel_anterior', 'Nivel anterior', 'required|numeric');
+        $this->form_validation->set_rules('idcategoria_cuenta', 'Categoria', 'required');
         
+        $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
 
         $nivel = array('0' => ' ','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
@@ -165,9 +176,17 @@ class Grupo extends CI_Controller {
         $data['nivel_anterior'] = $this->Grupo_cuentas_model->lista_grupo();
 
         $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
-        $data['categoria'] = $this->Categorias_cuentas_model->categoria_lista();
+        $categorias= $this->Categorias_cuentas_model->categoria_lista();
+        
+        if(!empty($categorias)){
+            $lista_categoria = $categorias;
+                    
+        }else if(empty($categorias)){
+            $lista_categoria = array('' => ' ');
+        }
 
-
+         $data['categoria']=$lista_categoria;
+        
         if ($this->input->post()) {
 
             if ($this->form_validation->run() == TRUE) {
@@ -190,7 +209,10 @@ class Grupo extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]|callback_not_numeric');
+        
+         $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
+        
         $data['idgrupo'] = $idgrupo;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');

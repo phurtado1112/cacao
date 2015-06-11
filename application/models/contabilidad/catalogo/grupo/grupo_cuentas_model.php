@@ -69,9 +69,14 @@ class Grupo_cuentas_model extends CI_Model{
     function lista_grupo() {
         $query = $this->db->query('select idgrupo_cuenta,grupo_cuenta from grupo_cuenta WHERE estado > 0 AND idgrupo_cuenta >0');
         $dropdowns = $query->result_array();
-        foreach ($dropdowns as $dropdown) {
+        if($dropdowns){
+            foreach ($dropdowns as $dropdown) {
           $lista[$dropdown['idgrupo_cuenta']] = $dropdown['grupo_cuenta'];
         }
+        }else{
+            $lista="";
+        }
+        
         $option = $lista;
         return $option;
       }

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    
     obtener_cambio_dolar();
     $(function () {
 //        estilo del datepicker para dar formato en idioma español
