@@ -94,12 +94,19 @@ input#idcuenta_contable, input{
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
+    
 }
 #valor:focus, .valor:focus{
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.78);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.78);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.78);
 
+}
+input:focus, select:focus{
+    outline-color:burlywood ;
+}
+
+table.table th{  border-top: 0px !important;
 }
 #valor:hover, textarea#descripcion_asiento_diario.textarea:hover,input#fecha_fiscal.hasDatepicker:hover,input#idcuenta_contable:hover,
 input:hover{

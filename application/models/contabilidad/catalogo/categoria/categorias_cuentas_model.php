@@ -68,10 +68,14 @@ class Categorias_cuentas_model extends CI_Model{
 /// metodo para listar por nombre
     
      function categoria_lista() {
-        $query = $this->db->query('select idcategoria_cuenta,categoria_cuenta from categoria_cuenta WHERE estado > 0');
+        $query = $this->db->query('select idcategoria_cuenta,categoria_cuenta from categoria_cuenta WHERE estado = 1');
         $dropdowns = $query->result_array();
+        if($dropdowns){
         foreach ($dropdowns as $dropdown) {
           $lista[$dropdown['idcategoria_cuenta']] = $dropdown['categoria_cuenta'];
+        }
+        }else{
+            $lista="";
         }
         $option = $lista;
         return $option;

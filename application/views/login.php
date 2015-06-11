@@ -20,7 +20,7 @@
                     <div class="form-group"> 
                         <input type="password" id="pass" name="pass" placeholder="Password" class="form-control">
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Aceptar</button>
+                    <button class="btn btn-lg btn-success btn-block" type="submit">Aceptar</button>
                 </form>
             </div>
         </div>
