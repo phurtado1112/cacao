@@ -5,7 +5,9 @@ body{padding-top: 25px;
      border-left: 1px;
      border-right: 1px;}
 
-div.container.diario{}
+div.container.catalogo{
+   
+}
 
 /*PANTALLA DE LOGIN*/
 .login{
@@ -28,6 +30,7 @@ div.container.diario{}
     border-radius: 50%;
     margin-top: 10%;
     margin-left: 40%;
+    color: #009926;
 }
 
 div.divboton{
@@ -38,6 +41,9 @@ div.divboton{
     background-color:#713517 !important;   
     border-color:#954500 !important; 
     width: 120px !important;
+}
+.aceptar{
+background-color:#009926 !important;
 }
 .btn-primary{
     background-color:#713517 !important;   
@@ -106,7 +112,13 @@ input:focus, select:focus{
     outline-color:burlywood ;
 }
 
-table.table th{  border-top: 0px !important;
+table.table th,td{  border-top: 0px !important;
+}
+a#listar_adr,a#agregar{
+ color: #fff !important;
+}
+btn btn-success fa fa-plus-circle fa-lg rec,btn btn-success fa fa-plus fa-lg rec{
+   width: 180px !important; 
 }
 #valor:hover, textarea#descripcion_asiento_diario.textarea:hover,input#fecha_fiscal.hasDatepicker:hover,input#idcuenta_contable:hover,
 input:hover{
@@ -120,7 +132,9 @@ input#fecha_fiscal{
 }
 .textarea{
     width: 200px;
-    height: 70px;
+    height: 90px;
+    max-width: 200px;
+    max-height: 90px;
 }
 #numero_asiento_diario, #tasa_cambio, input#total_debito,input#total_credito{
     border-radius: 5px !important;
@@ -172,33 +186,41 @@ ul.nav.navbar-nav{
     color :#713517;
 }
 nav.navbar.navbar-fixed-top{
-    border-color: #ba5600;
+    border-color: #009926;
     background-color: #f8f8f8;
     border-width:0 0 1px ;
     top: 0px;
 }
 
 nav.navbar.navbar-fixed-bottom{
-    border-color: #ba5600;
+    border-color: #009926;
     background-color: #f8f8f8;
     border-width: 1 0 0px;
     bottom: 0px;
 
 }
 div.span3.well{
-    border-color: #ba5600;
+    border-color: #009926;
 }
 .navbar-brand{
     color :#713517; 
 }
 .table a{
     color: #ba5600;
+    margin-left: 45%;
+}
+
+td.ad a, th.ad a{
+    margin-left: 0px;
 }
 .table a:hover{
     color: #ba5600;
 }
 table, .pagination{
     color: #753800 ;
+}
+.tabletext{
+    text-align: center;
 }
 .a, .texto{
 

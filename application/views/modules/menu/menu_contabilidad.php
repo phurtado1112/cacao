@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-     
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/leaf.ico"> 
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
@@ -41,9 +41,8 @@
          <!-- ////-->
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Transacciones <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Crear Asientos de Diario</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario">Asientos de Diario</a></li>
           <li><a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">Asientos de Diario Recurrentes</a></li>
-          <li><a href="#">Mayorizar Asientos de Diario</a></li>
           <li class="divider"></li>
           <li><a href="#">Cálculo Depreciación de Activos Fijos</a></li>   
         </ul>
@@ -61,6 +60,8 @@
             <li><a href="<?php echo base_url();?>index.php/contabilidad/catalogo/categoria/categoria/index/1">Categorías de Cuentas</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Activos Fijos</a></li>
+            <li class="divider"></li>
+            <li><a href="<?php echo base_url();?>">Presupuestos</a></li>
         </ul>
         <!-- ////-->
       </li>
@@ -78,11 +79,7 @@
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Informe al donante</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>">AD Anulado</a></li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>">AD Contabilizado</a></li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>">AD No contabilizado</a></li>
+            <li><a href="<?php echo base_url();?>">Asiento de Mayor</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Balanza de Comprobacion</a></li>
             <li class="divider"></li>
@@ -103,9 +100,11 @@
     <ul class="nav navbar-nav">
       <li class="dropdown">
           <!-- ////-->
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestión<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="<?php echo base_url();?>">Cierre Fiscal</a></li>
+            <li class="divider"></li>
+            <li><a href="<?php echo base_url();?>">Configuración del Módulo</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Periodos Fiscales</a></li>
         </ul>

@@ -1,58 +1,43 @@
 <div class="container">
     <div class="row">
-        <div class="form-control">Edicion Asiento de Diario</div>
-        <div class="span3 well">
+        <div class="span3 well ">
+            <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Edición de Asiento de Diario Recurrente</h4><br>
+            <div class="row"></br>
+                <table class="table asiento">
+                    <tr>
+                   <td>Origen Asiento Diario 
+                    <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?></td>
+                   <th>Fecha de Creacion</th>
+                   <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></td>
+                   <th rowspan="2">Descripción de Asiento
+                   <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?></textarea></th>
+                </tr> 
+                <tr>
+                    <td>Moneda de Transacción
+                        <div id="moneda"> 
+                        <?php echo form_dropdown('idmoneda', $idmoneda); ?></div></td>
+                    <th>Fecha de Edicion</th>
+                    
+                    <td>  <?php echo $asiento_diario[0]['fecha_creacion']; ?></td>
+                    
+                </tr>
+                <tr>
+                    <td>Tipo de Cambio<input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio">
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1"></td></td>
+                <th>Usuario Creacion:</th>
+                <td> <input id="usuario_creacion" readonly="readonly" placeholder="usuario" size="4" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>"></input>
 
-            <div class="row">
-                 <div class="col-md-4">Origen Asiento Diario</div>
-               <div class="col-md-4 col-md-offset-4">Fecha de Edicion</div>
-                <div class="col-md-4"><?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?></div></br>
+            <input id="usuario_edicion" type="hidden" placeholder="usuario edicion" size="10" value="cacao"></td>
+                <th><div id="add-delete"><a class="btn btn-primary fa fa-plus fa-sm " role="button" id="agregar"></a></div>
+                </tr>
+            </table>
+            <input id="valor_origen_ad" type="hidden" value="<?php echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">
 
-                <div class="col-md-4 col-md-offset-4"  ><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
-                <input type="hidden" id="fecha_edicion" value="<?php echo date('Y-m-d') ?>"></input> 
-
-                <div class="col-md-4 col-md-offset-4">
-                    Fecha Creacion
-                    <?php echo $asiento_diario[0]['fecha_creacion']; ?>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <input id="valor_origen_ad" type="hidden" value="<?php echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">
-               
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">Moneda de Transacción</div></div>
-            <div class="row">
-                <input id="valor_tasa_cambio_ad" type="hidden" value="<?php echo $asiento_diario[0]['idtasa_cambio']; ?>">
-                <div class="col-md-4" id="moneda"><?php echo form_dropdown('idmoneda', $idmoneda); ?></div></div>
-            <div class="row">
-                <div class="col-md-4">Tipo de Cambio</div></div>
-            <div class="row">
-
-                <div class="col-md-4" >
-
-                    <input type="text" readonly="reaonly" id="tasa_cambio" value="1" >
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="<?php echo $asiento_diario[0]['idtasa_cambio']?>">
-
-                </div>
-
-                <div class="col-md-4 col-md-offset-4">Descripción de Asiento</div>
-                <div class="col-md-4 col-md-offset-4"><textarea  type="text" placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" style="width: 300px;height: 80px"><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?></textarea></div>
-            </div>
+           <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ;?>">
             <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
-            <input id="valor_dolar" type="hidden" ></input>
-            Usuario Creacion:
-            <input id="usuario_creacion" readonly="readonly" placeholder="usuario" size="4" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>"></input>
-
-            <input id="usuario_edicion" type="hidden" placeholder="usuario edicion" size="10" value="cacao"></input>
-            
-            <!--/////////////////// id de asiento diario--->
-
-            <input id="idasiento_diario" type="hidden" value="<?php echo $asiento_diario[0]['idasiento_diario_recurrente']; ?>"></input>
-            <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
+            <input id="valor_dolar" type="hidden" >
+            <input id="usuario_creacion" type="hidden" value="cacao">
+           <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
             <table class="table-striped">
                 <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
                     <tr>
@@ -66,8 +51,8 @@
             </table>
 
 
-            <div style="overflow:auto;height: 400px;">
-                  <table class=" table table-striped">
+            <div style="overflow:auto;height: 180px;">
+                  <table class=" table table-striped valor">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
 
                     <tr id="clone" style="display: none" class="">

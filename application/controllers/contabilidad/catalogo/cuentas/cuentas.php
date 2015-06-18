@@ -8,12 +8,13 @@ class Cuentas extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $data['titulo'] = 'Catalogo Cuentas';
-        $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
     }
 
      public function index($var) {
+        $data['titulo'] = 'Catalogo Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+         
         if ($var == 1) {
             $this->load->view('contabilidad/catalogo/cuentas/cuentas_lista_view');
         } else if ($var == 0) {
@@ -165,10 +166,12 @@ class Cuentas extends CI_Controller {
     }
     
     public function cuenta_crear() {
+        $data['titulo'] = 'Catalogo Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
         
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]|callback_not_numeric');
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
-        $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required');
+        $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required|numeric');
         
         $this->form_validation->set_message('is_unique', 'El campo nombre de cuenta no puede repetirce');
         $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede contener numeros');
@@ -177,7 +180,14 @@ class Cuentas extends CI_Controller {
         $data['tipocuenta'] = $tipocuenta;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
-        $data['idgrupo_cuenta'] = $this->Grupo_cuentas_model->lista_grupo();
+        $grupos = $this->Grupo_cuentas_model->lista_grupo();
+        
+        if($grupos!=""){
+            $data['idgrupo_cuenta'] = $grupos;
+            
+        }else{
+            $data['idgrupo_cuenta'] = array("ND"=>"ND");
+        }
         
         $idcuenta_contable = array(
               'name'        => 'idcuenta_contable',
@@ -205,6 +215,8 @@ class Cuentas extends CI_Controller {
     }
 
     public function cuenta_modificar($idcatalogo) {
+        $data['titulo'] = 'Catalogo Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
         
         $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|callback_not_numeric');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash');
@@ -256,6 +268,38 @@ class Cuentas extends CI_Controller {
         elseif($estado==1) {header('Location:'.base_url().'index.php/contabilidad/catalogo/cuentas/cuentas/index/0');}
         
     }
+    
+    public function cuenta_relacion_adr_adrd() {
+        $this->load->model('contabilidad/transacciones/asiento_diario_detalle/Asiento_diario_detalle_model');
+        $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
+
+        $idcuenta = filter_input(INPUT_POST, 'idcuenta');
+//        
+        $cuenta_contable_add = $this->Asiento_diario_detalle_model->cuenta_relacion_adr("idcuenta_contable",$idcuenta);
+        $cuenta_contable_addr = $this->Asiento_diario_detalle_recurrente_model->cuenta_relacion_adr_recurrente("idcuenta_contable",$idcuenta);
+       
+        echo(count($cuenta_contable_add)+ count($cuenta_contable_addr));
+    }
+    
+    public function cuenta_eliminar($idcuenta) {
+        $this->Catalogo_cuentas_model->eliminar_cuenta($idcuenta);
+        
+        header('Location:' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/index/0');
+    }
+     
+    public function cuenta_consulta_esturctura_id(){
+        $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
+        $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
+        
+        $idgrupo = filter_input(INPUT_POST, 'idgrupo');
+        
+        $grupo = $this->Grupo_cuentas_model->encontrar_por_id_datos($idgrupo);
+        $categoria = $this->Categorias_cuentas_model->encontrar_por_id_datos($grupo[0]['idcategoria_cuenta']);
+        
+        
+        echo($categoria[0]['idestructura_base']."|".$grupo[0]['idcategoria_cuenta']."|".$grupo[0]['nivel']."|".$grupo[0]['nivel_anterior']);
+    }
+    
 
 }
 

@@ -44,8 +44,8 @@
                 
             </div>         
             <div style="margin:0px auto; width: 250px;">
-                <?php echo form_submit('botonSubmit', '  Crear  ', 'class="btn btn-success fa fa-reply-all fa-lg "'); ?>
-                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success fa fa-reply-all fa-lg"> Regresar</a>
+                <?php echo form_submit('botonSubmit', '  Crear  ', 'class="btn btn-success "'); ?>
+                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success">Cancelar</a>
                 <?php echo form_close(); ?>
             </div>
 

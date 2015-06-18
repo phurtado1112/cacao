@@ -8,10 +8,11 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
     </head>
     <body>
+        <img class="grande img-responsive" style="position:absolute" src="<?php echo base_url(); ?>public/img/cacao.png">
         <div class="container well" id="formulario"> 
             <div class="row"> 
                 <div class="col-xs-12"> 
-                    <i class="fa fa-user-secret fa-5x" id="avatar"></i>
+                    <i class="fa fa-leaf fa-5x" id="avatar"></i>
                 </div>
                 <form action="<?php echo base_url(); ?>index.php/contabilidad/contabilidad" class="login">
                     <div class="form-group"> 
@@ -20,10 +21,11 @@
                     <div class="form-group"> 
                         <input type="password" id="pass" name="pass" placeholder="Password" class="form-control">
                     </div>
-                    <button class="btn btn-lg btn-success btn-block" type="submit">Aceptar</button>
+                    <button class="btn btn-lg btn-success btn-block center-block aceptar" type="submit">Aceptar</button>
                 </form>
             </div>
         </div>
+        
 
 <!--        <h1>Login<a href="<?php echo base_url(); ?>index.php/contabilidad/contabilidad"></a></h1>-->
         <script src="<?php echo base_url(); ?>public/js/jquery-2.1.3.min.js"></script>

@@ -1,34 +1,33 @@
 <div class="container diario">
     <div class="row">
         <div class="span3 well ">
-            <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Asiento de Diario Recurrente</h4>
-            <div class="row">
-                <div class="col-md-4">Origen Asiento Diario</div>
-                <div class="col-md-4 col-md-offset-3">Fecha de Creacion </div></br>
-                <div class="col-md-4"><?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?></div></br>
-                <div class="col-md-4 col-md-offset-3"  ><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
-                <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ;?>">
-                <div class="col-md-4 ">Moneda de Transacción</div></br>
-                
-            </div>
-            <div class="row">
-                <div class="col-md-4" id="moneda"><?php echo form_dropdown('idmoneda', $idmoneda); ?></div></div>
-            <div class="row">
-                <div class="col-md-4">Tipo de Cambio</div></div>
-            <div class="row">
-                <div class="col-md-4" >
-                    <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio">
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
-                </div>
-            </div>
+            <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Asiento de Diario Recurrente</h4><br>
+            <div class="row"></br>
+            <table class="table asiento">
+                <tr>
+                   <td>Origen Asiento Diario 
+                    <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?></td>
+                   <th>Fecha de Creacion</th>
+                   <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></td>
+                   <th rowspan="2">Descripción de Asiento
+                   <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"></textarea></th>
+                </tr> 
+                <tr>
+                    <td>Moneda de Transacción
+                        <div id="moneda"> 
+                        <?php echo form_dropdown('idmoneda', $idmoneda); ?></div></td>
+                    <th>Tipo de Cambio</th>
+                    <td><input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio">
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1"></td>
+                </tr>
+                <tr><th></th><td></td><th></th><th><div id="add-delete"><a class="btn btn-primary fa fa-plus fa-sm " role="button" id="agregar"></a></div></th></tr>
+            </table>
+           <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ;?>">
+            
             <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
             <input id="valor_dolar" type="hidden" >
             <input id="usuario_creacion" type="hidden" value="cacao">
-            <div class="row"> 
-                <div class="col-md-4 col-lg-push-4">Descripción de Asiento</div>
-            </div>
-            <div class="col-md-4 col-md-offset-5"><textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"></textarea></div></br></br></br>
-            <div id="add-delete"><a class="btn btn-primary fa fa-plus fa-sm " role="button" id="agregar"></a></div>
+            
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
             <table class="table-striped">
                 <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
@@ -47,7 +46,7 @@
                     <tr id="clone" style="display: none" class="">
                 <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>
                 <td> 
-                    <div class="input-group"style="width: 150px;" >
+                    <div class="input-group" style="width: 150px;" >
                         <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                         <span class="input-group-btn">
                             <button id="b_" class="btn btn-default buscar_cuenta" type="button"><i class="fa-search fa flg" ></i></button>
@@ -65,7 +64,7 @@
             <tbody id="campos_agregados">
                 <tr id="1" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">1</div><input type="hidden" class="numero_transaccion" value="1"></td>
-                    <td><div class="input-group"style="width: 150px;" >
+                    <td><div class="input-group" style="width: 150px;" >
                             <input type="text" id="idcuenta_contable_1" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                             <span class="input-group-btn">
                                 <button id="b_1" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
@@ -81,7 +80,7 @@
                 </tr>
                 <tr id="2" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">2</div><input type="hidden" class="numero_transaccion" value="2"></td>
-                    <td><div class="input-group"style="width: 150px;" >
+                    <td><div class="input-group" style="width: 150px;" >
                             <input type="text" id="idcuenta_contable_2" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                             <span class="input-group-btn">
                                 <button id="b_2" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
@@ -111,3 +110,4 @@
         </div>
     </div>
 </div>
+    
