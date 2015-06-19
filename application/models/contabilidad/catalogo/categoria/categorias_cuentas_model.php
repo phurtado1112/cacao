@@ -56,6 +56,16 @@ class Categorias_cuentas_model extends CI_Model{
         }
         return $query->result_array(); 
     }
+//para establecer numero de cuenta    
+    public function encontrar_por_id_datos($idcategorias = NULL) {
+        if($idcategorias != NULL){
+            
+        $query = $this->db->where('idcategoria_cuenta',$idcategorias);
+        $query = $this->db->get('categoria_cuenta');
+            
+        }
+        return $query->result_array(); 
+    }
 //modificar    
     public function modificar_categoria($idcategoria_cuenta){
          $form_data = $this->input->post();
@@ -81,7 +91,10 @@ class Categorias_cuentas_model extends CI_Model{
         return $option;
       }
       
-
+      public function eliminar_categoria($idcategorias){
+         
+        $this->db->query('DELETE FROM categoria_cuenta WHERE idcategoria_cuenta='.$idcategorias );
+    }
    
 }
 

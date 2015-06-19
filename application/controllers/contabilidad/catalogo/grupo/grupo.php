@@ -162,7 +162,7 @@ class Grupo extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]|callback_not_numeric');
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
         $this->form_validation->set_rules('nivel', 'Nivel', 'required|numeric');
         $this->form_validation->set_rules('nivel_anterior', 'Nivel anterior', 'required|numeric');
         $this->form_validation->set_rules('idcategoria_cuenta', 'Categoria', 'required');
@@ -273,6 +273,21 @@ class Grupo extends CI_Controller {
             echo $str_option;
     }
     
+    public function grupo_dependencia_cuenta() {
+         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
+
+        $cuenta = filter_input(INPUT_POST, 'idcuenta_contable');
+        
+        $cuenta_grupo = $this->Catalogo_cuentas_model->cuenta_dependencia_grupo("idgrupo_cuenta",$cuenta);
+       
+        echo(count($cuenta_grupo));
+    }
+    
+    public function grupo_eliminar($idgrupo) {
+        $this->Grupo_cuentas_model->eliminar_grupo($idgrupo);
+        
+        header('Location:' . base_url() . 'index.php/contabilidad/catalogo/grupo/grupo/index/0');
+    }
 }
 
 /* Fin del archivo my_controller.php */

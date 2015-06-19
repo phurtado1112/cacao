@@ -44,6 +44,9 @@ class Asiento_diario_detalle_model extends CI_Model {
             WHERE (idasiento_diario = ".$idasiento_diario.") AND (numero_transacciones =".$numero_transacciones.")");
     }
     
-
+     public function cuenta_relacion_adr($campo,$valor) {
+            $query = $this->db->query("select * from asiento_diario_detalle WHERE ".$campo."='".$valor."'");
+            return $query->result_array(); 
+     }
 
 }

@@ -81,7 +81,7 @@ $(document).ready(function () {
 
 /////validacion que solo debito o solo credito
     
-    $("#campos_agregados").on('keyup', ".campo_debito",function () {
+    $("#campos_agregados").on('keypress', ".campo_debito",function () {
         
         var  id_original=$(this).attr("id");
         var idcampo = parseInt(id_original.substr(id_original.length-1,id_original.length));
@@ -94,7 +94,7 @@ $(document).ready(function () {
 
     });
     
-    $("#campos_agregados").on('keyup', ".campo_credito",function () {
+    $("#campos_agregados").on('keypress', ".campo_credito",function () {
         
         var  id_original=$(this).attr("id");
         var idcampo = parseInt(id_original.substr(id_original.length-1,id_original.length));

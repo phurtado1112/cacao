@@ -5,7 +5,7 @@ class Catalogo_cuentas_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
-    }
+    } 
 
     //agregar un nuevo catalogo de cuentas
     public function agregar_catalogo() {
@@ -76,6 +76,12 @@ class Catalogo_cuentas_model extends CI_Model {
     public function numero_cuentas_buscadas($campo, $valor) {
         $numero_registros = $this->db->query("SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=1 AND " . $campo . " LIKE '%" . $valor . "%' ORDER BY idcuenta_contable");
         return $numero_registros->num_rows();
+    }
+    
+   
+     public function eliminar_cuenta($idcuenta){
+         
+        $this->db->query('DELETE FROM catalogo_cuenta WHERE idcuenta_contable="'.$idcuenta.'"');
     }
 
 }

@@ -4,11 +4,11 @@ $i = $num + 1;
 if (!empty($consulta_categorias)) {
     echo"<table class='table table-striped table-bordered'>"
     . " <tr>
-                                <th>No°</th>
+                                <th class='tabletext'>No°</th>
                                 <th>Categoría</th>
                                 <th>Tipo</th>
-                                <th>Modificar</th>
-                                <th>Desactivar</th>
+                                <th class='tabletext'>Modificar</th>
+                                <th class='tabletext'>Desactivar</th>
                             </tr> ";
 
     foreach ($consulta_categorias as $cate) {
@@ -16,11 +16,11 @@ if (!empty($consulta_categorias)) {
         echo"
                                    
                         <tr>
-                        <td>" . $i . "</td>
+                        <td class='tabletext'>" . $i . "</td>
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_modificar/' . $id . '" class="fa fa-pencil fa-fw">Editar</a>' . "</td>
-                        <td>" . '<a class="fa fa-ban fa-fw inactivar" value="'.$id.'">Inactivar</a>' .
+                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/categoria_modificar/' . $id . '" class="fa fa-pencil fa-fw"></a>' . "</td>
+                        <td>" . '<a class="fa fa-ban fa-fw inactivar" value="'.$id.'"></a>' .
                         "</tr>";
 
         $i++;
@@ -37,11 +37,11 @@ if (!empty($consulta_categorias)) {
 } elseif (!empty($consulta_categorias_inactivas)) {
     echo"<table class='table table-striped table-bordered'>"
     . " <tr>
-                                <th>No°</th>
+                                <th class='tabletext'>No°</th>
                                 <th>Categoría</th>
                                 <th>Tipo</th>
-                                <th>Activar</th>
-                                <th>Eliminar</th>
+                                <th class='tabletext'>Activar</th>
+                                <th class='tabletext'>Eliminar</th>
                             </tr> ";
 
     foreach ($consulta_categorias_inactivas as $cate) {
@@ -49,11 +49,11 @@ if (!empty($consulta_categorias)) {
         echo"
                                    
         <tr>
-                        <td>" . $i . "</td>
+                        <td class='tabletext'>" . $i . "</td>
                         <td>" . $cate['categoria'] . "</td>
                         <td>" . $cate['nombre'] . "</td>
-                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/" . $id . "/1' class='fa fa-retweet fa-fw'>Activar</a></td>
-                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_eliminar/" . $id . "' class='fa fa-trash fa-fw'>Eliminar</a></td>" .
+                        <td>" . "<a href='" . base_url() . "index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/" . $id . "/1' class='fa fa-retweet fa-fw'></a></td>
+                        <td>" . "<a value=".$id." class='fa fa-trash fa-fw eliminar'></a></td>" .
         "</tr>";
 
         $i++;

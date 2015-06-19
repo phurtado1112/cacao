@@ -8,12 +8,13 @@ class Categoria extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $data['titulo'] = 'Categorias Cuentas';
-        $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
     }
 
     public function index($var) {
+        $data['titulo'] = 'Categorias Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        
         if ($var == 1) {
             $this->load->view('contabilidad/catalogo/categoria/categorias_lista_view');
         } else if ($var == 0) {
@@ -161,6 +162,9 @@ class Categoria extends CI_Controller {
     }
     
     public function categoria_crear() {
+        $data['titulo'] = 'Categorias Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        
         $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]|trim|callback_not_numeric');
         
         $this->form_validation->set_message('not_numeric', 'El campo Categoria de la cuenta de cuenta no puede contener numeros');
@@ -199,6 +203,8 @@ class Categoria extends CI_Controller {
     
     
     public function categoria_modificar($idcategorias) {
+        $data['titulo'] = 'Categorias Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
 
         $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]|trim|callback_not_numeric');
         
@@ -226,7 +232,22 @@ class Categoria extends CI_Controller {
         }
         $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
+    
+    public function categoria_eliminar($idcategorias) {
+        $this->Categorias_cuentas_model->eliminar_categoria($idcategorias);
+        
+        header('Location:' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/index/0');
+    }
+    
+     public function categoria_relacion_grupo() {
+        $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
 
+        $categoria = filter_input(INPUT_POST, 'idcategoria_cuenta');
+        
+        $grupo_nivel = $this->Grupo_cuentas_model->grupo_dependencia_categoria("idcategoria_cuenta",$categoria);
+       
+        echo(count($grupo_nivel));
+    }
 }
 
 /*Fin del archivo my_controller.php*/
