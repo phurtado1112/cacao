@@ -15,7 +15,7 @@
                     <tr>
                         <th>Nombre de la Categoría</th>
                     
-                    <th><?php $autofoco = array('name' => 'categoria_cuenta','autofocus' => 'autofocus'); echo form_input($autofoco);echo form_error('categoria_cuenta'); ?></th>
+                    <th><?php echo form_input('categoria_cuenta');echo form_error('categoria_cuenta'); ?></th>
                
                     </tr>
                     <tr>
