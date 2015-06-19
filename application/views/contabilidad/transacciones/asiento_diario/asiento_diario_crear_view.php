@@ -2,38 +2,40 @@
     <div class="row">
         <div class="span3 well ">
             <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Asiento de Diario</h4>
-            <div class="row">
-                <div class="col-md-4">Origen Asiento Diario</div>
-                <div class="col-md-4 col-md-offset-3">Fecha de Creacion<a id="listar_adr" href="http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente"> Usar Asiento Recurrente</a><!--boton para agregar AD recurrente--></div></br>
-                <div class="col-md-4">
+            <div class="row"></br>
+            <table class="table asiento">
+                <tr>
+                    <td>Origen Asiento Diario
                     <input type="hidden" id='valor_origen_ad' value='<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['idorigen_asiento_diario'];}?>'>
-                    <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?>
-                </div></br>
-                <div class="col-md-4 col-md-offset-3"  ><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></div>
-                <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD-->
-                <div class="col-md-4 ">Moneda de Transacción</div></br>
-                <div class="col-md-4 col-lg-push-3">Fecha Fiscal  </div><input class="col-lg-1 fecha" type="text" id="fecha_fiscal"></br>
-            </div>
-            <div class="row">
-                <div class="col-md-4" id="moneda"><?php echo form_dropdown('idmoneda', $idmoneda); ?></div></div>
-            <div class="row">
-                <div class="col-md-4">Tipo de Cambio</div></div>
-            <div class="row">
-                <div class="col-md-4" >
-                    <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio">
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1"><!--almacena dinamicamnet id de la tasa del cambio-->
-                </div>
-            </div>
-            <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
-            <input id="valor_dolar" type="hidden" ><!--guarda el valor del dolar para multiplicar los montos de las transacciones-->
+                    <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?> </td>
+                    <th>Fecha de Creacion</th>
+                    <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
+                     <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
+                    <th rowspan="2">Descripción de Asiento
+                        <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['descripcion_asiento_diario_recurrente'];}?></textarea>
+                    </th>
+                </tr>
+                <tr>
+                    <td>Moneda de Transacción
+                        <div id="moneda"> 
+                        <?php echo form_dropdown('idmoneda', $idmoneda); ?></div></td>
+                    <th>Fecha Fiscal</th>
+                    <td><input class="col-lg-1 fecha" type="text" id="fecha_fiscal"></td>
+                </tr>
+                <tr>
+                    <td>Tipo de Cambio
+                        <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
+                    <input id="valor_dolar" type="hidden" ></td>
+                    <th>Numero Asiento diario:</th><td><input id="numero_asiento_diario" readonly="readonly" type="text"></td>
+                    <th class="tablaasiento ad"><a id="listar_adr" style="width: 180px !important;" class="btn btn-success fa fa-plus-circle fa-lg rec"
+                           href="http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">
+                            Asiento Recurrente</a> <a style="margin-left:3px;" class="btn btn-success fa fa-plus fa-lg rec" role="button" id="agregar"> Cuenta</a></th>
+                </tr>
+            </table>
             <input id="usuario_creacion" type="hidden" value="cacao">
-            <div class="row"> 
-                <div class="col-md-3">Numero Asiento diario: </div>
-                <div class="col-md-4 col-lg-push-4">Descripción de Asiento</div>
-            </div>
-            <input id="numero_asiento_diario" class="col-lg-2" readonly="readonly" type="text"> 
-            <div class="col-md-4 col-md-offset-5"><textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"><?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['descripcion_asiento_diario_recurrente'];}?></textarea></div></br></br></br>
-            <div id="add-delete"><a class="btn btn-primary fa fa-plus fa-sm " role="button" id="agregar"></a></div>
+            <div><!--boton para agregar AD recurrente--></div>
+            
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
             <table class="table-striped">
                 <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
@@ -46,13 +48,13 @@
                     </tr>
                 </thead>
             </table>
-            <div style="overflow:auto;height: 200px;" class="valor">
-                <table class="table table-striped" >
+            <div style="overflow:auto;height: 240px;" class="valor">
+                <table class="table table-striped"  id="contenedor_transacciones">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
                     <tr id="clone" style="display: none" class="">
                 <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>
                 <td> 
-                    <div class="input-group"style="width: 150px;" >
+                    <div class="input-group" style="width: 150px;" >
                         <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                         <span class="input-group-btn">
                             <button id="b_" class="btn btn-default buscar_cuenta" type="button"><i class="fa-search fa flg" ></i></button>
@@ -151,15 +153,16 @@
                 
             </tbody>
                 </table>
+                <div id="add-delete"></div>
             </div> 
             <div class="row divboton col-sm-pull-4"> 
-                <div class="row col-md-offset-8">
+                <div class="row col-md-offset-7">
                     <input id="total_debito" name ='total_debito' value="<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['balance_debito'];}else{echo "0.0";}?>" type="text" readonly class='col-lg-4 valorDC'>
                     <input id="total_credito" name ='total_credito' value="<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['balance_credito'];}else{echo "0.0";}?>" readonly class='col-lg-4  col-xs-push-1 valorDC'>
                 </div>
                 <div style="padding-left: 15px;"> 
-                    <button class="btn btn-success btn-lg" id="guardar">Guardar</button>
-                    <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index" class="btn btn-success btn-lg " role="button">Cancelar</a>
+                    <button class="btn btn-success btn-lg fa fa-check fa-lg" id="guardar">Guardar</button>
+                    <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index" class="btn btn-success btn-lg fa fa-close fa-lg" role="button">Cancelar</a>
                 </div>
             </div>
         </div>

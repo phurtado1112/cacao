@@ -1,19 +1,10 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-                <link rel="stylesheet" href="<?php echo base_url();?>public/css/bootstrap.css">
-                <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
-        <title></title>
-    </head>
-    <body>
         <div class="container">
             <div class="row">
                 <div class="span3 well">
                     <div class="navbar navbar-inner block-header">
-                        <a href="<?php echo base_url();?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success"> Regresar</a>
+                        <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar Grupo de cuentas</h4></br>
                     </div>
-                    <div class="block-content collapse in valor">
+                    <div class="block-content collapse in valor" style="width: 80%; margin: auto; padding:0px 10px;">
                         <?php 
                             echo form_open();
                             echo form_hidden('idgrupo_cuenta',$idgrupo);
@@ -48,10 +39,11 @@
                         </table>
                         
                     </div>
-                                            <?php 
-                            echo form_submit('botonSubmit', '  Editar  ', "class='btn btn-success'");
-                            echo form_close();
-                        ?>
+                <div style="margin:0px auto; width: 250px;">
+                <?php echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success "'); ?>
+                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success">Cancelar</a>
+                <?php echo form_close(); ?>
+            </div>
                 </div>
             </div>
         </div>

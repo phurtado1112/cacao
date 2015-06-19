@@ -44,6 +44,9 @@ class Asiento_diario_detalle_recurrente_model extends CI_Model {
             WHERE (idasiento_diario_recurrente = ".$idasiento_diario_recurrente.") AND (numero_transacciones =".$numero_transacciones.")");
     }
     
-
+    public function cuenta_relacion_adr_recurrente($campo,$valor) {
+            $query = $this->db->query("select * from asiento_diario_detalle_recurrente WHERE ".$campo."='".$valor."'");
+            return $query->result_array(); 
+     }
 
 }

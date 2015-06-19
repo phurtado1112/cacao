@@ -3,10 +3,9 @@
     <div class="row">
         <div class="span3 well">
             <div class="navbar navbar-inner block-header">
-                <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar cuentas contables</h4></br>
-                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success fa fa-reply-all fa-lg"> Regresar</a>
+                <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar cuentas contables</h4><br>
             </div>
-            <div class="block-content collapse in valor">
+            <div class="block-content collapse in valor" style="width: 80%; margin: auto; padding:0px 10px;">
                 <?php
                 echo form_open();
                 echo form_hidden('idcuenta_contable', $idcatalogo);
@@ -44,11 +43,14 @@
                     </tr>
                 </table>
             </div>
+             <div style="margin:0px auto; width: 250px;">
             <?php
-            echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success"');
+            echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success"'); ?>
+            <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success">Cancelar</a>
+            <?php
             echo form_close();
             ?>
-
+            </div>
         </div>
     </div>
 </div>

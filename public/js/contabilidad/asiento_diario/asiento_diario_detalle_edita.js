@@ -33,11 +33,9 @@ $(document).ready(function () {
     asig_valores_recuperados();
     //////////////// agregar campos de detalles de asiento///////////////
     function scrollWin() {
-
-        $('html,body').animate({
-            scrollTop: $("#add-delete").offset().top
-        }, 1);
-    }
+    $('.valor').animate({
+        scrollTop: $("#contenedor_transacciones").height()+1000}, 1);
+}
 
     function generar_transacciones() {
         scrollWin();

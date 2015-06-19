@@ -5,7 +5,7 @@ if (!empty($consulta_asiento_diario)) {
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>No.AD</th>
+                    <th class='tabletext'>No.AD</th>
                     <th>Origen</th>
                     <th>Descripción</th>
                     <th>Fecha</th>
@@ -25,14 +25,15 @@ if (!empty($consulta_asiento_diario)) {
                         echo"
                         <tr>
                         
-                        <td>" . $ad['numero_asiento_diario'] . "</td>
+                        <td class='tabletext'>" . $ad['numero_asiento_diario'] . "</td>
                         <td>" . $ad['origen'] . "</td>
                         <td>" . $ad['descripcion_asiento_diario'] . "</td>
                         <td>" . $ad['fecha_creacion'] . "</td>
-                        <td>" . $ad['balance_debito'] . "</td>
-                        <td>" . $ad['balance_credito'] . "</td>
-                        <td>" . '<a href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/' . $num_ad . '/'.$id_ad.'">Editar</a> -- '
-                              . '<a class="eliminar_ad" value="'.$id_ad.'">Eliminar</a>' . "</td>
+                        <td class='tabletext'>" . $ad['balance_debito'] . "</td>
+                        <td class='tabletext'>" . $ad['balance_credito'] . "</td>
+                        <td class='ad'>" . '<a  class="fa fa-pencil fa-sm" href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/' . $num_ad . '/'.$id_ad.'">&nbsp;Editar</a> | '
+                              . '<a class="eliminar_ad fa fa-trash fa-sm" value="'.$id_ad.'">&nbsp;Eliminar</a> | ' 
+                              . '<a class="fa fa-external-link fa-sm" value="'.$id_ad.'">&nbsp;Mayorizar</a>'."</td>
                         </tr>";
                     }
                     

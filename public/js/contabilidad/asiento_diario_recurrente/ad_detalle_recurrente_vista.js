@@ -4,10 +4,9 @@ $(document).ready(function () {
     
     //////////////// agregar campos de detalles de asiento///////////////
     function scrollWin() {
-        $('html,body').animate({
-            scrollTop: $("#add-delete").offset().top
-        }, 1);
-    }
+    $('.valor').animate({
+        scrollTop: $("#contenedor_transacciones").height()+1000}, 1);
+}
 
     $("#agregar").on('click', function () {
         scrollWin();

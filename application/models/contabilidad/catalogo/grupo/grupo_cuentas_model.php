@@ -49,6 +49,17 @@ class Grupo_cuentas_model extends CI_Model{
         return $query->result_array(); 
         
     }
+    
+    public function encontrar_por_id_datos($idgrupo = NULL) {
+        if($idgrupo != NULL){
+            
+        $query = $this->db->where('idgrupo_cuenta',$idgrupo);
+        $query = $this->db->get('grupo_cuenta');
+            
+        }
+        return $query->result_array(); 
+        
+    }
    
     public function grupo_modificar($idgrupo){
          $form_data = $this->input->post();
@@ -82,12 +93,12 @@ class Grupo_cuentas_model extends CI_Model{
       }
       
       public function grupo_por_campo_condicion($campo,$valor,$campo_c=NULL,$valor_c=NULL) {
-        if($valor > 1 && $campo != NULL){
-            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor." AND  ".$campo_c."=".$valor_c."");
+        if($valor > 0 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor." AND  ".$campo_c."=".$valor_c."");
             return $query->result_array(); 
             
-        }else if($valor == 1 && $campo != NULL){
-            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor."");
+        }else if($valor == 0 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor."");
             return $query->result_array(); 
             
         }else if($valor == 0){
@@ -95,7 +106,15 @@ class Grupo_cuentas_model extends CI_Model{
         } 
         
     }
-     
+    
+    public function grupo_dependencia_categoria($campo,$valor) {
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor."");
+            return $query->result_array(); 
+    }
+    
+    public function eliminar_grupo($idgrupo){
+        $this->db->query('DELETE FROM grupo_cuenta WHERE idgrupo_cuenta ='.$idgrupo );
+    }
    
 }
 
