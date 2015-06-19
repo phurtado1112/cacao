@@ -104,7 +104,7 @@
         <ul class="dropdown-menu">
             <li><a href="<?php echo base_url();?>">Cierre Fiscal</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url();?>">Configuración del Módulo</a></li>
+            <li><a href="<?php echo base_url();?>index.php/contabilidad/gestion/configuracion">Configuración del Módulo</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url();?>">Periodos Fiscales</a></li>
         </ul>

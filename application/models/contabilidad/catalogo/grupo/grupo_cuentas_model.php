@@ -94,7 +94,7 @@ class Grupo_cuentas_model extends CI_Model{
       
       public function grupo_por_campo_condicion($campo,$valor,$campo_c=NULL,$valor_c=NULL) {
         if($valor > 0 && $campo != NULL){
-            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor." AND  ".$campo_c."=".$valor_c."");
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor." AND  ".$campo_c."=".$valor_c." AND estado=1");
             return $query->result_array(); 
             
         }else if($valor == 0 && $campo != NULL){
