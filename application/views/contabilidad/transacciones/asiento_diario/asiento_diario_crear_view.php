@@ -12,7 +12,7 @@
                     <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
                      <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
                     <th rowspan="2">Descripción de Asiento
-                    <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"><?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['descripcion_asiento_diario_recurrente'];}?></textarea>
+                        <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['descripcion_asiento_diario_recurrente'];}?></textarea>
                     </th>
                 </tr>
                 <tr>
@@ -35,7 +35,7 @@
             </table>
             <input id="usuario_creacion" type="hidden" value="cacao">
             <div><!--boton para agregar AD recurrente--></div>
-            <div id="add-delete"></div>
+            
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
             <table class="table-striped">
                 <thead ><!---style="position: absolute;margin-bottom: 50px;"-->
@@ -49,7 +49,7 @@
                 </thead>
             </table>
             <div style="overflow:auto;height: 240px;" class="valor">
-                <table class="table table-striped" >
+                <table class="table table-striped"  id="contenedor_transacciones">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
                     <tr id="clone" style="display: none" class="">
                 <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>
@@ -153,6 +153,7 @@
                 
             </tbody>
                 </table>
+                <div id="add-delete"></div>
             </div> 
             <div class="row divboton col-sm-pull-4"> 
                 <div class="row col-md-offset-7">

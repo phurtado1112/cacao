@@ -10,7 +10,7 @@
                    <th>Fecha de Creacion</th>
                    <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?></td>
                    <th rowspan="2">Descripción de Asiento
-                   <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?></textarea></th>
+                       <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?></textarea></th>
                 </tr> 
                 <tr>
                     <td>Moneda de Transacción
@@ -52,7 +52,7 @@
 
 
             <div style="overflow:auto;height: 180px;">
-                  <table class=" table table-striped valor">
+                  <table class=" table table-striped valor" id="contenedor_transacciones">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
 
                     <tr id="clone" style="display: none" class="">
