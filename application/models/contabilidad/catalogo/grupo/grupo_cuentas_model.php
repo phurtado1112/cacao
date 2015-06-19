@@ -93,12 +93,12 @@ class Grupo_cuentas_model extends CI_Model{
       }
       
       public function grupo_por_campo_condicion($campo,$valor,$campo_c=NULL,$valor_c=NULL) {
-        if($valor > 1 && $campo != NULL){
-            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor." AND  ".$campo_c."=".$valor_c."");
+        if($valor > 0 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor." AND  ".$campo_c."=".$valor_c."");
             return $query->result_array(); 
             
-        }else if($valor == 1 && $campo != NULL){
-            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."<".$valor."");
+        }else if($valor == 0 && $campo != NULL){
+            $query = $this->db->query("select * from grupo_cuenta WHERE ".$campo."=".$valor."");
             return $query->result_array(); 
             
         }else if($valor == 0){

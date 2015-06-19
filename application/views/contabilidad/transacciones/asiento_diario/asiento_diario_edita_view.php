@@ -12,7 +12,7 @@
                     <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
                      <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
                     <th rowspan="2">Descripción de Asiento
-                    <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea"><?php echo $asiento_diario[0]['descripcion_asiento_diario']; ?></textarea>
+                        <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php echo $asiento_diario[0]['descripcion_asiento_diario']; ?></textarea>
                     </th>
                 </tr> 
                 <tr>
@@ -54,7 +54,7 @@
                 </thead>
             </table>
             <div style="overflow:auto;height:180px;" class="valor">
-                <table class=" table table-striped ">
+                <table class=" table table-striped" id="contenedor_transacciones">
                     <!---------------------------------------elemento a clonar------------------------------------------------>
                     <tr id="clone" style="display: none" class="">
                         <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>

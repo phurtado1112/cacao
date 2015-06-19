@@ -12,9 +12,7 @@ function lista_grupo(url1, url2, url_actual) {
         success: function (data) {
             $("#resultado").html(data);
         }
-
     });
-
 }
 
 function valores_edicion_grupo(url1, url2, url3, url_actual) {
@@ -159,12 +157,12 @@ $(document).ready(function () {
     
     
     ///creacion y edicion
-    var nivel = $("select[name=nivel]").val();
+    var nivel = parseInt($("select[name=nivel]").val())-1;
     var categoria = parseInt($("select[name=idcategoria_cuenta]").val());
     select_nivel_superior(nivel, categoria);
 
     $("select[name=nivel]").on("change", function () {
-        var nivel = parseInt($(this).val());
+        var nivel = parseInt($(this).val())-1;
         var categoria = parseInt($("select[name=idcategoria_cuenta]").val());
         select_nivel_superior(nivel, categoria);
 
@@ -172,7 +170,7 @@ $(document).ready(function () {
 
     $("select[name=idcategoria_cuenta]").on("change", function () {
         var categoria = parseInt($(this).val());
-        var nivel = parseInt($("select[name=nivel]").val());
+        var nivel = parseInt($("select[name=nivel]").val())-1;
         select_nivel_superior(nivel, categoria);
 
     });

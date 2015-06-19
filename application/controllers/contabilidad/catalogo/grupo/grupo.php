@@ -261,8 +261,10 @@ class Grupo extends CI_Controller {
         $categoria = filter_input(INPUT_POST, 'idcategoria');
         
         $grupo_nivel = $this->Grupo_cuentas_model->grupo_por_campo_condicion("nivel", $nivel,"idcategoria_cuenta",$categoria);
-       
-        if($grupo_nivel != 0){
+
+        if(count($grupo_nivel)>0){
+            $str_option="";
+            
         foreach($grupo_nivel as $grupo_n){
             $cero_option = "<option value=".$grupo_n['nivel']." >".$grupo_n['grupo_cuenta']."</option>";
             $str_option = $str_option.$cero_option;
