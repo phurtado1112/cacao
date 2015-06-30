@@ -169,12 +169,12 @@ class Cuentas extends CI_Controller {
         $data['titulo'] = 'Catalogo Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
         
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]');
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'callback_not_numeric|required|min_length[2]|trim|is_unique[catalogo_cuenta.cuenta_contable]');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash|is_unique[catalogo_cuenta.idcuenta_contable]');
         $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required|numeric');
         
         $this->form_validation->set_message('is_unique', 'El campo nombre de cuenta no puede repetirce');
-        $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede contener numeros');
+        $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede ser numerico');
         
         $tipocuenta = array('A' => 'Acreedora', 'D' => 'Deudora');
         $data['tipocuenta'] = $tipocuenta;
@@ -218,12 +218,22 @@ class Cuentas extends CI_Controller {
         $data['titulo'] = 'Catalogo Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
         
-        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable', 'required|min_length[2]|trim|callback_not_numeric');
+        $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
+        $data['lista_por_id'] = $this->Catalogo_cuentas_model->encontrar_por_id($idcatalogo);
+        
+        if ($this->input->post('cuenta_contable') != $data['lista_por_id'][0]['cuenta']) {
+            $is_unique = 'is_unique[catalogo_cuenta.cuenta_contable]|';
+        } else {
+            $is_unique = '';
+        }
+        
+        $this->form_validation->set_rules('cuenta_contable', 'Cuenta contable',  $is_unique .'callback_not_numeric|required|min_length[2]|trim|callback_not_numeric');
         $this->form_validation->set_rules('idcuenta_contable', 'Numero de Cuenta', 'required|alpha_dash');
         $this->form_validation->set_rules('idgrupo_cuenta', 'Grupo de Cuenta', 'required');
         
         $this->form_validation->set_message('is_unique', 'El campo nombre de cuenta no puede repetirce');
-        $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede contener numeros');
+        $this->form_validation->set_message('not_numeric', 'El campo nombre de cuenta no puede ser numerico');
+        $this->form_validation->set_message('is_unique', 'El nombre de cuenta"' . $this->input->post("cuenta_contable") . '" ya esta en uso');
         
         $data['idcatalogo'] = $idcatalogo;
 
@@ -300,7 +310,7 @@ class Cuentas extends CI_Controller {
         echo($categoria[0]['idestructura_base']."|".$grupo[0]['idcategoria_cuenta']."|".$grupo[0]['nivel']."|".$grupo[0]['nivel_anterior']);
     }
     
-
+    
 }
 
 /*Fin del archivo my_controller.php*/

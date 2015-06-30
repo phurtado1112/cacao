@@ -39,7 +39,7 @@ if (!empty($consulta_grupo)) {
                                     </ul>
                                 </nav>
                                 </div>";
-} elseif (!empty($consulta_grupo_inactivos)) {
+} else if (!empty($consulta_grupo_inactivos)) {
 
     echo"<table class='table table-striped table-bordered'>"
     . " <tr>

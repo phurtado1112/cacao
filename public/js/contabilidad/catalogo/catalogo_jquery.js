@@ -148,13 +148,6 @@ $(document).on("ready", function () {
         confirmar_eliminar($(this).attr("value"));
     });
     
-    //crear cuenta
-//    $("select[name=idgrupo_cuenta]").on('change', function () {
-//        alert($(this).val());
-//        consulta_cuenta_id($(this).val());
-//        
-//    });
-    
 
   $("#idcuenta_contable").mask("9999-99-99");
 

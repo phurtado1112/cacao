@@ -14,7 +14,8 @@
                 <table class="table table-striped valor">
                     <tr>
                         <th>Nombre de la Categoría</th>
-                        <th><?php echo form_input('categoria_cuenta', $lista_por_id[0]['categoria']);echo form_error('categoria_cuenta'); ?></th>
+                        <th><?php echo form_input('categoria_cuenta', $lista_por_id[0]['categoria']);
+                        echo form_error('categoria_cuenta'); ?></th>
                     </tr>
                     <tr>
                         <th>Estructura Base</th>

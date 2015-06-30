@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) {exit('No direct script access allowed');}
-
 class Cacao extends CI_Controller{
  
     public function __construct() {
@@ -12,5 +11,3 @@ class Cacao extends CI_Controller{
     }
     
 }
-
-/*Fin del archivo my_controller.php*/

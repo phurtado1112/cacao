@@ -17,7 +17,8 @@ $(document).on("ready", function () {
         success: function (data) {
             $("#resultado").html(data);
         },
-        error: function () {
+        error: function (data) {
+            alert(data);
             alert("Error al intentar listar");
         }
 

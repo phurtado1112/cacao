@@ -20,9 +20,10 @@
                     </tr>
                     <tr>
                         <th>Nombre de la Cuenta</th>
-                        <th><?php echo form_input('cuenta_contable');
-                            echo form_error('cuenta_contable');
-                            ?></th>
+                        <th>
+                            <input name='cuenta_contable' autocomplete="off">
+                            <?php echo form_error('cuenta_contable');?>
+                        </th>
                     </tr>
                     <tr>
                         <th>Naturaleza de la cuenta</th>

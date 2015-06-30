@@ -75,11 +75,26 @@ class Asiento_diario_recurrente extends CI_Controller {
         $data['dias'] = $dias;
         $data['meses'] = $meses;
 
-        $this->load->model('contabilidad/transacciones/asiento_diario/Origen_asiento_diario_model');
-        $data['lista_origen_asiento_diario'] = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
+        $this->load->model('administracion/Origen_asiento_diario_model');
+        $lista_origen_asiento_diario = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
 
-        $this->load->model('contabilidad/transacciones/asiento_diario/Tipo_moneda_model');
-        $data['idmoneda'] = $this->Tipo_moneda_model->lista_moneda();
+        foreach ($lista_origen_asiento_diario as $lista_oad) {
+            $lista_oad_final[$lista_oad['idorigen_asiento_diario']] = $lista_oad['descripcion_origen_asiento_diario'];
+        }
+        $data['lista_origen_asiento_diario'] = $lista_oad_final;
+
+        $this->load->model('administracion/Tipo_moneda_model');
+        $lista_idmoneda = $this->Tipo_moneda_model->lista_moneda();
+
+        foreach ($lista_idmoneda as $idmoneda) {
+            $lista_idamoneda_final[$idmoneda['idmoneda']] = $idmoneda['descripcion_moneda'];
+        }
+
+        $data['idmoneda'] = $lista_idamoneda_final;
+
+        $lista_idamoneda_para_agregar = $lista_idamoneda_final;
+        unset($lista_idamoneda_para_agregar[1]);
+        $data['idmoneda_extra'] = $lista_idamoneda_para_agregar;
 
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->view('contabilidad/transacciones/asiento_diario_recurrente/ad_recurrente_crear_view', $data);

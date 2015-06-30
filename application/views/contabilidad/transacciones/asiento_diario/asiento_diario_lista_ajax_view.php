@@ -20,18 +20,17 @@ if (!empty($consulta_asiento_diario)) {
                 
                    
                     foreach ($consulta_asiento_diario as $ad) {
-                        $num_ad = $ad['numero_asiento_diario'];
                         $id_ad = $ad['idasiento_diario'];
                         echo"
                         <tr>
                         
-                        <td class='tabletext'>" . $ad['numero_asiento_diario'] . "</td>
+                        <td class='tabletext'>" . $id_ad . "</td>
                         <td>" . $ad['origen'] . "</td>
                         <td>" . $ad['descripcion_asiento_diario'] . "</td>
                         <td>" . $ad['fecha_creacion'] . "</td>
-                        <td class='tabletext'>" . $ad['balance_debito'] . "</td>
-                        <td class='tabletext'>" . $ad['balance_credito'] . "</td>
-                        <td class='ad'>" . '<a  class="fa fa-pencil fa-sm" href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/' . $num_ad . '/'.$id_ad.'">&nbsp;Editar</a> | '
+                        <td class='tabletext'>" . $ad['balance_debito_nacional'] . "</td>
+                        <td class='tabletext'>" . $ad['balance_credito_nacional'] . "</td>
+                        <td class='ad'>" . '<a  class="fa fa-pencil fa-sm" href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/'.$id_ad.'">&nbsp;Editar</a> | '
                               . '<a class="eliminar_ad fa fa-trash fa-sm" value="'.$id_ad.'">&nbsp;Eliminar</a> | ' 
                               . '<a class="fa fa-external-link fa-sm" value="'.$id_ad.'">&nbsp;Mayorizar</a>'."</td>
                         </tr>";

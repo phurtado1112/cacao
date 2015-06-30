@@ -20,11 +20,11 @@
                                         <div class="form-group row">
                                             <label class="col-md-2 control-label">Año Fiscal</label>
                                             <div class="col-md-2">
-                                                <input type="text" class="form-control" id="input1" placeholder="Año Fiscal">
+                                                <input type="text" class="form-control" id="anio_fiscal" placeholder="Año Fiscal" maxlength="4">
                                             </div>
                                             <label  class="col-md-3 control-label">Decimales de Redondeo</label>
                                             <div class="col-md-3">
-                                                <input type="text" class="form-control" id="input2" placeholder="Decimales de Redondeo">
+                                                <input type="text" class="form-control" id="decimales_redondeo" placeholder="Decimales de Redondeo" maxlength="1">
                                             </div>
                                         </div>
                                     </div>
@@ -36,11 +36,11 @@
                                         <div class="form-group row">
                                             <label class="col-md-2 control-label">Período Actual</label>
                                             <div class="col-md-2">
-                                                <input type="text" class="form-control" id="input3" placeholder="Período Actual">
+                                                <input type="text" class="form-control" id="periodo_actual" placeholder="Período Actual" maxlength="2">
                                             </div>
                                             <label  class="col-md-3 control-label">Patrón de cuenta Contable</label>
                                             <div class="col-md-3">
-                                                <input type="text" class="form-control" id="input2" placeholder="Patrón de cuenta Contable">
+                                                <input type="text" class="form-control" id="patron_cuenta" placeholder="Patrón de cuenta Contable" maxlength="25">
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +52,11 @@
                                         <div class="form-group row">
                                             <label  class="col-md-3 col-lg-offset-4 control-label">Cuenta de Utilidades</label>
                                             <div class="col-md-3">
-                                                <input type="text" class="form-control" id="input2" placeholder="Cuenta de Utilidades">
+                                                <select type="text" class="form-control" id="cuenta_contable" placeholder="Cuenta de Utilidades">
+                                                    <?php 
+                                                        echo $lista_cuenta;
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +81,7 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="bancos" value="1" aria-label="...">
                                             </span>
                                             <label class="form-control">Bancos</label>
                                         </div><!-- /input-group -->
@@ -85,7 +89,7 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="inventarios" value="1" aria-label="...">
                                             </span>
                                             <label class="form-control">Inventarios</label>
                                         </div><!-- /input-group -->
@@ -93,7 +97,7 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="compras" value="1" aria-label="...">
                                             </span>
                                             <label class="form-control">Compras</label>
                                         </div><!-- /input-group -->
@@ -103,7 +107,7 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="cuentas_por_pagar" value="1" aria-label="...">
                                             </span>
                                             <label class="form-control">Cuentas por Pagar</label>
                                         </div><!-- /input-group -->
@@ -111,15 +115,15 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="cuentas_por_cobrar" value="1" aria-label="...">
                                             </span>
-                                            <label class="form-control">Cuentas por Pagar</label>
+                                            <label class="form-control">Cuentas por Cobrar</label>
                                         </div><!-- /input-group -->
                                     </div><!-- /.col-lg-4 -->
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" id="facturas" value="1" aria-label="...">
                                             </span>
                                             <label class="form-control">Facturas</label>
                                         </div><!-- /input-group -->
@@ -131,7 +135,7 @@
                 </div>
             </div>
             <div class="row col-lg-offset-4"> 
-            <button type="button" class="btn btn-success fa fa-pencil fa-lg"> Guardar</button>
+            <button type="button" id="guardar" class="btn btn-success fa fa-pencil fa-lg"> Guardar</button>
             <button type="button" class="btn btn-success fa fa-ban fa-lg"> Cancelar</button>            
             </div>
         </div>

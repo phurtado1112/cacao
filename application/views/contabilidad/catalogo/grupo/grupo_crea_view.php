@@ -36,7 +36,7 @@
                     <tr>
                         <th>Nivel superior</th>
                         <th>
-                            <?= form_dropdown('nivel_anterior'); 
+                            <?= form_dropdown('idnivel_anterior'); 
                             echo form_error('nivel_anterior');?>
                         </th>
                     </tr>

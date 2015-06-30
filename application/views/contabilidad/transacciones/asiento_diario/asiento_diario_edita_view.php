@@ -10,8 +10,8 @@
                     <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?> </td>
                     <th>Fecha de Creacion</th>
                     <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
-                     <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
-                    <th rowspan="2">Descripción de Asiento
+                    <input type="hidden" id="fecha_edicion" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
+                    <th rowspan="2">Descripción de Asienfto
                         <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php echo $asiento_diario[0]['descripcion_asiento_diario']; ?></textarea>
                     </th>
                 </tr> 
@@ -24,11 +24,11 @@
                 </tr>
                  <tr>
                     <td>Tipo de Cambio
-                        <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
+                    <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
                     <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
-                    <input id="valor_dolar" type="hidden" ></td>
-                    <th>Numero Asiento diario:</th><td><input id="numero_asiento_diario" readonly="readonly" type="text" value="<?php echo $asiento_diario[0]['numero_asiento_diario']; ?>"></td>
-                    <th><input id="valor_dolar" type="hidden" >
+                    <input id="valor_moneda_extranjera" type="hidden" ></td>
+                    <th>Numero Asiento diario:</th><td><input id="idasiento_diario" readonly="readonly" type="text" value="<?php echo $asiento_diario[0]['idasiento_diario']; ?>"></td>
+                    
                    Usuario Creacion:
                 <input id="usuario_creacion" readonly="readonly" placeholder="usuario" size="4" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>">
                 <input id="usuario_edicion" placeholder="usuario edicion"  value="cacao" hidden>
@@ -78,13 +78,13 @@
                         $i = 1;
                         foreach ($ad_detalle as $ad_detalle) {
 
-                            if ($i > 2) {
-                                $clase_extra = 'agregado';
-                            } else {
-                                $clase_extra = '';
-                            }
-                            echo"<tr id='" . $i . "' class='ad_detalle_editar agregado" . $clase_extra . " '>                               
-                            <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $i . "'></td>
+//                            if ($i > 2) {
+//                                $clase_extra = 'agregado';
+//                            } else {
+//                                $clase_extra = '';
+//                            }
+                            echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>                               
+                            <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $ad_detalle['numero_transaccion'] . "'></td>
                             <td><div class='input-group' style='width: 150px;' >
                                     <input type='text' id='idcuenta_contable_" . $i . "' value='" . $ad_detalle['idcuenta_contable'] . "' class='form-control buscar idcuenta_contable' readonly='readonly'  style='background:white;'>
                                     <span class='input-group-btn'>
@@ -94,14 +94,21 @@
                             </td>
                             <td><input id='descripcion_cuenta_contable_" . $i . "' value='' name ='descripcion_cuenta_contable'  style='background:white;' readonly='readonly' maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>       
                             ";
-                            if ($ad_detalle['monto_moneda_nacional'] !== "") {
+                            if ($asiento_diario[0]['idtasa_cambio']== 1) {
                                 $monto = $ad_detalle['monto_moneda_nacional'];
-                            } else if ($ad_detalle['monto_moneda_extranjera'] != "") {
-                                $monto = $ad_detalle['tipo_transaccion'];
+                                $balance_debito = $asiento_diario[0]['balance_debito_nacional'];
+                                $balance_credito = $asiento_diario[0]['balance_credito_nacional'];
+                                
+                            } else if ($asiento_diario[0]['idtasa_cambio']>0) {
+                                $monto = $ad_detalle['monto_moneda_extranjera'];
+                                $balance_debito = $asiento_diario[0]['balance_debito_extranjero'];
+                                $balance_credito = $asiento_diario[0]['balance_credito_extranjero'];
+                                
                             }
                             if ($ad_detalle['tipo_transaccion'] == "d") {
                                 $debito = $monto;
                                 $credito = 0.0;
+                                
                             } else if ($ad_detalle['tipo_transaccion'] == "c") {
                                 $debito = 0.0;
                                 $credito = $monto;
@@ -119,8 +126,8 @@
             </div>    
             <div class="row divboton col-sm-pull-4"> 
                 <div class="row col-md-offset-8">
-                    <input id="total_debito" name ='total_debito' value="<?php echo $asiento_diario[0]['balance_debito']; ?>" type="text" readonly class='col-lg-4 valorDC'>
-                    <input id="total_credito" name ='total_credito' value="<?php echo $asiento_diario[0]['balance_credito']; ?>" readonly class='col-lg-4  col-xs-push-1 valorDC'>
+                    <input id="total_debito" name ='total_debito' value="<?php echo $balance_debito; ?>" type="text" readonly class='col-lg-4 valorDC'>
+                    <input id="total_credito" name ='total_credito' value="<?php echo $balance_credito; ?>" readonly class='col-lg-4  col-xs-push-1 valorDC'>
                 </div>
                 <div style="padding-left: 15px;"> 
                     <button class="btn btn-success btn-lg fa fa-save fa-lg" id="editar">Guardar</button>

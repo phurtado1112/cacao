@@ -32,8 +32,8 @@
                             <tr>
                                 <th>Nivel superior</th>
                                 <th>
-                                    <input id="nivel_anterior" type="hidden" value="<?php echo $lista_por_id[0]['nivel_anterior'] ?>">
-                                    <?=form_dropdown('nivel_anterior');?>
+                                    <input id="idnivel_anterior" type="hidden" value="<?php echo $lista_por_id[0]['idnivel_anterior'] ?>">
+                                    <?=form_dropdown('idnivel_anterior');?>
                                 </th>
                             </tr>
                         </table>

@@ -26,7 +26,7 @@
                     <td>Tipo de Cambio
                         <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
                     <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
-                    <input id="valor_dolar" type="hidden" ></td>
+                    <input id="valor_moneda_extranjera" type="hidden" ></td>
                     <th>Numero Asiento diario:</th><td><input id="numero_asiento_diario" readonly="readonly" type="text"></td>
                     <th class="tablaasiento ad"><a id="listar_adr" style="width: 180px !important;" class="btn btn-success fa fa-plus-circle fa-lg rec"
                            href="http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">
@@ -55,10 +55,10 @@
                 <td><div class="numero_asiento"></div><input type="hidden" class="numero_transaccion" value=""></td>
                 <td> 
                     <div class="input-group" style="width: 150px;" >
-                        <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                         <span class="input-group-btn">
                             <button id="b_" class="btn btn-default buscar_cuenta" type="button"><i class="fa-search fa flg" ></i></button>
                         </span>
+                        <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                     </div>
                 </td>
                 <td><input id="descripcion_cuenta_contable_" name='descripcion_cuenta_contable_' style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
@@ -118,10 +118,10 @@
                             echo '<tr id="1" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">1</div><input type="hidden" class="numero_transaccion" value="1"></td>
                     <td><div class="input-group"style="width: 150px;" >
-                            <input type="text" id="idcuenta_contable_1" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                             <span class="input-group-btn">
                                 <button id="b_1" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
                             </span>
+                            <input type="text" id="idcuenta_contable_1" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                         </div>
                     </td>
 
@@ -134,10 +134,10 @@
                 <tr id="2" class="asiento_diario_detalle agregado">
                     <td><div class="numero_asiento">2</div><input type="hidden" class="numero_transaccion" value="2"></td>
                     <td><div class="input-group"style="width: 150px;" >
-                            <input type="text" id="idcuenta_contable_2" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                             <span class="input-group-btn">
                                 <button id="b_2" class="btn btn-default buscar_cuenta"  type="button"><i class="fa-search fa flg" ></i></button>
                             </span>
+                            <input type="text" id="idcuenta_contable_2" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                         </div>
                     </td>
 

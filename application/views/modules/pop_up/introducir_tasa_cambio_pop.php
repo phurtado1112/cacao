@@ -10,7 +10,7 @@
                         <label>Moneda</label>
                     </th>
                     <th>
-                        <?php echo form_dropdown('idmoneda_tasa', $idmoneda); ?>
+                        <?php echo form_dropdown('idmoneda_tasa', $idmoneda_extra); ?>
                     </th>
                 </tr>
                 <tr>
@@ -18,7 +18,7 @@
                         <label>Tasa de cambio</label>
                     </th>
                     <th>
-                         <input type="text" id="valor_tasa_cambio_nueva" class="col-sm-offset-2">
+                        <input type="text" id="valor_tasa_cambio_nueva" class="col-sm-offset-2">
                     </th>
                 </tr>
                 <tr>
