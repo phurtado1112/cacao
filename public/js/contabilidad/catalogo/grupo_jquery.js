@@ -17,11 +17,12 @@ function lista_grupo(url1, url2, url_actual) {
 
 function valores_edicion_grupo(url1, url2, url3, url_actual) {
     var nivel = $("#nivel").val();
+    var nivel_busqueda_recuperado = parseInt(nivel) - 1;
     var categoria_grupo = $("#categoria_grupo").val();
-    var nivel_anteriror = $("#nivel_anterior").val();
-
+    var nivel_anteriror = $("#idnivel_anterior").val();
+    /// seleccion nivel
     $("select[name=nivel]").find("option[value=" + nivel + "]").attr("selected", "selected");
-
+    /// seleccion categoria
     $("select[name=idcategoria_cuenta] option").each(function () {
         var text_option = $(this).text();
 
@@ -29,28 +30,37 @@ function valores_edicion_grupo(url1, url2, url3, url_actual) {
             $(this).attr("selected", "selected");
         }
     });
-
+    /// seleccion nivel anterior
     var idcategoria_grupo = $("select[name=idcategoria_cuenta]").val();
 
-    if (nivel !== "" && url_actual !== url1 && url_actual !== url2 && url_actual !== url3) {
-        dependencias_grupos();
-        select_nivel_superior(nivel, idcategoria_grupo);
+    disparadores_dependencias_grupos();
+
+    if (nivel_busqueda_recuperado === 0) {
+        idcategoria_grupo = 0;
     }
-    $("select[name=nivel_anterior]").find("option[value=" + nivel_anteriror + "]").attr("selected", "selected");
+
+    select_nivel_superior(nivel_busqueda_recuperado, idcategoria_grupo);
+
+    $("select[name=idnivel_anterior]").find("option[value=" + nivel_anteriror + "]").attr("selected", "selected");
 
 }
 
 
 function select_nivel_superior(nivel, categoria) {
+
     $.ajax({
         url: "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_formulario_select",
         type: "post",
         data: "nivel=" + nivel + "&idcategoria=" + categoria,
         success: function (data) {
-            $("select[name=nivel_anterior]").html(data);
+            if (data !== "0") {
+                $("select[name=idnivel_anterior]").html(data);
+            } else {
+                alert("No se ecnontro ningun grupo con estas caracteristicas");
+                $("select[name=idnivel_anterior]").html("<option value='' ></option>");
+            }
         },
-        error: function (data) {
-            alert(nivel + categoria + data);
+        error: function () {
             alert("error al consultar niveles anteriories");
         }
 
@@ -71,21 +81,22 @@ function busqueda(val, camp) {
     });
 }
 
-function valida() {
+
+function valida_campo_valor() {
     var valor = $('#valor').val();
     var campo = $('#campo option:selected').val();
 
-    if (valor !== "" && !isNaN(valor) && (campo === "nivel_anterior" || campo === "nivel")) {
+    if (valor !== "" && !isNaN(valor) && (campo === "idnivel_anterior" || campo === "nivel")) {
         busqueda(valor, campo);
 
-    } else if (valor !== "" && isNaN(valor) && (campo === "nivel_anterior" || campo === "nivel")) {
+    } else if (valor !== "" && isNaN(valor) && ( campo === "nivel")) {
         alert("Solo se aceptan numeros para esta busqueda");
 
-    } else if (valor !== "" && isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria")) {
+    } else if (valor !== "" && isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
         busqueda(valor, campo);
 
-    } else if (valor !== "" && !isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria")) {
-        alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
+    } else if (valor !== "" && !isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
+        alert("Solo se aceptan caracteres alfanumericos para esta busqueda");
 
     } else if (valor === "") {
         busqueda(valor, campo);
@@ -110,7 +121,7 @@ function confirmar_eliminar(val) {
             type: 'POST',
             data: "idcuenta_contable=" + val,
             success: function (data) {
-
+                
                 if (data == 0) {
                     window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_eliminar/" + val;
 
@@ -119,7 +130,8 @@ function confirmar_eliminar(val) {
                 }
 
             },
-            error: function () {
+            error: function (data) {
+                alert(data);
                 alert('Error al consultar dependecias');
             }
 
@@ -131,56 +143,66 @@ function confirmar_eliminar(val) {
 
 }
 
-function dependencias_grupos() {
+/// prepara disparadores para busqueda de grupos superiories
+function disparadores_dependencias_grupos() {
 
-        $("select[name=nivel]").on("change", function () {
-            var nivel = parseInt($(this).val()) - 1;
-            var categoria = parseInt($("select[name=idcategoria_cuenta]").val());
-            select_nivel_superior(nivel, categoria);
+    $("select[name=nivel]").on("change", function () {
+        var nivel = parseInt($(this).val()) - 1;
+        var categoria = $("select[name=idcategoria_cuenta]").val();
+        if (nivel === 0) {
+            categoria = 0;
+        }
+        select_nivel_superior(nivel, categoria);
 
-        });
 
-        $("select[name=idcategoria_cuenta]").on("change", function () {
-            var categoria = parseInt($(this).val());
-            var nivel = parseInt($("select[name=nivel]").val()) - 1;
-            select_nivel_superior(nivel, categoria);
+    });
 
-        });
+    $("select[name=idcategoria_cuenta]").on("change", function () {
+        var categoria = $(this).val();
+        var nivel = parseInt($("select[name=nivel]").val()) - 1;
+        if (nivel === 0) {
+            categoria = 0;
+        }
+        select_nivel_superior(nivel, categoria);
 
+    });
+
+}
+
+$(document).ready(function () {
+    ///listado
+    var url_actual = window.location.href;
+    var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/index/1";
+    var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/index/0";
+    var url3 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_crear";
+
+    lista_grupo(url1, url2, url_actual);
+
+    $("#buscar , #recargar").on('click', function () {
+        valida_campo_valor();
+    });
+
+    $("#valor").on('keypress', function () {
+        valida_campo_valor();
+    });
+
+    $("#resultado").on('click', ".inactivar", function () {
+        confirmar_inactivar($(this).attr("value"));
+    });
+
+    $("#resultado").on("click", ".eliminar", function () {
+        confirmar_eliminar($(this).attr("value"));
+    });
+
+    ///creacion
+    if (url_actual === url3) {
+        disparadores_dependencias_grupos();
     }
 
-    $(document).ready(function () {
-        ///listado
-        var url_actual = window.location.href;
-        var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/index/1";
-        var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/index/0";
-        var url3 = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_crear";
-
-        lista_grupo(url1, url2, url_actual);
-
-        $("#buscar , #recargar").on('click', function () {
-            valida();
-        });
-
-        $("#valor").on('keyup', function () {
-            valida();
-        });
-
-        $("#resultado").on('click', ".inactivar", function () {
-            confirmar_inactivar($(this).attr("value"));
-        });
-
-        $("#resultado").on("click", ".eliminar", function () {
-            confirmar_eliminar($(this).attr("value"));
-        });
+    /// y edicion
+    if (url_actual !== url1 && url_actual !== url2 && url_actual !== url3) {
+        valores_edicion_grupo(url1, url2, url3, url_actual);
+    }
 
 
-        ///creacion y edicion
-
-
-        if (url_actual === url3) {
-            dependencias_grupos(url_actual,url3);
-        }
-        
-    valores_edicion_grupo(url1, url2, url3, url_actual);
 });

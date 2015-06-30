@@ -8,7 +8,7 @@ class Categorias_cuentas_model extends CI_Model{
     }
     //listar activos e inactivos
     public function categorias_cuentas_paginacion($estado,$inicio,$num_por_pagina) {
-       $datos = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre FROM categoria_cuenta_view WHERE estado='.$estado.' AND idcategoria_cuenta > 0 ORDER BY nombre LIMIT '.$inicio.','.$num_por_pagina.'');
+       $datos = $this->db->query('SELECT idcategoria_cuenta,categoria,nombre,idestructura_base FROM categoria_cuenta_view WHERE estado='.$estado.' AND idcategoria_cuenta > 0 ORDER BY idestructura_base LIMIT '.$inicio.','.$num_por_pagina.'');
        return $datos->result_array();
     }
     // numero de registros activos e inactivos
@@ -56,6 +56,15 @@ class Categorias_cuentas_model extends CI_Model{
         }
         return $query->result_array(); 
     }
+///metodo complementario para encontrar por campo 
+    public function encontrar_por_campo($categoria,$idcategoria) {
+        if($categoria != NULL){
+            
+            $query= $this->db->query('SELECT * FROM categoria_cuenta WHERE categoria_cuenta="'.$categoria.'" AND idcategoria_cuenta = "'.$idcategoria.'" ');
+            
+        }
+        return $query->result_array(); 
+    }    
 //para establecer numero de cuenta    
     public function encontrar_por_id_datos($idcategorias = NULL) {
         if($idcategorias != NULL){

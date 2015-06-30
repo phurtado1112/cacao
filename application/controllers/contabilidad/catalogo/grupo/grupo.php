@@ -14,7 +14,7 @@ class Grupo extends CI_Controller {
     public function index($var) {
         $data['titulo'] = 'Grupos Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
-        
+
         if ($var == 1) {
             $this->load->view('contabilidad/catalogo/grupo/grupo_lista_view');
         } else if ($var == 0) {
@@ -147,11 +147,11 @@ class Grupo extends CI_Controller {
             $this->load->view('contabilidad/catalogo/grupo/grupo_lista_ajax_view', $data);
         }
     }
-    
-     public function not_numeric($var) {
-        if(!is_numeric($var)){
+
+    public function not_numeric($var) {
+        if (!is_numeric($var)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -161,32 +161,31 @@ class Grupo extends CI_Controller {
         $this->load->view('modules/menu/menu_contabilidad', $data);
         $this->load->helper('form');
         $this->load->library('form_validation');
-        
+
         $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|is_unique[grupo_cuenta.grupo_cuenta]');
         $this->form_validation->set_rules('nivel', 'Nivel', 'required|numeric');
-        $this->form_validation->set_rules('nivel_anterior', 'Nivel anterior', 'required|numeric');
+        $this->form_validation->set_rules('idnivel_anterior', 'Nivel anterior', 'required|numeric');
         $this->form_validation->set_rules('idcategoria_cuenta', 'Categoria', 'required');
-        
+
         $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
 
-        $nivel = array('0' => ' ','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
+        $nivel = array('0' => ' ', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['nivel_anterior'] = $this->Grupo_cuentas_model->lista_grupo();
 
         $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
-        $categorias= $this->Categorias_cuentas_model->categoria_lista();
-        
-        if(!empty($categorias)){
+        $categorias = $this->Categorias_cuentas_model->categoria_lista();
+
+        if (!empty($categorias)) {
             $lista_categoria = $categorias;
-                    
-        }else if(empty($categorias)){
+        } else if (empty($categorias)) {
             $lista_categoria = array('' => ' ');
         }
 
-         $data['categoria']=$lista_categoria;
-        
+        $data['categoria'] = $lista_categoria;
+
         if ($this->input->post()) {
 
             if ($this->form_validation->run() == TRUE) {
@@ -207,18 +206,23 @@ class Grupo extends CI_Controller {
     public function grupo_modificar($idgrupo) {
         $data['titulo'] = 'Grupos Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', 'required|min_length[4]|trim|callback_not_numeric');
-        
-         $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
-        
-        $data['idgrupo'] = $idgrupo;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
         $data['lista_por_id'] = $this->Grupo_cuentas_model->encontrar_por_id($idgrupo);
 
-        $nivel = array('0'=>' ','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
+        if ($this->input->post('grupo_cuenta') != $data['lista_por_id'][0]['grupo_cuenta']) {
+            $is_unique = 'is_unique[grupo_cuenta.grupo_cuenta]|';
+        } else {
+            $is_unique = '';
+        }
+
+        $this->form_validation->set_rules('grupo_cuenta', 'Grupo', $is_unique . 'required|min_length[4]|trim|callback_not_numeric');
+        $this->form_validation->set_message('not_numeric', 'El campo Nombre del grupo no puede contener numeros');
+        $this->form_validation->set_message('is_unique', 'El nombre de grupo"' . $this->input->post("grupo_cuenta") . '" ya esta en uso');
+
+        $data['idgrupo'] = $idgrupo;
+
+        $nivel = array('0' => ' ', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5');
         $data['nivel'] = $nivel;
 
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
@@ -259,37 +263,38 @@ class Grupo extends CI_Controller {
 
         $nivel = filter_input(INPUT_POST, 'nivel');
         $categoria = filter_input(INPUT_POST, 'idcategoria');
-        
-        $grupo_nivel = $this->Grupo_cuentas_model->grupo_por_campo_condicion("nivel", $nivel,"idcategoria_cuenta",$categoria);
 
-        if(count($grupo_nivel)>0){
-            $str_option="";
-            
-        foreach($grupo_nivel as $grupo_n){
-            $cero_option = "<option value=".$grupo_n['nivel']." >".$grupo_n['grupo_cuenta']."</option>";
-            $str_option = $str_option.$cero_option;
-            
-        }}else{
-            $str_option="<option value='' ></option>";
+        $grupo_nivel = $this->Grupo_cuentas_model->lista_grupo_por_nivel_categoria("nivel", $nivel, "idcategoria_cuenta", $categoria);
+
+        if (count($grupo_nivel) > 0) {
+            $str_option = "";
+
+            foreach ($grupo_nivel as $grupo_n) {
+                $cero_option = "<option value=" . $grupo_n['idgrupo_cuenta'] . " >" . $grupo_n['grupo_cuenta'] . "</option>";
+                $str_option = $str_option . $cero_option;
+            }
+        } else {
+            $str_option = 0;
         }
-            echo $str_option;
+        echo $str_option;
     }
-    
+
     public function grupo_dependencia_cuenta() {
-         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
+        $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
 
         $cuenta = filter_input(INPUT_POST, 'idcuenta_contable');
-        
-        $cuenta_grupo = $this->Catalogo_cuentas_model->cuenta_dependencia_grupo("idgrupo_cuenta",$cuenta);
-       
+
+        $cuenta_grupo = $this->Catalogo_cuentas_model->cuenta_dependencia_grupo("idgrupo_cuenta", $cuenta);
+
         echo(count($cuenta_grupo));
     }
-    
+
     public function grupo_eliminar($idgrupo) {
         $this->Grupo_cuentas_model->eliminar_grupo($idgrupo);
-        
+
         header('Location:' . base_url() . 'index.php/contabilidad/catalogo/grupo/grupo/index/0');
     }
+
 }
 
 /* Fin del archivo my_controller.php */

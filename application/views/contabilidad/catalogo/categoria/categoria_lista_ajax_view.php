@@ -34,7 +34,7 @@ if (!empty($consulta_categorias)) {
                                     </ul>
                                 </nav>
                                 </div>";
-} elseif (!empty($consulta_categorias_inactivas)) {
+} else if (!empty($consulta_categorias_inactivas)) {
     echo"<table class='table table-striped table-bordered'>"
     . " <tr>
                                 <th class='tabletext'>No°</th>

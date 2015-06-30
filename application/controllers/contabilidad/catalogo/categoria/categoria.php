@@ -14,12 +14,12 @@ class Categoria extends CI_Controller {
     public function index($var) {
         $data['titulo'] = 'Categorias Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
-        
+
         if ($var == 1) {
             $this->load->view('contabilidad/catalogo/categoria/categorias_lista_view');
         } else if ($var == 0) {
             $this->load->view('contabilidad/catalogo/categoria/categorias_lista_inactivos_view');
-        }  
+        }
         $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
 
@@ -152,23 +152,46 @@ class Categoria extends CI_Controller {
             $this->load->view('contabilidad/catalogo/categoria/categoria_lista_ajax_view', $data);
         }
     }
-    
-     public function not_numeric($var) {
-        if(!is_numeric($var)){
+
+    public function string_not_numeric($var) {
+        $var_array = str_split($var);
+        $contador = 0;
+
+        foreach ($var_array as $v_c) {
+            if (is_numeric($v_c)) {
+                $contador++;
+            }
+        }
+
+        if ($contador == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
+
+    public function repeticion_edicion($var, $idvar) {
+        $consulta = $this->Categorias_cuentas_model->encontrar_por_campo($var, $idvar);
+
+        if ((count($consulta) == 1)) {
+//            print_r($consulta);
+//            echo count($consulta);
+            echo TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function categoria_crear() {
         $data['titulo'] = 'Categorias Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
-        
-        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]|trim|callback_not_numeric');
-        
-        $this->form_validation->set_message('not_numeric', 'El campo Categoria de la cuenta de cuenta no puede contener numeros');
-        
+
+        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'callback_string_not_numeric|required|min_length[3]|max_length[50]|trim|is_unique[categoria_cuenta.categoria_cuenta]|xss_clean');
+        $this->form_validation->set_rules('idestructura_base', 'Tipo', 'required|numeric');
+
+        $this->form_validation->set_message('string_not_numeric', 'El campo Categoria de la cuenta no puede contener valores numericos');
+        $this->form_validation->set_message('is_unique', 'El nombre "' . $this->input->post("categoria_cuenta") . '" ya esta en uso');
+
         $this->load->model('contabilidad/catalogo/categoria/Estructura_base_model');
         $data['idestructura_base'] = $this->Estructura_base_model->lista_dropdown();
 
@@ -200,22 +223,30 @@ class Categoria extends CI_Controller {
             header('Location:' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/index/0');
         }
     }
-    
-    
+
     public function categoria_modificar($idcategorias) {
         $data['titulo'] = 'Categorias Cuentas';
         $this->load->view('modules/menu/menu_contabilidad', $data);
 
-        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', 'required|min_length[4]|trim|callback_not_numeric');
-        
-        $this->form_validation->set_message('not_numeric', 'El campo Categoria de la cuenta de cuenta no puede contener numeros');
-        
+        $data['lista_por_id'] = $this->Categorias_cuentas_model->encontrar_por_id($idcategorias);
+
+        if ($this->input->post('categoria_cuenta') != $data['lista_por_id'][0]['categoria']) {
+            $is_unique = 'is_unique[categoria_cuenta.categoria_cuenta]|';
+        } else {
+            $is_unique = '';
+        }
+
+        $this->form_validation->set_rules('categoria_cuenta', 'Categoria', $is_unique . 'callback_string_not_numeric|required|min_length[3]|trim|xss_clean');
+        $this->form_validation->set_rules('idestructura_base', 'Tipo', 'required|numeric');
+
+        $this->form_validation->set_message('not_numeric', 'El campo Categoria de la cuenta de cuenta no puede ser numerico');
+        $this->form_validation->set_message('is_unique', 'El nombre "' . $this->input->post("categoria_cuenta") . '" ya esta en uso');
+
         $data['idcategorias'] = $idcategorias;
 
         $this->load->model('contabilidad/catalogo/categoria/Estructura_base_model');
         $data['idestructurabase'] = $this->Estructura_base_model->lista_dropdown();
 
-        $data['lista_por_id'] = $this->Categorias_cuentas_model->encontrar_por_id($idcategorias);
 
         if ($this->input->post()) {
 
@@ -232,22 +263,23 @@ class Categoria extends CI_Controller {
         }
         $this->load->view('modules/foot/contabilidad/categoria_foot');
     }
-    
+
     public function categoria_eliminar($idcategorias) {
         $this->Categorias_cuentas_model->eliminar_categoria($idcategorias);
-        
+
         header('Location:' . base_url() . 'index.php/contabilidad/catalogo/categoria/categoria/index/0');
     }
-    
-     public function categoria_relacion_grupo() {
+
+    public function categoria_relacion_grupo() {
         $this->load->model('contabilidad/catalogo/grupo/Grupo_cuentas_model');
 
         $categoria = filter_input(INPUT_POST, 'idcategoria_cuenta');
-        
-        $grupo_nivel = $this->Grupo_cuentas_model->grupo_dependencia_categoria("idcategoria_cuenta",$categoria);
-       
+
+        $grupo_nivel = $this->Grupo_cuentas_model->grupo_dependencia_categoria("idcategoria_cuenta", $categoria);
+
         echo(count($grupo_nivel));
     }
+
 }
 
 /*Fin del archivo my_controller.php*/

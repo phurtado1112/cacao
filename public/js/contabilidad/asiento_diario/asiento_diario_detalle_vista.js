@@ -131,14 +131,19 @@ function calcular_total2() {
 }
 
 function asig_valores() {
-    $("#resultado").on("click", "tr#buscar_c", function () {
-
         var val = $("body").data("id_ref");
         var valor = $(this).attr('name');
         var arreglo = valor.split("/");
         var id = arreglo[0];
         var descripcion = arreglo[1];
-
+        
+        $("#campos_agregados input.idcuenta_contable").each(function(){
+            if($(this).val()=== id){
+                alert("La cuenta "+$(this).val()+" ya esta en uso");
+                exit();
+            }
+        });
+        
         $('#cuenta_contable_buscar').val("");
 
         $('#listar').fadeOut('slow');
@@ -149,7 +154,7 @@ function asig_valores() {
         $(campo_cuenta).val(id);
         $(campo_descripcion).val(descripcion);
 
-    });
+   
 }
 
 function mostrar() {
@@ -212,10 +217,9 @@ $(document).ready(function () {
         mostrar();
 
         $("body").data("id_ref", valor_ref);
-
-        asig_valores();
-
     });
+    
+    $("#resultado").on("click", "tr#buscar_c",asig_valores);
 
     $("#cerrar_pop").on("click", function () {
         $('#cuenta_contable_buscar').val("");

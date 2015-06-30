@@ -41,6 +41,11 @@ class Catalogo_cuentas_model extends CI_Model {
     }
 
     //listar activos e inactivos 
+    public function catalogo_cuentas_lista($estado) {
+        $datos = $this->db->query('SELECT idcuenta_contable,cuenta_contable FROM catalogo_cuenta WHERE estado=' . $estado . ' AND idcuenta_contable > 0 ');
+        return $datos->result_array();
+    }
+    
     public function catalogo_cuentas_paginacion($estado, $inicio, $num_por_pagina) {
         $datos = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . ' AND idcuenta_contable > 0 ORDER BY idcuenta_contable LIMIT ' . $inicio . ',' . $num_por_pagina . '');
         return $datos->result_array();
@@ -78,6 +83,10 @@ class Catalogo_cuentas_model extends CI_Model {
         return $numero_registros->num_rows();
     }
     
+     public function cuenta_dependencia_grupo($campo, $valor) {
+        $query = $this->db->query("select * from catalogo_cuenta WHERE " . $campo . "=" . $valor . "");
+        return $query->result_array();
+    }
    
      public function eliminar_cuenta($idcuenta){
          
