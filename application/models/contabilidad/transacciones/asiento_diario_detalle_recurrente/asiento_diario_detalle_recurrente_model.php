@@ -11,12 +11,12 @@ class Asiento_diario_detalle_recurrente_model extends CI_Model {
     }
 
     public function ad_detalle_recurrente_crear(
-            $idasiento_diario_recurrente,$numero_transacciones,$idcuenta_contable, $tipo_transaccion,$monto_moneda_nacional,
+            $idasiento_diario_recurrente,$numero_transacciones,$idcuenta_contable, $naturaleza_cuenta_contable,$monto_moneda_nacional,
             $monto_moneda_extranjera) {
 
         $this->db->query("INSERT INTO asiento_diario_detalle_recurrente
-               (idasiento_diario_recurrente,numero_transacciones,idcuenta_contable, tipo_transaccion,monto_moneda_nacional, monto_moneda_extranjera) 
-               VALUES(".$idasiento_diario_recurrente.",".$numero_transacciones.",'".$idcuenta_contable."','".$tipo_transaccion."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
+               (idasiento_diario_recurrente,numero_transacciones,idcuenta_contable, naturaleza_cuenta_contable,monto_moneda_nacional, monto_moneda_extranjera) 
+               VALUES(".$idasiento_diario_recurrente.",".$numero_transacciones.",'".$idcuenta_contable."','".$naturaleza_cuenta_contable."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
     }
     
     public function ad_detalle_recurrente_por_id_adr($idasiento_diario_recurrente = NULL) {
@@ -35,12 +35,12 @@ class Asiento_diario_detalle_recurrente_model extends CI_Model {
     }
     
     public function ad_detalle_recurrente_modificar($idasiento_diario_recurrente,$numero_transacciones
-            ,$idcuenta_contable, $tipo_transaccion,$monto_moneda_nacional,
+            ,$idcuenta_contable, $naturaleza_cuenta_contable,$monto_moneda_nacional,
             $monto_moneda_extranjera) {
 
         $this->db->query("UPDATE asiento_diario_detalle_recurrente SET
             idcuenta_contable = '".$idcuenta_contable."', 
-            tipo_transaccion = '".$tipo_transaccion."',monto_moneda_nacional = ".$monto_moneda_nacional.", monto_moneda_extranjera = ".$monto_moneda_extranjera."
+            naturaleza_cuenta_contable = '".$naturaleza_cuenta_contable."',monto_moneda_nacional = ".$monto_moneda_nacional.", monto_moneda_extranjera = ".$monto_moneda_extranjera."
             WHERE (idasiento_diario_recurrente = ".$idasiento_diario_recurrente.") AND (numero_transacciones =".$numero_transacciones.")");
     }
     

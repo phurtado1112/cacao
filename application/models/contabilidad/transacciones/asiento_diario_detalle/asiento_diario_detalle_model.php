@@ -11,12 +11,12 @@ class Asiento_diario_detalle_model extends CI_Model {
     }
 
     public function asiento_diario_detalle_crear(
-            $idasiento_diario,$numero_transacciones,$idcuenta_contable, $tipo_transaccion,$monto_moneda_nacional,
+            $idasiento_diario,$numero_transacciones,$idcuenta_contable, $naturaleza_cuenta_contable,$monto_moneda_nacional,
             $monto_moneda_extranjera) {
 
         $this->db->query("INSERT INTO asiento_diario_detalle
-               (idasiento_diario,numero_transaccion,idcuenta_contable, tipo_transaccion,monto_moneda_nacional, monto_moneda_extranjera) 
-               VALUES('".$idasiento_diario."',".$numero_transacciones.",'".$idcuenta_contable."','".$tipo_transaccion."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
+               (idasiento_diario,numero_transaccion,idcuenta_contable, naturaleza_cuenta_contable,monto_moneda_nacional, monto_moneda_extranjera) 
+               VALUES('".$idasiento_diario."',".$numero_transacciones.",'".$idcuenta_contable."','".$naturaleza_cuenta_contable."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
     }
     
     public function asiento_diario_detalle_por_id_ad($idasiento_diario ) {
@@ -37,13 +37,13 @@ class Asiento_diario_detalle_model extends CI_Model {
     public function asiento_diario_detalle_modificar($idasiento_diario,
             $numero_transacciones
             ,$idcuenta_contable, 
-            $tipo_transaccion,
+            $naturaleza_cuenta_contable,
             $monto_moneda_nacional,
             $monto_moneda_extranjera) {
 
         $this->db->query("UPDATE asiento_diario_detalle SET
             idcuenta_contable = '".$idcuenta_contable.
-                "', tipo_transaccion = '".$tipo_transaccion.
+                "', naturaleza_cuenta_contable = '".$naturaleza_cuenta_contable.
                 "',monto_moneda_nacional = ".$monto_moneda_nacional.
                 ", monto_moneda_extranjera = ".$monto_moneda_extranjera."
             WHERE (idasiento_diario = '".$idasiento_diario."') AND (numero_transaccion =".$numero_transacciones.")");
