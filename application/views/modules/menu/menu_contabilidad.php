@@ -75,25 +75,20 @@
                         <!-- ////-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url(); ?>">Activos Fijos</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo base_url(); ?>">Catalogos</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo base_url(); ?>">Informe al donante</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo base_url(); ?>">Asiento de Mayor</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo base_url(); ?>">Balanza de Comprobacion</a></li>
-                            <li class="divider"></li>
                             <li><a href="<?php echo base_url(); ?>">Estado de Balance</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo base_url(); ?>">Estado de Ingreso</a></li>
-                            <li class="divider"></li>
+                            <li><a href="<?php echo base_url(); ?>">Estado de Resultados</a></li>
+                            <li><a href="<?php echo base_url(); ?>">Balanza de Comprobación</a></li>
                             <li><a href="<?php echo base_url(); ?>">Flujo de efectivo</a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo base_url(); ?>">Libro de diario</a></li>
-                            <li class="divider"></li>
+                            <li><a href="<?php echo base_url(); ?>">Asiento de Mayor</a></li>
                             <li><a href="<?php echo base_url(); ?>">Saldo de cuentas</a></li>
+                            <li><a href="<?php echo base_url(); ?>">Catálogo de Cuentas</a></li>
+                            <li class="divider"></li><li class="divider"></li>
+                            <li><a href="<?php echo base_url(); ?>">Informes a los donantes</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo base_url(); ?>">Activos Fijos</a></li>
+                            <li><a href="<?php echo base_url(); ?>">Presupuestos</a></li>
                         </ul>
                         <!-- ////-->
                     </li>
