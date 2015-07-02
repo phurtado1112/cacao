@@ -3,11 +3,12 @@ class Cacao extends CI_Controller{
  
     public function __construct() {
         parent::__construct(); 
-        $this->load->view('login');
+      
     }
     
     public function index() {
-         
+        
+        redirect('administracion/usuario/usuario');
     }
     
 }
