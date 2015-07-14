@@ -70,7 +70,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav">
-                        <li class=""><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir">Salir</a></li>
+                        <li class=""><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir">Cerrar sesion</a></li>
                     </ul>
 
                         

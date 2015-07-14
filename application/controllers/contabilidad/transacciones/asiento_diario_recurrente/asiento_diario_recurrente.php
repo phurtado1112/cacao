@@ -4,6 +4,9 @@ class Asiento_diario_recurrente extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        if ($this->session->userdata('loged_in') != true) {
+            exit('<script>alert("no tiene acceso");window.location=("http://localhost/cacao");</script>');
+        }
         $data['titulo'] = 'Crear Asiento de Diario Recurrente';
     }
 
@@ -112,13 +115,13 @@ class Asiento_diario_recurrente extends CI_Controller {
         $descripcion_asiento_diario = filter_input(INPUT_POST, 'descripcion_asiento_diario');
         $fecha_creacion = filter_input(INPUT_POST, 'fecha_creacion');
         $usuario_creacion = filter_input(INPUT_POST, 'usuario_creacion');
-        $idtasa_cambio = filter_input(INPUT_POST, 'idtasa_cambio');
+        $idmoneda = filter_input(INPUT_POST, 'idmoneda');
         $balance_debito = filter_input(INPUT_POST, 'balance_debito');
         $balance_credito = filter_input(INPUT_POST, 'balance_credito');
        
-//        echo $idorigen_asiento_diario."  ".$descripcion_asiento_diario."  ".$fecha_creacion."  ".$usuario_creacion."  ".$idtasa_cambio."  ".$balance_debito."  ".$balance_credito;
+//        echo $idorigen_asiento_diario."  ".$descripcion_asiento_diario."  ".$fecha_creacion."  ".$usuario_creacion."  ".$idmoneda."  ".$balance_debito."  ".$balance_credito;
 
-        $this->Asiento_diario_recurrente_model->ad_recurrente_crear( $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito);
+        $this->Asiento_diario_recurrente_model->ad_recurrente_crear( $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idmoneda, $balance_debito, $balance_credito);
 
         $dato = $this->Asiento_diario_recurrente_model->volver_id_ad_recurrente();
         $final = end($dato);
@@ -144,18 +147,15 @@ class Asiento_diario_recurrente extends CI_Controller {
     public function ad_detalle_recurrente_guardar() {
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
 
-        $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
-        $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
+        $idasiento_diario_recurrente = filter_input(INPUT_POST, 'idasiento_diario');
+        $numero_transaccion = filter_input(INPUT_POST, 'numero_transaccion');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
         $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
-        $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
-        $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
+        $monto_transaccion = filter_input(INPUT_POST, 'monto_transaccion');
 
-//        echo $idasiento_diario. "  " . $numero_transacciones . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " . $monto_moneda_nacional . "  " . $monto_moneda_extranjera;
+//        echo $idasiento_diario_recurrente. "  " . $numero_transaccion . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " .$monto_transaccion;
 
-        $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_crear(
-                $idasiento_diario, $numero_transacciones, $idcuenta_contable, $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera
-        );
+        $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_crear($idasiento_diario_recurrente, $numero_transaccion, $idcuenta_contable, $tipo_transaccion, $monto_transaccion);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -218,33 +218,50 @@ class Asiento_diario_recurrente extends CI_Controller {
         $idorigen_asiento_diario = array(
             'name' => 'idorigen_asiento_diario',
             'id' => 'idorigen_asiento_diario',
-            'class' => 'form-group',
+            'class' => 'form-group form-control"',
+            "style" => "width:80px; height:30px;"
         );
         $data['idorigen_asiento_diario'] = $idorigen_asiento_diario;
+        
+        $tipo_moneda = array(
+            'name' => 'idmoneda',
+            'id' => 'idmoneda',
+            'class' => 'form-group form-control"',
+            "style" => "width:110px; height:30px;"
+        );
+        $data['tipo_moneda'] = $tipo_moneda;
 
         $data['dias'] = $dias;
         $data['meses'] = $meses;
 
         $this->load->model('contabilidad/transacciones/asiento_diario_recurrente/Asiento_diario_recurrente_model');
         $data['asiento_diario'] = $this->Asiento_diario_recurrente_model->ad_recurrente_encontrar_por_id($id_adr);
-
         
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
         $data['ad_detalle'] = $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_por_id_adr($id_adr);
 
-        $this->load->model('contabilidad/transacciones/asiento_diario/Origen_asiento_diario_model');
-        $data['lista_origen_asiento_diario'] = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
+        $this->load->model('administracion/Origen_asiento_diario_model');
+        $lista_origen_asiento_diario = $this->Origen_asiento_diario_model->lista_origen_asiento_diario();
 
-        $this->load->model('contabilidad/transacciones/asiento_diario/Tipo_moneda_model');
-        $data['idmoneda'] = $this->Tipo_moneda_model->lista_moneda();
-//                print_r($data['ad_detalle']);
-//        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
-//        $dato = $this->Tasa_cambio_model->lista_tasa_cambio();
-//        $final = end($dato);
-//        $data['idtasa_cambio'] = $final;
-//////        
+        foreach ($lista_origen_asiento_diario as $lista_oad) {
+            $lista_oad_final[$lista_oad['idorigen_asiento_diario']] = $lista_oad['descripcion_origen_asiento_diario'];
+        }
+        $data['lista_origen_asiento_diario'] = $lista_oad_final;
+
+        $this->load->model('administracion/Tipo_moneda_model');
+        $lista_idmoneda = $this->Tipo_moneda_model->lista_moneda();
+
+        foreach ($lista_idmoneda as $idmoneda) {
+            $lista_idamoneda_final[$idmoneda['idmoneda']] = $idmoneda['descripcion_moneda'];
+        }
+
+        $data['idmoneda'] = $lista_idamoneda_final;
+
+        $lista_idamoneda_para_agregar = $lista_idamoneda_final;
+        unset($lista_idamoneda_para_agregar[1]);
+        $data['idmoneda_extra'] = $lista_idamoneda_para_agregar;
+        
         $this->load->view('modules/menu/menu_contabilidad', $data);
-//        print_r($data['asiento_diario']);
         $this->load->view('contabilidad/transacciones/asiento_diario_recurrente/ad_recurrente_edita_view', $data);
         $this->load->view('modules/pop_up/asiento_diario_cuentas_pop');
         $this->load->view('modules/foot/contabilidad/ad_recurrente_editar_foot');
@@ -297,8 +314,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         
     }
     
-    
-     public function ad_detalle_recurrente_eliminar() {
+    public function ad_detalle_recurrente_eliminar() {
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
         
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
@@ -309,12 +325,14 @@ class Asiento_diario_recurrente extends CI_Controller {
         $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_eliminar($numero_transacciones ,$idasiento_diario );
     }
     
-     public function ad_recurrente_eliminar($id_ad_recurrente){
+     public function ad_recurrente_eliminar($id_ad_recurrente,$recarga=1){
          $this->load->model('contabilidad/transacciones/asiento_diario_recurrente/Asiento_diario_recurrente_model');
          $this->Asiento_diario_recurrente_model->ad_recurrente_eliminar($id_ad_recurrente);
          
-
-        header('Location:'.base_url().'index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/index');
+         if($recarga==1){
+         header('Location:'.base_url().'index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/index');
+         
+         }
     }
     
      public function tasa_cambio_agregar() {

@@ -1,9 +1,41 @@
+function generar_num_ad() {
+    var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
+    var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
 
-function guardar_asiento_diario() {
+    $.ajax({
+        url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_numero',
+        type: 'POST',
+        data: "origen_asiento_diario=" + origen_asiento_diario,
+        error: function () {
+            alert("Error al generar el Numero de Asiento");
+        }
+    }).done(function(data){
+             if (data === "") {
+                var numero_ad = origen_asiento_diario + "00000001";
+                $("#numero_asiento_diario").val(numero_ad);
 
+            } else if (data !== "") {
+                var numero_ad = parseInt(data.substr(2, 10));
+                var num_sum = numero_ad + 1;
+                var cant_ceros = 8 - (num_sum.toString().length);
+                var i = 0;
+                var str_ceros = "";
+
+                while (i < cant_ceros) {
+                    var cero = "0";
+                    str_ceros = str_ceros + cero;
+
+                    i++;
+                }
+                var num_ad = origen_asiento_diario + str_ceros + (num_sum.toString());
+
+                guardar_asiento_diario(num_ad);
+            }
+        });
+}
+function guardar_asiento_diario(num_ad) {
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
     var descripcion_asiento_diario = $("#descripcion_asiento_diario").val();
-    var idasiento_diario = $("#numero_asiento_diario").val();
     var usuario_creacion = $("#usuario_creacion").val();
     var balance_credito = $("#total_credito").val();
     var balance_debito = $("#total_debito").val();
@@ -50,8 +82,7 @@ function guardar_asiento_diario() {
         alert("No se a encontrado tipo de cambio extranjero asociado a esta fecha fiscal");
         comfirmar_tasa();
 
-    }
-    else if (transacciones[0] === 0 && transacciones[1] === 0) {
+    } else if (transacciones[0] === 0 && transacciones[1] === 0) {
         var idmoneda = $("#moneda>select").val();
         var valor_moneda_extranjera = $("#valor_moneda_extranjera").val();
 
@@ -70,25 +101,23 @@ function guardar_asiento_diario() {
             var balance_debito_nacional = balance_debito * valor_moneda_extranjera;
 
         }
-
+                                                                                                                                                                                                                                            
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_guardar',
             type: 'POST',
-            data: "idasiento_diario=" + idasiento_diario + "&idorigen_asiento_diario=" + idorigen_asiento_diario + "&descripcion_asiento_diario=" + descripcion_asiento_diario +
+            data: "idasiento_diario=" + num_ad + "&idorigen_asiento_diario=" + idorigen_asiento_diario + "&descripcion_asiento_diario=" + descripcion_asiento_diario +
                     "&idtasa_cambio=" + idtasa_cambio + "&balance_debito_nacional=" + balance_credito_nacional + "&balance_credito_nacional=" + balance_debito_nacional + "&usuario_creacion=" + usuario_creacion + "&fecha_creacion=" + fecha_creacion +
                     "&fecha_fiscal=" + fecha_fiscal + "&origen_asiento_diario=" + origen_asiento_diario + "&balance_debito_extranjero=" + balance_credito_extranjero + "&balance_credito_extranjero=" + balance_debito_extranjero,
             success: function (data) {
                 guardar_transacciones(data);
 
             },
-            error: function (data) {
-                alert(data);
+            error: function () {
                 alert('Error al crear Asiento Diario');
             }
-
         });
     }
-    ;
+    
 }
 
 function validar_transacciones() {
@@ -117,8 +146,6 @@ function validar_transacciones() {
     return campos_vacios;
 }
 
-
-
 function guardar_transacciones(idasiento_diario_creado) {
     var numero_transacciones_totales = $(".numero_transaccion:last").val();
 
@@ -134,7 +161,7 @@ function guardar_transacciones(idasiento_diario_creado) {
         var idmoneda = $("#moneda>select").val();
 
         if ((debito === "0.0" || debito === "0") && credito !== "0.0") {
-            var tipo_transaccion = "c";
+            var tipo_transaccion = "a";
 
             var monto = credito;
 
@@ -151,11 +178,11 @@ function guardar_transacciones(idasiento_diario_creado) {
             var monto_moneda_nacional = monto;
             var monto_moneda_extranjera = monto / valor_moneda_extranjera;
 
-        } else if (idmoneda >"1") {
+        } else if (idmoneda > "1") {
             var monto_moneda_nacional = monto * valor_moneda_extranjera;
             var monto_moneda_extranjera = monto;
         }
-
+        
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_guardar",
             type: "post",
@@ -163,8 +190,14 @@ function guardar_transacciones(idasiento_diario_creado) {
                     "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
             success: function () {
                 if (numero_transacciones_totales === numero_transacciones) {
-                    alert("Asiento de Diario creado con exito");
-                    window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_crear';
+                    var res = confirm("Asiento de Diario con el ID "+idasiento_diario+" fue creado con exito\n\¿Desea crear otro Asiento de Diario?");
+                    if (res === true) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_crear';
+
+                    } else if (res === false) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index';
+
+                    }
                 }
             },
             error: function () {
@@ -184,11 +217,9 @@ function comfirmar_tasa() {
 
 }
 
-$(document).ready(function () {
-
+$(document).on("ready",function (){
     $("#guardar").on("click", function () {
-        guardar_asiento_diario();
-
+        generar_num_ad();
     });
 
 });

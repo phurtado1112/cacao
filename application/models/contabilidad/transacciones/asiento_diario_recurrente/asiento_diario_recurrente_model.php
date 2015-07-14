@@ -24,11 +24,10 @@ class Asiento_diario_recurrente_model extends CI_Model {
         return $query->num_rows();
     }
 
-    public function ad_recurrente_crear( $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito
-    ) {
+    public function ad_recurrente_crear($idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idmoneda, $balance_debito, $balance_credito) {
         $this->db->query("INSERT INTO asiento_diario_recurrente(
-             idorigen_asiento_diario, descripcion_asiento_diario_recurrente, fecha_creacion, usuario_creacion, idtasa_cambio, balance_debito, balance_credito
-             ) VALUES(" . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "', '" . $fecha_creacion . "','" . $usuario_creacion . "'," . $idtasa_cambio . "," . $balance_debito . "," . $balance_credito . ")");
+             idorigen_asiento_diario, descripcion_asiento_diario_recurrente, fecha_creacion, usuario_creacion, idmoneda, balance_debito, balance_credito
+             ) VALUES(" . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "', '" . $fecha_creacion . "','" . $usuario_creacion . "'," . $idmoneda . "," . $balance_debito . "," . $balance_credito . ")");
     }
 
     public function ad_recurrente_encontrar_por_id($id_ad_recurrente) {

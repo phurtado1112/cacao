@@ -30,7 +30,7 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
 
     }
     else if (transacciones[0] > 0 && transacciones[1] === 0) {
-        alert("Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
+        alert("Usted tiene " + transacciones[0]/2 + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (transacciones[1] > 0 && transacciones[0] === 0) {
@@ -39,7 +39,7 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
     }
     else if (transacciones[1] > 0 && transacciones[0] > 0) {
         alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
-                "\n\ \n\Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
+                "\n\ \n\Usted tiene " + transacciones[0]/2 + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (balance_credito !== balance_debito) {
@@ -68,12 +68,7 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
             var balance_debito_nacional = balance_debito * valor_moneda_extranjera;
 
         }
-
-//        alert("idasiento_diario=" + idasiento_diario + "&descripcion_asiento_diario=" + descripcion_asiento_diario +
-//                    "&idtasa_cambio=" + idtasa_cambio + "&balance_debito_nacional=" + balance_debito_nacional + "&balance_credito_nacional=" + balance_credito_nacional +
-//                    "&balance_debito_extranjero=" + balance_debito_extranjero + "&balance_credito_extranjero=" + balance_credito_extranjero + "&usuario_edicion=" + usuario_edicion + "&fecha_edicion=" + fecha_edicion +
-//                    "&fecha_fiscal=" + fecha_fiscal);
-
+        
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_editar',
             type: 'POST',
@@ -87,16 +82,22 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
                 eliminar_transacciones(idasiento_diario, numero_transacciones_totales_inicio);
                 guardar_transacciones(idasiento_diario);
 
-                alert("Asiento editado");
-
             },
             error: function () {
                 alert('Error al actualizar Asiento Diario');
             }
 
+        }).done(function(){
+            var res = confirm("Asiento de Diario con el ID "+idasiento_diario+" fue editado con exito\n\¿Desea regresar a la lista de asiento de diario?");
+                    if (res === false) {
+                        return 0;
+
+                    } else if (res === true) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index';
+
+                    }
         });
     }
-
 }
 
 function validar_transacciones() {
@@ -159,7 +160,7 @@ function editar_transacciones(idasiento_diario_editado) {
         var idmoneda = $("#moneda>select").val();
 
         if ((debito === "0" && credito !== "0") || (debito === "0.0" && credito !== "0.0")) {
-            var tipo_transaccion = "c";
+            var tipo_transaccion = "a";
 
             var monto = Number(credito);
 
@@ -168,7 +169,6 @@ function editar_transacciones(idasiento_diario_editado) {
 
             var monto = Number(debito);
         }
-
         var valor_moneda_extranjera = Number($("#valor_moneda_extranjera").val());
 
         if (idmoneda === "1") {
@@ -179,20 +179,16 @@ function editar_transacciones(idasiento_diario_editado) {
             var monto_moneda_nacional = monto * valor_moneda_extranjera;
             var monto_moneda_extranjera = monto;
         }
-//        alert("idiario_detalle=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion +
-//                "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera);
-
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_editar",
             type: "post",
-            data: "idasiento_diario=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion +
-                    "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
+            data: "idasiento_diario=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&naturaleza_cuenta_contable=" + tipo_transaccion +
+                    "&monto_transaccion",
             success: function () {
 
 //                }
             },
-            error: function (data) {
-                alert(data);
+            error: function () {
                 alert("Error en el proceso de edicion de transacciones");
             }
         });
@@ -211,7 +207,6 @@ function eliminar_transacciones(idasiento_diario_editado, numero_transacciones_t
 
 
     for (len; i < len; i++) {
-        alert(array_eliminar[i]);
 
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_eliminar",
@@ -240,12 +235,12 @@ function guardar_transacciones(idasiento_diario_creado) {
 
         var idmoneda = $("#moneda>select").val();
 
-        if (debito === "0.0" && credito !== "0.0") {
-            var tipo_transaccion = "c";
+        if ((debito === "0.0" ||debito==="0") && credito !== "0.0") {
+            var tipo_transaccion = "a";
 
             var monto = credito;
 
-        } else if (debito !== "0.0" && credito === "0.0") {
+        } else if (debito !== "0.0" && (credito === "0.0" || credito === "0")) {
             var tipo_transaccion = "d";
 
             var monto = debito;
@@ -256,14 +251,13 @@ function guardar_transacciones(idasiento_diario_creado) {
 
         if (idmoneda === "1") {
             var monto_moneda_nacional = monto;
-            var monto_moneda_extranjera = monto * valor_moneda_extranjera;
+            var monto_moneda_extranjera = monto / valor_moneda_extranjera;
 
         } else if (idmoneda === "2") {
             var monto_moneda_nacional = monto * valor_moneda_extranjera;
             var monto_moneda_extranjera = monto;
         }
-        alert("idasiento_diario=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera);
-//        
+        
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_guardar",
             type: "post",
@@ -284,7 +278,14 @@ $(document).ready(function () {
         var res = confirm("¿Comfirma que desea editar este asiento?");
         if (res === true) {
             if (editar_asiento_diario(numero_transacciones_totales_inicio)) {
-                alert("Asiento editado con exito");
+                var res = confirm("Asiento de Diario editado con exito\n\¿Desea realizar mas cambios en este Asiento de Diario?");
+                    if (res === true) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/'+numero_transacciones_totales_inicio;
+
+                    } else if (res === false) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index';
+
+                    }
             }
 
         } else if (res === false) {

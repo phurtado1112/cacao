@@ -1,6 +1,8 @@
- function editar_asiento_diario(numero_transacciones_totales_inicio) {
+
+
+function editar_asiento_diario(numero_transacciones_totales_inicio) {
      
-    var id_ad_recurrente =  $('#idasiento_diario').val();
+    var id_ad_recurrente =  $('#idasiento_diario_recurrente').val();
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
     var descripcion_asiento_diario = $("#descripcion_asiento_diario").val();
     var usuario_edicion = $("#usuario_edicion").val();
@@ -158,7 +160,6 @@ function editar_transacciones(idasiento_diario_editado) {
         }
 
 //        alert("idasiento_diario_detalle=" + idasiento_diario_detalle + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera);
-        var comfirmacion;
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/ad_detalle_recurrente_editar",
             type: "post",
@@ -170,9 +171,17 @@ function editar_transacciones(idasiento_diario_editado) {
                 alert(data);
                 alert("Error en el proceso de edicion de transacciones");
             }
+        }).done(function(){
+            var res = confirm("Asiento de Diario Recurrente fue editado con exito\n\¿Desea regresar a la lista de asiento de diario recurrentes?");
+                    if (res === false) {
+                        return 0;
+
+                    } else if (res === true) {
+                        window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente';
+
+                    }
         });
     });
-
 
 }
 
@@ -184,7 +193,6 @@ function eliminar_transacciones(idasiento_diario_editado, numero_transacciones_t
     $(".ad_detalle_editar").each(function () {
         num_editado++;
     });
-
 
 //    alert("elimindo"+"  "+idasiento_diario+"  "+num_editado+"  "+numero_transacciones_totales_inicio);
 
@@ -263,6 +271,7 @@ function guardar_transacciones(idasiento_diario_creado) {
 }
 
 $(document).ready(function () {
+    alert( $('#idasiento_diario_recurrente').val());
     var numero_transacciones_totales_inicio = $(".numero_transaccion_editar:last").val();
 
     $("#editar").on("click", function () {

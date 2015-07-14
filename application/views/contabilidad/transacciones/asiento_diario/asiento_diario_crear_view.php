@@ -27,13 +27,13 @@
                         <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
                     <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
                     <input id="valor_moneda_extranjera" type="hidden" ></td>
-                    <th>Numero Asiento diario:</th><td><input id="numero_asiento_diario" readonly="readonly" type="text"></td>
+                    <th></th><td><input id="numero_asiento_diario" type="hidden"></td>
                     <th class="tablaasiento ad"><a id="listar_adr" style="width: 180px !important;" class="btn btn-success fa fa-plus-circle fa-lg rec"
                            href="http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">
                             Asiento Recurrente</a> <a style="margin-left:3px;" class="btn btn-success fa fa-plus fa-lg rec" role="button" id="agregar"> Cuenta</a></th>
                 </tr>
             </table>
-            <input id="usuario_creacion" type="hidden" value="cacao">
+            <input id="usuario_creacion" type="hidden" value="<?= $this->session->userdata('user') ?>">
             <div><!--boton para agregar AD recurrente--></div>
             
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        

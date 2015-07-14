@@ -103,14 +103,20 @@ class Usuario_Procesar extends CI_Controller {
     }
 
     // crear nuevo usuario   
-    public function usuario_crear() {
+       public function usuario_crear() {
         $this->form_validation->set_rules('nombre', 'Nombre', 'required|trim');
         $this->form_validation->set_rules('apellido', 'Apellido', 'required|trim');
         $this->form_validation->set_rules('usuario', 'Usuario', 'required|trim');
         $this->form_validation->set_rules('contrasenia', 'Contraseñia', 'required|trim');
 
         if ($this->form_validation->run() == TRUE) {
-            $this->Usuario_Model->usuario_crear();
+            $nombre = $this->input->post('nombre');
+            $apellido = $this->input->post('apellido');
+            $usuario = $this->input->post('usuario');
+            $contrasenia = $this->input->post('contrasenia');
+            $contrasenia_md5 = md5($contrasenia);
+
+            $this->Usuario_Model->usuario_crear($nombre, $apellido, $usuario, $contrasenia_md5);
             header('Location:' . base_url() . 'index.php/administracion/usuario/usuario_procesar/index/1');
         } else {
             $this->load->view('modules/menu/menu_administracion');
@@ -118,7 +124,6 @@ class Usuario_Procesar extends CI_Controller {
         }
         $this->load->view('modules/foot/administracion/foot_usuario');
     }
-
     //modificar usaurio
     public function usuario_editar($idusuario) {
         
@@ -146,28 +151,25 @@ class Usuario_Procesar extends CI_Controller {
         $this->load->view('modules/foot/administracion/foot_usuario_edita');
     }
 
-    //procesar contraseña ajax
-    public function usuario_editar_procesar_pass(){
-         $pass = filter_input(INPUT_POST, 'pass');
+public function usuario_editar_pass($idusuario) {
+        $this->form_validation->set_rules('pass', 'Contrasenia', 'trim|required|matches[confirmar_pass]');
+        $this->form_validation->set_rules('confirmar_pass', 'Confirmar Clave', 'trim|required|matches[pass]');
 
-        $idusuario = filter_input(INPUT_POST, 'idusuario');
-        $nuevo_pass = $pass;
-
-        $this->Usuario_Model->usuario_editar_pass($idusuario, $nuevo_pass);
-       
-        
-    }
-    
-    
-    //cambiar clave de usuario
-    public function usuario_editar_pass($idusuario) {
         $data['idusuario'] = $idusuario;
         $data['lista_por_id'] = $this->Usuario_Model->encontrar_por_id($idusuario);
-        $this->load->view('modules/menu/menu_administracion');
-        $this->load->view('administracion/usuario/usuario_edita_contra_view', $data);
-         $this->load->view('modules/foot/administracion/foot_usuario_edita');
 
-       
+        if ($this->form_validation->run() == TRUE) {
+            $pass = $this->input->post('pass');
+            $nuevo_pass = md5($pass);
+            
+            $this->Usuario_Model->usuario_editar_pass($idusuario,$nuevo_pass);
+            header('Location:' . base_url() . 'index.php/administracion/usuario/usuario_procesar/index/1');
+        } else {
+            $this->load->view('modules/menu/menu_administracion');
+            $this->load->view('administracion/usuario/usuario_edita_contra_view', $data);
+        }
+
+        $this->load->view('modules/foot/administracion/foot_usuario');
     }
 
     public function usuario_cambiar_estado($idusuario, $estado) {

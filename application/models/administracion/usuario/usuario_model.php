@@ -36,11 +36,10 @@ class Usuario_Model extends CI_Model{
       }
       
       //crearcion de usuario
-    public function usuario_crear(){
-          $form_data = $this->input->post();
-          unset($form_data['botomSubmit']);
+   public function usuario_crear($nombre,$apellido,$usuario,$contrasenia_md5){
           
-          $this->db->insert('usuarios',$form_data);
+          $this->db->query("insert into usuarios (nombre, apellido , usuario, contrasenia) values ('$nombre','$apellido','$usuario','$contrasenia_md5');");
+          
       }
       
       
