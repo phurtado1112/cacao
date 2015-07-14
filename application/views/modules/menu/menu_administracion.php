@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/jquery-ui.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/smoke.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
 
         <meta charset="UTF-8">

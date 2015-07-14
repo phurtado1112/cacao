@@ -16,13 +16,13 @@
                             <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?>
                         </td>
                         <td>Usuario Creacion:
-                            <input id="usuario_creacion" readonly="readonly" class="form-control" placeholder="usuario" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>"  style="width:150px;"></input>
+                            <input disabled id="usuario_creacion" readonly="readonly" class="form-control" placeholder="usuario" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>"  style="width:150px;"></input>
                         </td>
                         <td>Usuario de Ultima Edicion:
-                            <input readonly="readonly" class="form-control" value="<?php echo ($asiento_diario[0]['usuario_modificacion']==null)? "ND": $asiento_diario[0]['usuario_modificacion']; ?>"  style="width:150px;"></input>
+                            <input disabled readonly="readonly" class="form-control" value="<?php echo ($asiento_diario[0]['usuario_modificacion']==null)? "ND": $asiento_diario[0]['usuario_modificacion']; ?>"  style="width:150px;"></input>
                         </td>
                         <td rowspan="3">Descripción de Asiento
-                            <textarea class="form-control" id="descripcion_asiento_diario" class="textarea form-control" maxlength="200" style="resize: none;background: white;width: 280px;height: 110px;" ><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?>
+                            <textarea class="form-control has-error" id="descripcion_asiento_diario" maxlength="200" style="resize: none;width: 280px;height: 110px;" ><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?>
                             </textarea>
                         </td>
                     </tr> 
@@ -33,10 +33,10 @@
                             </div>
                         </td>
                         <td>Fecha de Creacion
-                            <input type="input" class="form-control" readonly="readonly" value="<?php echo $asiento_diario[0]['fecha_creacion']; ?>"  style="width:100px;"></input>
+                            <input disabled type="input" class="form-control" readonly="readonly" value="<?php echo $asiento_diario[0]['fecha_creacion']; ?>"  style="width:100px;"></input>
                         </td>
                         <td>Fecha de Ultima Edicion
-                            <input type="text" class="form-control" id="fecha_edicion" value="<?php echo($asiento_diario[0]['fecha_modificacion']==null)? "ND": $asiento_diario[0]['fecha_modificacion']; ?>" readonly='readonly' style="width:100px;">
+                            <input disabled type="text" class="form-control" id="fecha_edicion" value="<?php echo($asiento_diario[0]['fecha_modificacion']==null)? "ND": $asiento_diario[0]['fecha_modificacion']; ?>" readonly='readonly' style="width:100px;">
                         </td>
                     </tr>
                 </table>
@@ -65,7 +65,7 @@
                                     <span class="input-group-btn">
                                         <button id="b_" class="btn btn-default buscar_cuenta" type="button"><i class="fa-search fa flg" ></i></button>
                                     </span>
-                                    <input type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
+                                    <input disabled type="text" id="idcuenta_contable_" name="idcuenta_contable_" class="form-control buscar idcuenta_contable" readonly="readonly"  style="background:white;">
                                 </div>
                             </td>
                             <td><input id="descripcion_cuenta_contable_" name='descripcion_cuenta_contable_' style="background:white;" readonly="readonly" maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
@@ -95,11 +95,11 @@
                                             <span class='input-group-btn'>
                                                 <button id="b_<?php echo $i ?>" class='btn btn-default buscar_cuenta'  type='button'><i class='fa-search fa flg'></i></button>
                                             </span>
-                                            <input type='text' id="idcuenta_contable_<?php echo $i ?>" value="<?php echo $ad_detalle['idcuenta_contable'] ?>" class='form-control buscar idcuenta_contable' readonly='readonly'  style='background:white;'>
+                                            <input disabled type='text' id="idcuenta_contable_<?php echo $i ?>" value="<?php echo $ad_detalle['idcuenta_contable'] ?>" class='form-control buscar idcuenta_contable' readonly='readonly'  style='background:white;'>
                                         </div>
                                     </td>
                                     <td>
-                                        <input id="descripcion_cuenta_contable_<?php echo $i ?>" value='' name ='descripcion_cuenta_contable'  style='background:white;' readonly='readonly' maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'>
+                                        <input id="descripcion_cuenta_contable_<?php echo $i ?>" value='' disabled name ='descripcion_cuenta_contable'  style='background:white;' readonly='readonly' maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'>
                                     </td>
 
                                     <?php
@@ -114,7 +114,7 @@
                                     }
                                     ?>
 
-                                    <td><input id="balance_debito_<?php echo $i ?>" name ="balance_debito_<?php echo $i ?>" type='text' value="<?php echo $debito ?>" maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
+                                    <td><input id="balance_debito_<?php echo $i ?>" name ="balance_debito_<?php echo $i ?>" type='text' value="<?php echo $debito ?>" maxlength=10 size=10 class='form-control campo_debito ' placeholder='0.0'></td>
                                     <td><input id="balance_credito_<?php echo $i ?>" name ="balance_credito_<?php echo $i ?>" type='text' value="<?php echo $credito ?>" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
 
                                     <td><a class='btn btn-primary quitar fa fa-ban fa-sm' role='button' style='margin-left:5px;'></a></td>
@@ -131,8 +131,8 @@
                 
                 <div class="row divboton col-sm-pull-4"> 
                     <div class="row col-md-offset-8 form-inline" >
-                        <input id="total_debito" name ='total_debito' value="0.0" type="text" size=15 readonly class='col-lg-4 valorDC form-control in'>
-                        <input id="total_credito" name ='total_credito' value="0.0" type="text" size=15 readonly class='col-lg-4  valorDC form-control'>
+                        <input disabled id="total_debito" name ='total_debito' value="0.0" type="text" size=15 readonly class='col-lg-4 valorDC form-control in'>
+                        <input disabled id="total_credito" name ='total_credito' value="0.0" type="text" size=15 readonly class='col-lg-4  valorDC form-control'>
                             <a class="btn btn-primary fa fa-plus fa-sm" role="button" id="agregar" ></a>
                     </div>
                     <div style="padding-left: 15px;"> 

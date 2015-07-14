@@ -1,3 +1,5 @@
+/* global smoke */
+
 function generar_num_ad() {
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
     var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
@@ -7,7 +9,7 @@ function generar_num_ad() {
         type: 'POST',
         data: "origen_asiento_diario=" + origen_asiento_diario,
         error: function () {
-            alert("Error al generar el Numero de Asiento");
+            smoke.alert("Error al generar el Numero de Asiento");
         }
     }).done(function(data){
              if (data === "") {
@@ -48,38 +50,38 @@ function guardar_asiento_diario(num_ad) {
     var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
 
     if (descripcion_asiento_diario == null || descripcion_asiento_diario.length == 0) {
-        alert('Es necesario el campo de descripcion');
+        smoke.alert('Es necesario el campo de descripcion');
     }
     else if (fecha_creacion == null || fecha_creacion.length == 0) {
-        alert('Es necesario el campo de Fecha Creacion');
+        smoke.alert('Es necesario el campo de Fecha Creacion');
     }
     else if (fecha_fiscal == null || fecha_fiscal.length == 0) {
-        alert('Es necesario el campo de Fecha Fiscal');
+        smoke.alert('Es necesario el campo de Fecha Fiscal');
 
     }
     else if (tasa_cambio === "ND" || tasa_cambio.length == 0) {
-        alert('El tipo de cambio no es valido');
+        smoke.alert('El tipo de cambio no es valido');
         comfirmar_tasa();
 
     }
     else if (transacciones[0] > 0 && transacciones[1] === 0) {
-        alert("Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
+        smoke.alert("Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (transacciones[1] > 0 && transacciones[0] === 0) {
-        alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion.");
+        smoke.alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion.");
 
     }
     else if (transacciones[1] > 0 && transacciones[0] > 0) {
-        alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
+        smoke.alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
                 "\n\ \n\Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (balance_credito !== balance_debito) {
-        alert("Usted debe balancear el asiento para poder guardarlo");
+        smoke.alert("Usted debe balancear el asiento para poder guardarlo");
 
     } else if ($("#valor_moneda_extranjera").val() === "") {
-        alert("No se a encontrado tipo de cambio extranjero asociado a esta fecha fiscal");
+        smoke.alert("No se a encontrado tipo de cambio extranjero asociado a esta fecha fiscal");
         comfirmar_tasa();
 
     } else if (transacciones[0] === 0 && transacciones[1] === 0) {
@@ -113,7 +115,7 @@ function guardar_asiento_diario(num_ad) {
 
             },
             error: function () {
-                alert('Error al crear Asiento Diario');
+                smoke.alert('Error al crear Asiento Diario');
             }
         });
     }
@@ -190,31 +192,35 @@ function guardar_transacciones(idasiento_diario_creado) {
                     "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
             success: function () {
                 if (numero_transacciones_totales === numero_transacciones) {
-                    var res = confirm("Asiento de Diario con el ID "+idasiento_diario+" fue creado con exito\n\¿Desea crear otro Asiento de Diario?");
-                    if (res === true) {
+                    smoke.confirm("Asiento de Diario con el ID "+idasiento_diario+" fue creado con exito\n\¿Desea crear otro Asiento de Diario?",function(e){
+                      if (e) {
                         window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_crear';
 
-                    } else if (res === false) {
+                    } else {
                         window.location = 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index';
 
                     }
+                        
+                    });
+                    
                 }
             },
             error: function () {
-                alert("Error en el proceso de guradado de transacciones");
+                smoke.alert("Error en el proceso de guradado de transacciones");
             }
         });
     });
 }
 
 function comfirmar_tasa() {
-    var res = confirm("¿Desea introducir tasa de cambio?");
-    if (res === true) {
+    smoke.confirm("¿Desea introducir tasa de cambio?",function(e){
+        if (e) {
         $("#intro_tasa_cambio").fadeIn("fast");
-    } else if (res === false) {
+    } else {
         return 0;
     }
-
+    });
+    
 }
 
 $(document).on("ready",function (){

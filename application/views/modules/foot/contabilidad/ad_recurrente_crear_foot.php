@@ -3,6 +3,7 @@
 <script src="<?php echo base_url(); ?>public/js/jquery-ui.js"></script>
 <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>public/js/maskedinput.min.js"></script>
+<script src="<?php echo base_url(); ?>public/js/smoke.js"></script>
 <script src="<?php echo base_url(); ?>public/js/jquery-select.js"></script>
 <script src="<?php echo base_url(); ?>public/js/funciones_util.js"></script>
 <script src="<?php echo base_url(); ?>public/js/contabilidad/asiento_diario_recurrente/ad_detalle_recurrente_vista.js"></script>

@@ -1,3 +1,5 @@
+/* global smoke */
+
 $(function () {
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -31,15 +33,16 @@ function buscar_tasa_por_fecha(fecha_buscada, idmoneda, uso_valores) {
                 $("#tasa_cambio").val("ND");
                 $("#valor_moneda_extranjera").val(0);
 
-                var res = confirm("No existe ningun tasa de cambio asociado a esta fecha \n\
-                ¿Desea introducir tasa de cambio?");
+                smoke.confirm("No existe ningun tasa de cambio asociado a esta fecha \n\
+                ¿Desea introducir tasa de cambio?", function (e) {
+                    if (e) {
+                        $("#intro_tasa_cambio").fadeIn("fast");
 
-                if (res === true) {
-                    $("#intro_tasa_cambio").fadeIn("fast");
+                    } else {
+                        return 0;
+                    }
 
-                } else if (res === false) {
-                    return 0;
-                }
+                });
             }
             else {
                 var arreglo = data.split('/');
@@ -48,7 +51,7 @@ function buscar_tasa_por_fecha(fecha_buscada, idmoneda, uso_valores) {
             }
         },
         error: function () {
-            alert("Error al consultar la tasa de cambio");
+            smoke.alert("Error al consultar la tasa de cambio");
         }
     });
 
@@ -67,13 +70,13 @@ function agregar_tasa_cambio() {
                 + "&fecha_tipo_cambio=" + fecha_tipo_cambio
                 + "&tasa_cambio=" + tasa_cambio,
         success: function () {
-            alert("Tasa de cambio agregada con exito");
+            smoke.alert("Tasa de cambio agregada con exito");
             $("#intro_tasa_cambio input").val("");
             $("#intro_tasa_cambio").hide();
-            
+
         },
         error: function () {
-            alert('Error al agregar tasa de cambio');
+            smoke.alert('Error al agregar tasa de cambio');
         }
 
     }).done(function () {
@@ -100,6 +103,8 @@ function agregar_tasa_cambio() {
 
 
 $(document).ready(function () {
+
+
     $("#fecha_fiscal").datepicker();
     $("#fecha_nueva_tasa_cambio").datepicker();
 
@@ -127,7 +132,7 @@ $(document).ready(function () {
 
 
         } else if ((idmoneda > 1) && fecha_fiscal === '') {
-            alert("Usted necesita introducir fecha fiscal");
+            smoke.alert("Usted necesita introducir fecha fiscal");
             $("#tasa_cambio").val("ND");
 
         } else if (idmoneda === 1 && fecha_fiscal !== '') {
