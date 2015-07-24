@@ -74,7 +74,6 @@ class Asiento_diario extends CI_Controller {
             'name' => 'idorigen_asiento_diario',
             'id' => 'idorigen_asiento_diario',
             'class' => 'form-grou',
-           
         );
         $data['idorigen_asiento_diario'] = $idorigen_asiento_diario;
 
@@ -110,7 +109,6 @@ class Asiento_diario extends CI_Controller {
 
             $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
             $data['ad_detalle_recurrente'] = $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_por_id_adr($id_adr);
-            
         } else {
             $data['asiento_diario_recurrente'] = "";
             $data['ad_detalle_recurrente'] = "";
@@ -139,15 +137,13 @@ class Asiento_diario extends CI_Controller {
         $balance_credito_nacional = round(filter_input(INPUT_POST, 'balance_credito_nacional'), 4);
         $balance_debito_extranjero = round(filter_input(INPUT_POST, 'balance_debito_extranjero'), 4);
         $balance_credito_extranjero = round(filter_input(INPUT_POST, 'balance_credito_extranjero'), 4);
-        
-         $this->Asiento_diario_model->asiento_diario_crear($idasiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero);
-        
+
+        $this->Asiento_diario_model->asiento_diario_crear($idasiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero);
+
 //        echo $idasiento_diario."  ";
 //                . "".$idorigen_asiento_diario."  "
 //                ." ".$descripcion_asiento_diario."  ".$fecha_creacion."  ".$fecha_fiscal." 
 //                ".$usuario_creacion."  ".$idtasa_cambio."  ".$balance_debito_nacional."  ".$balance_credito_nacional."  ".$balance_debito_extranjero."  ".$balance_credito_extranjero;
-        
-        
 //        
         $this->load->model('administracion/Configuracion_empresa_model');
         $origen_asiento_diario = filter_input(INPUT_POST, 'origen_asiento_diario');
@@ -169,7 +165,7 @@ class Asiento_diario extends CI_Controller {
     public function buscar_tasa_cambio_por_fecha() {
         $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_buscada');
         $idmoneda = filter_input(INPUT_POST, 'idmoneda');
-        
+
         $this->load->model('administracion/Tasa_cambio_model');
 
         $tasa_encontrada = $this->Tasa_cambio_model->tasa_cambio_encontrar_por_fecha($fecha_tipo_cambio, $idmoneda);
@@ -345,8 +341,8 @@ class Asiento_diario extends CI_Controller {
 
 //        echo $idasiento_diario."  ".$descripcion_asiento_diario."  ".$fecha_edicion."  ".$fecha_fiscal."  ".$usuario_edicion."  ".$idtasa_cambio."  ".$balance_debito_nacional."  ".$balance_credito_nacional."  ".$balance_credito_extranjero."  ".$balance_debito_extranjero;
 
-        $this->Asiento_diario_model->asiento_diario_modificar($idasiento_diario, $descripcion_asiento_diario, $fecha_edicion, $fecha_fiscal, $usuario_edicion, $idtasa_cambio,$balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero
-                );
+        $this->Asiento_diario_model->asiento_diario_modificar($idasiento_diario, $descripcion_asiento_diario, $fecha_edicion, $fecha_fiscal, $usuario_edicion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero
+        );
 //        
     }
 
@@ -363,7 +359,7 @@ class Asiento_diario extends CI_Controller {
 
 //        echo $idasiento_diario."--".$numero_transacciones."--".$idcuenta_contable."--".$tipo_transaccion."--".$monto_moneda_nacional."--". $monto_moneda_extranjera;
 
-        $this->Asiento_diario_detalle_model->asiento_diario_detalle_modificar($idasiento_diario, $numero_transacciones, $idcuenta_contable , $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera);
+        $this->Asiento_diario_detalle_model->asiento_diario_detalle_modificar($idasiento_diario, $numero_transacciones, $idcuenta_contable, $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera);
 //        
     }
 
@@ -396,4 +392,27 @@ class Asiento_diario extends CI_Controller {
         $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda, $fecha_tipo_cambio, $tasa_cambio);
     }
 
+    public function asiento_diario_mayorizar($idasiento_diario) {
+        //Inserta datos en la tabla de asiento_mayor desde la tabla de asiento_diario
+        $this->query('INSERT INTO asiento_mayor (idasiento_diario, idorigen_asiento_diario, descripcion_asiento_diario,fecha_creacion,
+            fecha_fiscal,fecha_modificacion,usuario_creacion, idtasa_cambio,balance_debito_nacional,balance_credito_nacional,
+            balance_debito_extranjero,balance_credito_extranjero) 
+            SELECT idasiento_diario, idorigen_asiento_diario, descripcion_asiento_diario,fecha_creacion,fecha_fiscal,
+            fecha_modificacion,usuario_creacion, usuario_modificacion, idtasa_cambio,balance_debito,balance_credito_nacional,
+            balance_debito_extranjero,balance_credito_extranjero 
+            from asiento_diario where idasiento_diario=' . $idasiento_diario);
+
+        //Inserta datos en la tabla de asiento_mayor_detalle desde la tabla de asiento_diario_detalle
+        $this->query('INSERT INTO asiento_mayor_detalle (idasiento_diario, numero_transaccion,idcuenta_contable,tipo_transaccion,monto_moneda_nacional,monto_moneda_extranjera) 
+            SELECT idasiento_diario, numero_transaccion, idcuenta_contable, tipo_transaccion, monto_moneda_nacional, monto_moneda_extranjera 
+            from asiento_diario where idasiento_diario=1;');
+
+        //hace la sumatoria de la cuentas
+        $this->query("select asiento_diario_detalle.idcuenta_contable, naturaleza_cuenta_contable, naturaleza_transaccion, "
+                . "sum(if(naturaleza_cuenta_contable='D',if(naturaleza_transaccion='D', monto_moneda_nacional, -monto_moneda_nacional), "
+                . "if(naturaleza_transaccion='C',monto_moneda_nacional,-monto_moneda_nacional))) as monto_local, "
+                . "sum(monto_moneda_extranjera)  as monto_extranjero "
+                . "from asiento_diario_detalle left join catalogo_cuenta on (asiento_diario_detalle.idcuenta_contable = catalogo_cuenta.idcuenta_contable) "
+                . "where idasiento_diario = '".$idasiento_diario."' group by idcuenta_contable order by idcuenta_contable");
+    }
 }
