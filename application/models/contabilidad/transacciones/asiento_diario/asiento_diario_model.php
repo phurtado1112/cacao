@@ -24,8 +24,25 @@ class Asiento_diario_model extends CI_Model {
         return $query->num_rows();
     }
 
-    public function asiento_diario_crear($idasiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero
+    public function asiento_diario_crear( $idasiento_diario, $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $fecha_fiscal, $usuario_creacion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero
     ) {
+//        $this->db->query("INSERT INTO asiento_diario(
+//             idasiento_diario, 
+//             idorigen_asiento_diario, 
+//             descripcion_asiento_diario, 
+//             fecha_creacion, 
+//             fecha_fiscal, 
+//             usuario_creacion,
+//             idtasa_cambio,
+//             balance_debito_nacional, 
+//             balance_credito_nacional,
+//             balance_debito_extranjero, 
+//             balance_credito_extranjero
+//             ) VALUES( '" . $idasiento_diario . "'," . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "',
+//                 '" . $fecha_creacion . "','" . $fecha_fiscal . "','" . $usuario_creacion . "'," . $idtasa_cambio . "," .
+//                $balance_debito_nacional . "," . $balance_credito_nacional . "," . $balance_debito_extranjero . "," .
+//                $balance_credito_extranjero . ")");
+        
         $this->db->query("INSERT INTO asiento_diario(
              idasiento_diario, 
              idorigen_asiento_diario, 
@@ -38,8 +55,10 @@ class Asiento_diario_model extends CI_Model {
              balance_credito_nacional,
              balance_debito_extranjero, 
              balance_credito_extranjero
-             ) VALUES( '" . $idasiento_diario . "'," . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "', '" . $fecha_creacion . "','" . $fecha_fiscal . "','" . $usuario_creacion . "'," . $idtasa_cambio . ","
-                . $balance_debito_nacional . "," . $balance_credito_nacional . "," . $balance_debito_extranjero . "," . $balance_credito_extranjero . ")");
+             ) VALUES( '" . $idasiento_diario . "'," . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "',
+                 '" . $fecha_creacion . "','" . $fecha_fiscal . "','" . $usuario_creacion . "'," . $idtasa_cambio . "," .
+                $balance_debito_nacional . "," . $balance_credito_nacional . "," . $balance_debito_extranjero . "," .
+                $balance_credito_extranjero . ")");
     }
 
     public function asiento_diario_encontrar_por_id_ad($idasiento_diario = NULL) {
@@ -54,30 +73,19 @@ class Asiento_diario_model extends CI_Model {
     ///////////
 
     public function asiento_diario_modificar(
-            $idasiento_diario, 
-            $descripcion_asiento_diario,
-            $fecha_modificacion, 
-            $fecha_fiscal, 
-            $usuario_modificacion, 
-            $idtasa_cambio, 
-            $balance_debito_nacional, 
-            $balance_credito_nacional,
-            $balance_debito_extranjero, 
-            $balance_credito_extranjero
+    $idasiento_diario, $descripcion_asiento_diario, $fecha_modificacion, $fecha_fiscal, $usuario_modificacion, $idtasa_cambio, $balance_debito_nacional, $balance_credito_nacional, $balance_debito_extranjero, $balance_credito_extranjero
     ) {
         $this->db->query("UPDATE asiento_diario SET "
-                
-                . "descripcion_asiento_diario = '".$descripcion_asiento_diario."', "
-                . "fecha_modificacion = '".$fecha_modificacion."', "
-                . "fecha_fiscal = '".$fecha_fiscal."', "
-                . "usuario_modificacion = '".$usuario_modificacion."', "
-                . "idtasa_cambio = ".$idtasa_cambio.", "
-                . "balance_debito_nacional = ".$balance_debito_nacional."," 
-                . "balance_credito_nacional =".$balance_credito_nacional." , "
-                . "balance_debito_extranjero =".$balance_debito_extranjero." , "
-                . "balance_credito_extranjero = ".$balance_credito_extranjero." "
-                
-                . "WHERE idasiento_diario = '".$idasiento_diario."'");
+                . "descripcion_asiento_diario = '" . $descripcion_asiento_diario . "', "
+                . "fecha_modificacion = '" . $fecha_modificacion . "', "
+                . "fecha_fiscal = '" . $fecha_fiscal . "', "
+                . "usuario_modificacion = '" . $usuario_modificacion . "', "
+                . "idtasa_cambio = " . $idtasa_cambio . ", "
+                . "balance_debito_nacional = " . $balance_debito_nacional . ","
+                . "balance_credito_nacional =" . $balance_credito_nacional . " , "
+                . "balance_debito_extranjero =" . $balance_debito_extranjero . " , "
+                . "balance_credito_extranjero = " . $balance_credito_extranjero . " "
+                . "WHERE idasiento_diario = '" . $idasiento_diario . "'");
     }
 
     ////////////////////lista de idasiento_diario///////////////////////////////////

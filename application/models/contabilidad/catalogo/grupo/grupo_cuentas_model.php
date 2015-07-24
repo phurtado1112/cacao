@@ -8,6 +8,7 @@ class Grupo_cuentas_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        $this->load->database();
     }
 
     //listar activos e inactivos 

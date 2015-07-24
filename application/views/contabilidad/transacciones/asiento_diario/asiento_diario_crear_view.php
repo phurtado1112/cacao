@@ -6,11 +6,13 @@
             <table class="table asiento">
                 <tr>
                     <td>Origen Asiento Diario
+                        
                     <input type="hidden" id='valor_origen_ad' value='<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['idorigen_asiento_diario'];}?>'>
                     <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?> </td>
+                    
                     <th>Fecha de Creacion</th>
                     <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
-                     <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
+                     <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ?>"></td>
                     <th rowspan="2">Descripción de Asiento
                         <textarea  placeholder="Descripcion del asiento de diario" id="descripcion_asiento_diario" class="textarea" maxlength="200"><?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['descripcion_asiento_diario_recurrente'];}?></textarea>
                     </th>
@@ -18,22 +20,25 @@
                 <tr>
                     <td>Moneda de Transacción
                         <div id="moneda"> 
-                        <?php echo form_dropdown('idmoneda', $idmoneda); ?></div></td>
+                        <?php echo form_dropdown('idmoneda', $idmoneda); ?>
+                        </div>
+                    </td>
+                        
                     <th>Fecha Fiscal</th>
                     <td><input class="col-lg-1 fecha" type="text" id="fecha_fiscal"></td>
                 </tr>
                 <tr>
                     <td>Tipo de Cambio
                         <input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio" style="width: 60px;">
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1">
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['idmoneda'];}else{echo 1;}?>">
                     <input id="valor_moneda_extranjera" type="hidden" ></td>
-                    <th>Numero Asiento diario:</th><td><input id="numero_asiento_diario" readonly="readonly" type="text"></td>
+                    <th></th><td><input id="numero_asiento_diario" type="hidden"></td>
                     <th class="tablaasiento ad"><a id="listar_adr" style="width: 180px !important;" class="btn btn-success fa fa-plus-circle fa-lg rec"
                            href="http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente">
                             Asiento Recurrente</a> <a style="margin-left:3px;" class="btn btn-success fa fa-plus fa-lg rec" role="button" id="agregar"> Cuenta</a></th>
                 </tr>
             </table>
-            <input id="usuario_creacion" type="hidden" value="cacao">
+            <input id="usuario_creacion" type="hidden" value="<?= $this->session->userdata('user') ?>">
             <div><!--boton para agregar AD recurrente--></div>
             
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
@@ -92,16 +97,12 @@
                             <td><input id='descripcion_cuenta_contable_" . $i . "' value='' name ='descripcion_cuenta_contable'  style='background:white;' readonly='readonly' maxlength=120 size=50 class='form-control' placeholder='Descripcion Cta. Contable'></td>
                                 
                             ";
-                            if ($asiento_diario_recurrente[0]['idtasa_cambio'] == 1) {
-                                $monto = $ad_detalle['monto_moneda_nacional'];
-                            } else if ($asiento_diario_recurrente[0]['idtasa_cambio'] > 1) {
-                                $monto = $ad_detalle['monto_moneda_extranjera'];
-                            }
+                                $monto = $ad_detalle['monto_transaccion'];
 
-                            if ($ad_detalle['tipo_transaccion'] == "d") {
+                            if ($ad_detalle['naturaleza_cuenta_contable'] == "d") {
                                 $debito = $monto;
                                 $credito = 0.0;
-                            } else if ($ad_detalle['tipo_transaccion'] == "c") {
+                            } else if ($ad_detalle['naturaleza_cuenta_contable'] == "a") {
                                 $debito = 0.0;
                                 $credito = $monto;
                             }

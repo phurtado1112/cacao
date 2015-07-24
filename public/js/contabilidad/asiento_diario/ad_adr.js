@@ -25,7 +25,12 @@ $(document).ready(function () {
     if (window.location.href > url) {
         var valor_origen = $("#valor_origen_ad").val();
         $("select#idorigen_asiento_diario").find("option[value=" + valor_origen + "]").attr("selected", "selected");
+        $("select#idorigen_asiento_diario").attr("disabled","disabled");
 
+        var idtasa_cambio = $("#idtasa_cambio").val();
+        $("#moneda>select").find("option[value=" + idtasa_cambio + "]").attr("selected", "selected");
+        $("#moneda>select").attr("disabled","disabled");
+        
         asig_valores_recuperados();
     }
 });

@@ -5,9 +5,9 @@
             <div class="row"></br>
                <table class="table asiento">
                 <tr>
-                    <td>Origen Asiento Diario
-                    <input type="hidden" id='valor_origen_ad' value='<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['idorigen_asiento_diario'];}?>'>
-                    <?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?> </td>
+                    <td>
+                    <!--<input type="hidden" id='valor_origen_ad' value='<?php if($asiento_diario_recurrente!=""){ echo $asiento_diario_recurrente[0]['idorigen_asiento_diario'];}?>'>-->
+                    <!--//<?= form_dropdown($idorigen_asiento_diario, $lista_origen_asiento_diario); ?> </td>-->
                     <th>Fecha de Creacion</th>
                     <td><?php echo $dias[date('w')] . " " . date('d') . " de " . $meses[date('n') - 1] . " del " . date('Y'); ?>
                     <input type="hidden" id="fecha_edicion" value="<?php echo date('Y-m-d') ?>"><!--fecha en formato de BD--></td>
@@ -31,10 +31,10 @@
                     
                    Usuario Creacion:
                 <input id="usuario_creacion" readonly="readonly" placeholder="usuario" size="4" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>">
-                <input id="usuario_edicion" placeholder="usuario edicion"  value="cacao" hidden>
+                <input id="usuario_edicion" placeholder="usuario edicion"  value="<?= $this->session->userdata('user') ?>" hidden>
                     <a style="margin-left:50px;" class="btn btn-success fa fa-plus fa-lg rec" role="button" id="agregar"> Cuenta</a></th>
                 </tr>
-                <input id="valor_origen_ad" hidden value="<?php echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">
+                <!--<input id="valor_origen_ad" hidden value="<?php //echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">-->
                 <input id="valor_tasa_cambio_ad" hidden value="<?php echo $asiento_diario[0]['idtasa_cambio']; ?>">
                 <tr>
            <!--/////////////////// id de asiento diario--->
@@ -78,11 +78,6 @@
                         $i = 1;
                         foreach ($ad_detalle as $ad_detalle) {
 
-//                            if ($i > 2) {
-//                                $clase_extra = 'agregado';
-//                            } else {
-//                                $clase_extra = '';
-//                            }
                             echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>                               
                             <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $ad_detalle['numero_transaccion'] . "'></td>
                             <td><div class='input-group' style='width: 150px;' >
@@ -103,16 +98,17 @@
                                 $monto = $ad_detalle['monto_moneda_extranjera'];
                                 $balance_debito = $asiento_diario[0]['balance_debito_extranjero'];
                                 $balance_credito = $asiento_diario[0]['balance_credito_extranjero'];
-                                
                             }
-                            if ($ad_detalle['tipo_transaccion'] == "d") {
+                            
+                            if ($ad_detalle['naturaleza_cuenta_contable'] === "d") {
                                 $debito = $monto;
                                 $credito = 0.0;
                                 
-                            } else if ($ad_detalle['tipo_transaccion'] == "c") {
+                            } else if ($ad_detalle['naturaleza_cuenta_contable'] === "a") {
                                 $debito = 0.0;
                                 $credito = $monto;
                             }
+                            
                             echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                                   <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                                       
@@ -130,7 +126,7 @@
                     <input id="total_credito" name ='total_credito' value="<?php echo $balance_credito; ?>" readonly class='col-lg-4  col-xs-push-1 valorDC'>
                 </div>
                 <div style="padding-left: 15px;"> 
-                    <button class="btn btn-success btn-lg fa fa-save fa-lg" id="editar">Guardar</button>
+                    <button class="btn btn-success btn-lg fa fa-save fa-lg" id="editar"> Editar</button>
                     <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index" class="btn btn-success btn-lg fa fa-close fa-lg" role="button">Cancelar</a>
                 </div>
             </div>     
