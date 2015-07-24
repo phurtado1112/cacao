@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
-    <body onLoad="document.forms[0].reset();">
+    <body>
         <nav class="navbar navbar-fixed-top" role="navigation">
             <!-- El logotipo y el icono que despliega el menú se agrupan
                  para mostrarlos mejor en los dispositivos móviles -->
@@ -83,7 +83,7 @@
                             <li><a href="<?php echo base_url(); ?>">Libro de diario</a></li>
                             <li><a href="<?php echo base_url(); ?>">Asiento de Mayor</a></li>
                             <li><a href="<?php echo base_url(); ?>">Saldo de cuentas</a></li>
-                            <li><a href="<?php echo base_url(); ?>">Catálogo de Cuentas</a></li>
+                            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/reportes/cuenta_contable/ejecutar">Catálogo de Cuentas</a></li>
                             <li class="divider"></li><li class="divider"></li>
                             <li><a href="<?php echo base_url(); ?>">Informes a los donantes</a></li>
                             <li class="divider"></li>
