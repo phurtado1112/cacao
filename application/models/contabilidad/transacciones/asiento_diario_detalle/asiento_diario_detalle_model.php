@@ -28,8 +28,8 @@ class Asiento_diario_detalle_model extends CI_Model {
     }
     
     public function asiento_diario_detalle_modificar($idasiento_diario,
-            $numero_transacciones
-            ,$idcuenta_contable, 
+            $numero_transacciones,
+            $idcuenta_contable, 
             $naturaleza_cuenta_contable,
             $monto_moneda_nacional,
             $monto_moneda_extranjera) {

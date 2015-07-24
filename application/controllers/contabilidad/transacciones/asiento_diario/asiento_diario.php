@@ -73,7 +73,8 @@ class Asiento_diario extends CI_Controller {
         $idorigen_asiento_diario = array(
             'name' => 'idorigen_asiento_diario',
             'id' => 'idorigen_asiento_diario',
-            'class' => 'form-group',
+            'class' => 'form-grou',
+           
         );
         $data['idorigen_asiento_diario'] = $idorigen_asiento_diario;
 
@@ -109,6 +110,7 @@ class Asiento_diario extends CI_Controller {
 
             $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
             $data['ad_detalle_recurrente'] = $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_por_id_adr($id_adr);
+            
         } else {
             $data['asiento_diario_recurrente'] = "";
             $data['ad_detalle_recurrente'] = "";
@@ -188,13 +190,13 @@ class Asiento_diario extends CI_Controller {
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
-        $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
+        $naturaleza_cuenta_contable = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
         $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
         $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
 
 //        echo $idasiento_diario. "  " . $numero_transacciones . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " . $monto_moneda_nacional . "  " . $monto_moneda_extranjera;
 
-        $this->Asiento_diario_detalle_model->asiento_diario_detalle_crear( $idasiento_diario, $numero_transacciones, $idcuenta_contable, $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera
+        $this->Asiento_diario_detalle_model->asiento_diario_detalle_crear($idasiento_diario, $numero_transacciones, $idcuenta_contable, $naturaleza_cuenta_contable, $monto_moneda_nacional, $monto_moneda_extranjera
         );
     }
 
@@ -354,7 +356,7 @@ class Asiento_diario extends CI_Controller {
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
-        $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
+        $tipo_transaccion = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
         $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
         $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
 

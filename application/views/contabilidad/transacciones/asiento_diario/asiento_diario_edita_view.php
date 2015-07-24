@@ -78,11 +78,6 @@
                         $i = 1;
                         foreach ($ad_detalle as $ad_detalle) {
 
-//                            if ($i > 2) {
-//                                $clase_extra = 'agregado';
-//                            } else {
-//                                $clase_extra = '';
-//                            }
                             echo"<tr id='" . $i . "' class='ad_detalle_editar agregado'>                               
                             <td><div class='numero_asiento'>" . $i . "</div><input type='hidden' class='numero_transaccion_editar' value='" . $ad_detalle['numero_transaccion'] . "'></td>
                             <td><div class='input-group' style='width: 150px;' >
@@ -103,16 +98,17 @@
                                 $monto = $ad_detalle['monto_moneda_extranjera'];
                                 $balance_debito = $asiento_diario[0]['balance_debito_extranjero'];
                                 $balance_credito = $asiento_diario[0]['balance_credito_extranjero'];
-                                
                             }
-                            if ($ad_detalle['naturaleza_cuenta_contable'] == "d") {
+                            
+                            if ($ad_detalle['naturaleza_cuenta_contable'] === "d") {
                                 $debito = $monto;
                                 $credito = 0.0;
                                 
-                            } else if ($ad_detalle['naturaleza_cuenta_contable'] == "a") {
+                            } else if ($ad_detalle['naturaleza_cuenta_contable'] === "a") {
                                 $debito = 0.0;
                                 $credito = $monto;
                             }
+                            
                             echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
                                   <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
                                       

@@ -1,9 +1,8 @@
 <input id="idasiento_diario_recurrente" type="hidden" value="<?php echo $asiento_diario[0]['idasiento_diario_recurrente']; ?>"></input>
 <input id="valor_origen_ad" type="hidden" value="<?php echo $asiento_diario[0]['idorigen_asiento_diario']; ?>">
-<input id="usuario_edicion" type="hidden" placeholder="usuario edicion" size="10" value="<?= $this->session->userdata('user') ?>">
-<input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d'); ?>"> 
-<input id="valor_dolar" type="hidden" >
-<input id="usuario_creacion" type="hidden" value="cacao">
+<input id="usuario_edicion_nuevo" type="hidden" placeholder="usuario edicion" size="10" value="<?= $this->session->userdata('user') ?>">
+<input type="hidden" id="fecha_edicion_nueva" value="<?php echo date('Y-m-d'); ?>">
+<input id="idmoneda_actual" type="hidden" value="<?php echo $asiento_diario[0]['idmoneda']; ?>">
 
 <div class="container">
     <div class="row">
@@ -19,24 +18,21 @@
                             <input disabled id="usuario_creacion" readonly="readonly" class="form-control" placeholder="usuario" value="<?php echo $asiento_diario[0]['usuario_creacion']; ?>"  style="width:150px;"></input>
                         </td>
                         <td>Usuario de Ultima Edicion:
-                            <input disabled readonly="readonly" class="form-control" value="<?php echo ($asiento_diario[0]['usuario_modificacion']==null)? "ND": $asiento_diario[0]['usuario_modificacion']; ?>"  style="width:150px;"></input>
+                            <input disabled readonly="readonly" class="form-control" value="<?php echo ($asiento_diario[0]['usuario_modificacion'] == null) ? "ND" : $asiento_diario[0]['usuario_modificacion']; ?>"  style="width:150px;"></input>
                         </td>
                         <td rowspan="3">Descripción de Asiento
-                            <textarea class="form-control has-error" id="descripcion_asiento_diario" maxlength="200" style="resize: none;width: 280px;height: 110px;" ><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?>
-                            </textarea>
+                            <textarea class="form-control has-error" id="descripcion_asiento_diario" maxlength="200" style="resize: none;width: 280px;height: 110px;" ><?php echo $asiento_diario[0]['descripcion_asiento_diario_recurrente']; ?></textarea>
                         </td>
                     </tr> 
                     <tr>
                         <td>Moneda de Transacción
-                            <div id="moneda"> 
-                                <?php echo form_dropdown($tipo_moneda, $idmoneda); ?>
-                            </div>
+                            <?php echo form_dropdown($tipo_moneda, $idmoneda); ?>
                         </td>
                         <td>Fecha de Creacion
                             <input disabled type="input" class="form-control" readonly="readonly" value="<?php echo $asiento_diario[0]['fecha_creacion']; ?>"  style="width:100px;"></input>
                         </td>
                         <td>Fecha de Ultima Edicion
-                            <input disabled type="text" class="form-control" id="fecha_edicion" value="<?php echo($asiento_diario[0]['fecha_modificacion']==null)? "ND": $asiento_diario[0]['fecha_modificacion']; ?>" readonly='readonly' style="width:100px;">
+                            <input disabled type="text" class="form-control" id="fecha_edicion" value="<?php echo($asiento_diario[0]['fecha_modificacion'] == null) ? "ND" : $asiento_diario[0]['fecha_modificacion']; ?>" readonly='readonly' style="width:100px;">
                         </td>
                     </tr>
                 </table>
@@ -87,7 +83,7 @@
                                 <tr id="<?php echo $i ?>" class='ad_detalle_editar agregado'>
 
                                     <td><div class='numero_asiento'><?php echo $i ?></div>
-                                        <input type='hidden' class='numero_transaccion_editar' value="<?php echo $i ?>">
+                                        <input type='hidden' class='numero_transaccion_editar' value="<?php echo $ad_detalle['numero_transaccion']; ?>">
                                         <input type='hidden' id='id_transaccion_editar' value="<?php echo $ad_detalle['numero_transaccion'] ?>">
                                     </td>
                                     <td>
@@ -128,15 +124,15 @@
                         </tbody>
                     </table>
                 </div> 
-                
+
                 <div class="row divboton col-sm-pull-4"> 
                     <div class="row col-md-offset-8 form-inline" >
-                        <input disabled id="total_debito" name ='total_debito' value="0.0" type="text" size=15 readonly class='col-lg-4 valorDC form-control in'>
-                        <input disabled id="total_credito" name ='total_credito' value="0.0" type="text" size=15 readonly class='col-lg-4  valorDC form-control'>
-                            <a class="btn btn-primary fa fa-plus fa-sm" role="button" id="agregar" ></a>
+                        <input disabled id="total_debito" name ='total_debito' value="<?php echo $asiento_diario[0]['balance_debito']; ?>" type="text" size=15 readonly class='col-lg-4 valorDC form-control in'>
+                        <input disabled id="total_credito" name ='total_credito' value="<?php echo $asiento_diario[0]['balance_credito']; ?>" type="text" size=15 readonly class='col-lg-4  valorDC form-control'>
+                        <a class="btn btn-primary fa fa-plus fa-sm" role="button" id="agregar" ></a>
                     </div>
                     <div style="padding-left: 15px;"> 
-                        <button class="btn btn-success btn-lg" id="guardar"> Editar</button>
+                        <button class="btn btn-success btn-lg" id="editar"> Editar</button>
                         <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/index" class="btn btn-success btn-lg " role="button">Cancelar</a>
                     </div>
                 </div>

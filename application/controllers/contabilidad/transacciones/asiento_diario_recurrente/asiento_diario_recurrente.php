@@ -129,18 +129,18 @@ class Asiento_diario_recurrente extends CI_Controller {
     }
 
 //////////////////////////funcion para cambiar fecha y tasa cambio//////////////////////
-    public function buscar_fecha() {
-
-        $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_buscada');
-        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
-        $fecha_encontrada = $this->Tasa_cambio_model->tasa_cambio_encontrar_por_fecha($fecha_tipo_cambio);
-        if (count($fecha_encontrada) == 0) {
-            echo 'vacio';
-        } else {
-
-            echo $fecha_encontrada[0]['tasa_cambio'] . "/" . $fecha_encontrada[0]['idtasa_cambio'];
-        }
-    }
+//    public function buscar_fecha() {
+//
+//        $fecha_tipo_cambio = filter_input(INPUT_POST, 'fecha_buscada');
+//        $this->load->model('contabilidad/transacciones/asiento_diario/Tasa_cambio_model');
+//        $fecha_encontrada = $this->Tasa_cambio_model->tasa_cambio_encontrar_por_fecha($fecha_tipo_cambio);
+//        if (count($fecha_encontrada) == 0) {
+//            echo 'vacio';
+//        } else {
+//
+//            echo $fecha_encontrada[0]['tasa_cambio'] . "/" . $fecha_encontrada[0]['idtasa_cambio'];
+//        }
+//    }
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -150,7 +150,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $idasiento_diario_recurrente = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transaccion = filter_input(INPUT_POST, 'numero_transaccion');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
-        $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
+        $tipo_transaccion = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
         $monto_transaccion = filter_input(INPUT_POST, 'monto_transaccion');
 
 //        echo $idasiento_diario_recurrente. "  " . $numero_transaccion . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " .$monto_transaccion;
@@ -283,7 +283,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $descripcion_asiento_diario = filter_input(INPUT_POST, 'descripcion_asiento_diario');
         $fecha_edicion = filter_input(INPUT_POST, 'fecha_edicion');
         $usuario_edicion = filter_input(INPUT_POST, 'usuario_edicion');
-        $idtasa_cambio = filter_input(INPUT_POST, 'idtasa_cambio');
+        $idmoneda = filter_input(INPUT_POST, 'idmoneda');
         $balance_debito = filter_input(INPUT_POST, 'balance_debito');
         $balance_credito = filter_input(INPUT_POST, 'balance_credito');
         $idorigen_asiento_diario = filter_input(INPUT_POST, 'origen_asiento_diario');
@@ -291,26 +291,25 @@ class Asiento_diario_recurrente extends CI_Controller {
 
 //        echo $usuario_edicion." ".$fecha_edicion." ".$idorigen_asiento_diario."  ".$descripcion_asiento_diario."  ".$idtasa_cambio."  ".$balance_debito."  ".$balance_credito;
 
-        $this->Asiento_diario_recurrente_model->ad_recurrente_modificar($id_adr, $descripcion_asiento_diario, $fecha_edicion, $usuario_edicion, $idtasa_cambio, $balance_debito, $balance_credito,$idorigen_asiento_diario);
+        $this->Asiento_diario_recurrente_model->ad_recurrente_modificar($id_adr, $descripcion_asiento_diario, $fecha_edicion, $usuario_edicion, $idmoneda, $balance_debito, $balance_credito,$idorigen_asiento_diario);
 //        
     }
 
     public function ad_detalle_recurrente_editar() {
         $this->load->model('contabilidad/transacciones/asiento_diario_detalle_recurrente/Asiento_diario_detalle_recurrente_model');
         
-        $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
-        $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
+        $idasiento_diario_recurrente = filter_input(INPUT_POST, 'idasiento_diario_recurrente');
+        $numero_transacciones = filter_input(INPUT_POST, 'numero_transaccion');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
-        $tipo_transaccion = filter_input(INPUT_POST, 'tipo_transaccion');
-        $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
-        $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
+        $naturaleza_cuenta_contable = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
+        $monto_transaccion = filter_input(INPUT_POST, 'monto_transaccion');
 
 
-        echo $idasiento_diario."--".$numero_transacciones."--".$idcuenta_contable."--".$tipo_transaccion."--".$monto_moneda_nacional."--". $monto_moneda_extranjera;
+//        echo $idasiento_diario_recurrente."--".$numero_transacciones."--".$idcuenta_contable."--".$naturaleza_cuenta_contable."--".$monto_transaccion;
 
-        $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_modificar($idasiento_diario
+        $this->Asiento_diario_detalle_recurrente_model->ad_detalle_recurrente_modificar($idasiento_diario_recurrente
                 , $numero_transacciones, $idcuenta_contable
-           , $tipo_transaccion, $monto_moneda_nacional, $monto_moneda_extranjera);
+           , $naturaleza_cuenta_contable, $monto_transaccion);
         
     }
     

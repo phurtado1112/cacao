@@ -1,5 +1,22 @@
 /* global smoke */
 
+// var idmoneda;
+//if( $("#moneda>select").length>0) {
+//    idmoneda = $("#moneda>select").val();
+//}else{
+//    idmoneda = $("#moneda>input").val();
+//}
+//
+//var idorigen_asiento_diario;
+//if( $("select#idorigen_asiento_diario").length>0) {
+//    idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
+//}else{
+//    idorigen_asiento_diario = $("input#valor_origen_ad").val();
+//}
+
+//falta hacer que se muestre el nombre el lugar de el numero
+
+
 function generar_num_ad() {
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
     var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
@@ -73,8 +90,8 @@ function guardar_asiento_diario(num_ad) {
 
     }
     else if (transacciones[1] > 0 && transacciones[0] > 0) {
-        smoke.alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
-                "\n\ \n\Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
+        smoke.alert("Usted tiene transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
+                "\n\ \n\Usted tiene transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (balance_credito !== balance_debito) {
@@ -189,7 +206,7 @@ function guardar_transacciones(idasiento_diario_creado) {
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_detalle_guardar",
             type: "post",
             data: "idasiento_diario=" + idasiento_diario + "&numero_transacciones=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable +
-                    "&tipo_transaccion=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
+                    "&naturaleza_cuenta_contable=" + tipo_transaccion + "&monto_moneda_nacional=" + monto_moneda_nacional + "&monto_moneda_extranjera=" + monto_moneda_extranjera,
             success: function () {
                 if (numero_transacciones_totales === numero_transacciones) {
                     smoke.confirm("Asiento de Diario con el ID "+idasiento_diario+" fue creado con exito\n\¿Desea crear otro Asiento de Diario?",function(e){

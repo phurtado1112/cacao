@@ -1,4 +1,3 @@
-
 function guardar_asiento_diario_recurrente() {
 
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
@@ -26,8 +25,8 @@ function guardar_asiento_diario_recurrente() {
 
     }
     else if (transacciones[1] > 0 && transacciones[0] > 0) {
-        alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
-                "\n\ \n\Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
+        alert("Usted tiene transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
+                "\n\ \n\Usted tiene transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (balance_credito !== balance_debito) {
@@ -38,11 +37,7 @@ function guardar_asiento_diario_recurrente() {
 
     }
     else if (transacciones[0] === 0 && transacciones[1] === 0) {
-//        alert("idorigen_asiento_diario=" + idorigen_asiento_diario + "&descripcion_asiento_diario=" + descripcion_asiento_diario +
-//                    "&idmoneda=" + idmoneda + "&balance_debito=" + balance_debito + "&balance_credito=" + balance_credito + 
-//                    "&usuario_creacion="+ usuario_creacion + "&fecha_creacion=" + fecha_creacion
-//                  );
-
+        
         $.ajax({
             url: 'http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/ad_recurrente_guardar',
             type: 'POST',
@@ -118,7 +113,7 @@ function guardar_transacciones(idasiento_diario_creado) {
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/ad_detalle_recurrente_guardar",
             type: "post",
-            data: "idasiento_diario=" + idasiento_diario + "&numero_transaccion=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&tipo_transaccion=" + tipo_transaccion + "&monto_transaccion=" + monto_transaccion,
+            data: "idasiento_diario=" + idasiento_diario + "&numero_transaccion=" + numero_transacciones + "&idcuenta_contable=" + idcuenta_contable + "&naturaleza_cuenta_contable=" + tipo_transaccion + "&monto_transaccion=" + monto_transaccion,
             success: function () {
 
                 if (numero_transacciones_totales === numero_transacciones) {
