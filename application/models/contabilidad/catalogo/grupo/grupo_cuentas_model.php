@@ -94,7 +94,7 @@ class Grupo_cuentas_model extends CI_Model {
 
     public function lista_grupo_por_nivel_categoria($campo, $valor, $campo_c, $valor_c) {
         
-        $query = $this->db->query("SELECT idgrupo_cuenta,grupo_cuenta FROM grupo_cuenta WHERE " . $campo . "=" . $valor . " AND  " . $campo_c . "=" . $valor_c . " AND estado=1 ");
+        $query = $this->db->query("SELECT idgrupo_cuenta,grupo_cuenta FROM grupo_cuenta WHERE " . $campo . "=" . $valor . " AND  " . $campo_c . "=" . $valor_c . " AND estado=1 OR idgrupo_cuenta=0 ");
         return $query->result_array();
     }
 
