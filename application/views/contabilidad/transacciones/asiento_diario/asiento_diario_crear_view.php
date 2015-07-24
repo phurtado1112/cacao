@@ -4,8 +4,8 @@
             <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Asiento de Diario</h4>
             <div class="row"></br>
                 <table class="table asiento">
-                    <tr>
-                        <td>Origen Asiento Diario
+                <tr>
+                    <td>Origen Asiento Diario
                             <input type="hidden" id='valor_origen_ad' value='<?php
                             if ($asiento_diario_recurrente != "") {
                                 echo $asiento_diario_recurrente[0]['idorigen_asiento_diario'];

@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/jquery-ui.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/estilo.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/smoke.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
         <link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/leaf.ico"> 
         <meta charset="UTF-8">
@@ -110,8 +111,9 @@
                 </ul>
                 
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/cacao/logout_ci">Cerrar sesion</a></li>
+                    <li class=""><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir">Cerrar sesion</a></li>
                 </ul>
-
+                
+                <h5 style="text-align: center">Bienvenido de nuevo <?= $this->session->userdata('user') ?></h5>
             </div>
         </nav>

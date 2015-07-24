@@ -24,11 +24,10 @@ class Asiento_diario_recurrente_model extends CI_Model {
         return $query->num_rows();
     }
 
-    public function ad_recurrente_crear( $idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idtasa_cambio, $balance_debito, $balance_credito
-    ) {
+    public function ad_recurrente_crear($idorigen_asiento_diario, $descripcion_asiento_diario, $fecha_creacion, $usuario_creacion, $idmoneda, $balance_debito, $balance_credito) {
         $this->db->query("INSERT INTO asiento_diario_recurrente(
-             idorigen_asiento_diario, descripcion_asiento_diario_recurrente, fecha_creacion, usuario_creacion, idtasa_cambio, balance_debito, balance_credito
-             ) VALUES(" . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "', '" . $fecha_creacion . "','" . $usuario_creacion . "'," . $idtasa_cambio . "," . $balance_debito . "," . $balance_credito . ")");
+             idorigen_asiento_diario, descripcion_asiento_diario_recurrente, fecha_creacion, usuario_creacion, idmoneda, balance_debito, balance_credito
+             ) VALUES(" . $idorigen_asiento_diario . ",'" . $descripcion_asiento_diario . "', '" . $fecha_creacion . "','" . $usuario_creacion . "'," . $idmoneda . "," . $balance_debito . "," . $balance_credito . ")");
     }
 
     public function ad_recurrente_encontrar_por_id($id_ad_recurrente) {
@@ -40,11 +39,11 @@ class Asiento_diario_recurrente_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function ad_recurrente_modificar($id_ad_recurrente, $descripcion_asiento_diario, $fecha_modificacion, $usuario_modificacion, $idtasa_cambio, $balance_debito, $balance_credito , $idorigen_asiento_diario
+    public function ad_recurrente_modificar($id_ad_recurrente, $descripcion_asiento_diario, $fecha_modificacion, $usuario_modificacion, $idmoneda, $balance_debito, $balance_credito , $idorigen_asiento_diario
     ) {
         $this->db->query("UPDATE asiento_diario_recurrente SET
               descripcion_asiento_diario_recurrente = '" . $descripcion_asiento_diario . "', fecha_modificacion = '" . $fecha_modificacion . "', usuario_modificacion = '" . $usuario_modificacion . "',"
-                . " idtasa_cambio = " . $idtasa_cambio . ",
+                . " idmoneda = " . $idmoneda . ",
                 balance_debito = " . $balance_debito . ", balance_credito = " . $balance_credito . ", idorigen_asiento_diario = ". $idorigen_asiento_diario ."
              WHERE idasiento_diario_recurrente = '" . $id_ad_recurrente . "'");
     }

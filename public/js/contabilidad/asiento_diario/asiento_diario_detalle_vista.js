@@ -1,4 +1,6 @@
 
+/* global smoke */
+
 function agregar_transaccion() {
     var id_campo = parseInt($("tbody#campos_agregados>tr:last").attr("id"));
 
@@ -42,7 +44,7 @@ function quitar_transaccion() {
     if ($("tr.asiento_diario_detalle:last").attr("id") > 2) {
         $(this).parents("tr.agregado").remove();
     } else {
-        alert("Necesita almenos 2 transacciones para guardar el asiento");
+        smoke.alert("Necesita almenos 2 transacciones para guardar el asiento");
     }
 
     var i = 1;
@@ -139,7 +141,7 @@ function asig_valores() {
         
         $("#campos_agregados input.idcuenta_contable").each(function(){
             if($(this).val()=== id){
-                alert("La cuenta "+$(this).val()+" ya esta en uso");
+                smoke.alert("La cuenta "+$(this).val()+" ya esta en uso");
                 exit();
             }
         });

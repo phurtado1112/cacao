@@ -28,8 +28,7 @@ function generar_transacciones() {
     scrollWin();
     var id_campo = parseInt($("tbody#campos_agregados>tr:last").attr("id"));
 
-    var num_ad = $('tr:last td:nth-child(1) input').val();
-    alert(num_ad);
+    var num_ad = $('tr.agregado:last input:first').val();
 
     $('#clone').show();
     var creado = $('#clone').clone();
@@ -45,13 +44,6 @@ function generar_transacciones() {
     var id_cuenta_final = id_cuenta_defecto + id_padre;
 
     creado.attr("class", "asiento_diario_detalle agregado");
-
-//    if (parseInt(id_campo) < parseInt($("html").data("num_reg"))) {
-//        creado.attr("class", "ad_detalle_editar agregado");
-//
-//        creado.find('td:nth-child(1)>input.numero_transaccion').attr("class", "numero_transaccion_editar");
-//
-//    }
 
     creado.find('td:nth-child(2)>div>input').attr('id', id_cuenta_final).attr('name', id_cuenta_final);
     var id_boton_defecto = 'b_';
@@ -70,6 +62,36 @@ function generar_transacciones() {
 
     creado.find('td:nth-child(5)>input').attr('id', id_credito_final).attr('name', id_credito_final).validarCampoNumero('.0123456789');
 }
+
+function quitar_transacion() {
+
+        if ($("tr.agregado:last").attr("id") > 2) {
+            if ($(this).parents("tr").attr("class") === "ad_detalle_editar agregado") {
+                var num_trans_eliminadas = parseInt($(this).parents("tr").find("td:nth-child(1)>input").val());
+                $("body").data("reg_trans_eliminadas").push(num_trans_eliminadas);
+            }
+            $(this).parents("tr.agregado").remove();
+            
+        } else {
+            alert("Necesita almenos 2 transacciones para guardar el asiento");
+        }
+
+        var i = 1;
+        $("tr.agregado").each(function () {
+            $(this).attr("id", i);
+            $(this).find('td:nth-child(1)>div').html(i);
+            $(this).find(".idcuenta_contable").attr("id", "idcuenta_contable_" + i).attr("name", "idcuenta_contable_" + i);
+            $(this).find('td:nth-child(2)>div>span>button').attr('id', "b_" + i).attr('name', "b_" + i);
+            $(this).find('td:nth-child(3)>input').attr('id', "descripcion_cuenta_contable_" + i).attr('name', "descripcion_cuenta_contable_" + i);
+            $(this).find('td:nth-child(4)>input').attr('id', "balance_debito_" + i).attr('name', "balance_debito_" + i);
+            $(this).find('td:nth-child(5)>input').attr('id', "balance_credito_" + i).attr('name', "balance_credito_" + i);
+
+            i++;
+        });
+        scrollWin();
+        calcular_total();
+        calcular_total2();
+    }
 
 function busqueda_cuenta() {
 
@@ -164,53 +186,13 @@ $(document).ready(function () {
 $("body").data("reg_trans_eliminadas",reg_trans_eliminadas);
 //window.onbeforeunload = confirmaSalida;
 
-    function confirmaSalida()
-    {
-        return "Se perderan los cambios no guardados";
-    }
-
     asig_valores_recuperados();
 
     $("#agregar").on('click', function () {
         generar_transacciones();
     });
 
-    $("#campos_agregados").on('click', ".quitar", function () {
-
-        if ($("tr.agregado:last").attr("id") > 2) {
-            if ($(this).parents("tr").attr("class") === "ad_detalle_editar agregado") {
-                var num_trans_eliminadas = parseInt($(this).parents("tr").find("td:nth-child(1)>input").val());
-                $("body").data("reg_trans_eliminadas").push(num_trans_eliminadas);
-            }
-            $(this).parents("tr.agregado").remove();
-            
-        } else {
-            alert("Necesita almenos 2 transacciones para guardar el asiento");
-        }
-
-        var i = 1;
-        $("tr.agregado").each(function () {
-            $(this).attr("id", i);
-            $(this).find('td:nth-child(1)>div').html(i);
-//            $(this).find('td:nth-child(1)>.numero_transaccion').val(i);
-            $(this).find(".idcuenta_contable").attr("id", "idcuenta_contable_" + i).attr("name", "idcuenta_contable_" + i);
-            $(this).find('td:nth-child(2)>div>span>button').attr('id', "b_" + i).attr('name', "b_" + i);
-            $(this).find('td:nth-child(3)>input').attr('id', "descripcion_cuenta_contable_" + i).attr('name', "descripcion_cuenta_contable_" + i);
-            $(this).find('td:nth-child(4)>input').attr('id', "balance_debito_" + i).attr('name', "balance_debito_" + i);
-            $(this).find('td:nth-child(5)>input').attr('id', "balance_credito_" + i).attr('name', "balance_credito_" + i);
-
-//            $(this).attr("class", "asiento_diario_detalle agregado");
-
-//            if (parseInt($(this).attr("id")) < parseInt($("html").data("num_reg")) + 1) {
-//                $(this).attr("class", "ad_detalle_editar agregado");
-//            }
-
-            i++;
-        });
-        scrollWin();
-        calcular_total();
-        calcular_total2();
-    });
+    $("#campos_agregados").on('click', ".quitar",quitar_transacion );
 /////validacion que solo debito o solo credito
 
     $("#campos_agregados").on('keyup', ".campo_debito", function () {

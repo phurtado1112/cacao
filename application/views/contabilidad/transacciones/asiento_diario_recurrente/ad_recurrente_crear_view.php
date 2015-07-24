@@ -16,17 +16,17 @@
                     <td>Moneda de Transacción
                         <div id="moneda"> 
                         <?php echo form_dropdown('idmoneda', $idmoneda); ?></div></td>
-                    <th>Tipo de Cambio</th>
+<!--                    <th>Tipo de Cambio</th>
                     <td><input type="text" readonly id="tasa_cambio" value="1" class="tasa_cambio">
-                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1"></td>
+                    <input type="hidden" id="idtasa_cambio" name="idtasa_cambio" value="1"></td>-->
                 </tr>
                 <tr><th></th><td></td><th></th><th><div id="add-delete"><a class="btn btn-primary fa fa-plus fa-sm " role="button" id="agregar"></a></div></th></tr>
             </table>
            <input type="hidden" id="recoge_fecha" value="<?php echo date('Y-m-d') ;?>">
             
             <!--///////////////////divs desordenados con proposito de insertar en db los datos///////////////////--> 
-            <input id="valor_dolar" type="hidden" >
-            <input id="usuario_creacion" type="hidden" value="cacao">
+            <!--<input id="valor_moneda_extranjera" type="hidden" >-->
+            <input id="usuario_creacion" type="hidden" value="<?= $this->session->userdata('user') ?>">
             
             <!---------------------------------------transacciones de asietos de diario------------------------------------------------>        
             <table class="table-striped">
