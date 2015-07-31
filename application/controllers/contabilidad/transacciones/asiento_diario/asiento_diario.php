@@ -369,8 +369,6 @@ class Asiento_diario extends CI_Controller {
         $idasiento_diario = filter_input(INPUT_POST, 'idasiento_diario');
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
 
-//        echo $idasiento_diario."  ".$numero_transacciones;
-
         $this->Asiento_diario_detalle_model->asiento_diario_detalle_eliminar($numero_transacciones, $idasiento_diario);
     }
 
@@ -391,28 +389,39 @@ class Asiento_diario extends CI_Controller {
 
         $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda, $fecha_tipo_cambio, $tasa_cambio);
     }
-
+    
     public function asiento_diario_mayorizar($idasiento_diario) {
-        //Inserta datos en la tabla de asiento_mayor desde la tabla de asiento_diario
-        $this->query('INSERT INTO asiento_mayor (idasiento_diario, idorigen_asiento_diario, descripcion_asiento_diario,fecha_creacion,
-            fecha_fiscal,fecha_modificacion,usuario_creacion, idtasa_cambio,balance_debito_nacional,balance_credito_nacional,
-            balance_debito_extranjero,balance_credito_extranjero) 
-            SELECT idasiento_diario, idorigen_asiento_diario, descripcion_asiento_diario,fecha_creacion,fecha_fiscal,
-            fecha_modificacion,usuario_creacion, usuario_modificacion, idtasa_cambio,balance_debito,balance_credito_nacional,
-            balance_debito_extranjero,balance_credito_extranjero 
-            from asiento_diario where idasiento_diario=' . $idasiento_diario);
-
-        //Inserta datos en la tabla de asiento_mayor_detalle desde la tabla de asiento_diario_detalle
-        $this->query('INSERT INTO asiento_mayor_detalle (idasiento_diario, numero_transaccion,idcuenta_contable,tipo_transaccion,monto_moneda_nacional,monto_moneda_extranjera) 
-            SELECT idasiento_diario, numero_transaccion, idcuenta_contable, tipo_transaccion, monto_moneda_nacional, monto_moneda_extranjera 
-            from asiento_diario where idasiento_diario=1;');
-
-        //hace la sumatoria de la cuentas
-        $this->query("select asiento_diario_detalle.idcuenta_contable, naturaleza_cuenta_contable, naturaleza_transaccion, "
-                . "sum(if(naturaleza_cuenta_contable='D',if(naturaleza_transaccion='D', monto_moneda_nacional, -monto_moneda_nacional), "
-                . "if(naturaleza_transaccion='C',monto_moneda_nacional,-monto_moneda_nacional))) as monto_local, "
-                . "sum(monto_moneda_extranjera)  as monto_extranjero "
-                . "from asiento_diario_detalle left join catalogo_cuenta on (asiento_diario_detalle.idcuenta_contable = catalogo_cuenta.idcuenta_contable) "
-                . "where idasiento_diario = '".$idasiento_diario."' group by idcuenta_contable order by idcuenta_contable");
+        $this->load->model('contabilidad/transacciones/asiento_mayor/Asiento_mayor_model');
+        $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
+        
+        $this->Asiento_mayor_model->mayorizar_asiento_diario($idasiento_diario);
+        $this->Asiento_mayor_model->mayorizar_asiento_diario_detalle($idasiento_diario);
+        
+        $lista_cuentas_mayor_detalle = $this->Asiento_mayor_model->leer_cuentas_mayor_detalle($idasiento_diario);
+        $fecha_asiento_mayor = $this->Asiento_mayor_model->encontrar_fecha_asiento_mayor($idasiento_diario);
+        $anio_fiscal = $this->Asiento_mayor_model->encontrar_anio_fiscal_asiento_mayor($fecha_asiento_mayor);
+        $lista_cuentas_saldos = $this->Asiento_mayor_model->buscar_cuenta_contable_saldos($anio_fiscal);
+        
+        foreach ($lista_cuentas_mayor_detalle as $cuenta_mayor_detalle) {
+            if(!in_array($cuenta_mayor_detalle,$lista_cuentas_saldos)) {
+                $cuenta_mayor_det = $cuenta_mayor_detalle['idcuenta_contable'];
+                $this->Asiento_mayor_model->agregar_cuenta_contable($cuenta_mayor_det, $anio_fiscal);
+            }
+        }
+                
+        $periodo_cuenta = $this->Asiento_mayor_model->encontrar_periodo_fiscal_asiento_mayor($fecha_asiento_mayor,$anio_fiscal);
+        $lista_montos = $this->Asiento_mayor_model->sumar_montos_asiento_mayor_detalle($idasiento_diario);
+        
+        foreach ($lista_montos as $montos) {
+            if($montos['idcuenta_contable']!=null) {
+                $monto = $montos['monto_local'];
+                $idcuent = $montos['idcuenta_contable'];
+                $this->Asiento_mayor_model->mayorizar_saldos($periodo_cuenta,$monto,$idcuent,$anio_fiscal);
+            }
+        }
+        
+        $this->Asiento_mayor_model->eliminar_asiento_diario($idasiento_diario);
+        
+        header('Location:' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index');
     }
 }
