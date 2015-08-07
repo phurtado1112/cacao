@@ -160,12 +160,12 @@ function editar_transacciones(idasiento_diario_editado) {
         var idmoneda = $("#moneda>select").val();
 
         if ((debito === "0" && credito !== "0") || (debito === "0.0" && credito !== "0.0")) {
-            var tipo_transaccion = "a";
+            var tipo_transaccion = "C";
 
             var monto = Number(credito);
 
         } else if ((debito !== "0" && credito === "0") || (debito !== "0.0" && credito === "0.0")) {
-            var tipo_transaccion = "d";
+            var tipo_transaccion = "D";
 
             var monto = Number(debito);
         }
@@ -234,12 +234,12 @@ function guardar_transacciones(idasiento_diario_creado) {
         var idmoneda = $("#moneda>select").val();
 
         if ((debito === "0.0" ||debito==="0") && credito !== "0.0") {
-            var tipo_transaccion = "a";
+            var tipo_transaccion = "C";
 
             var monto = credito;
 
         } else if (debito !== "0.0" && (credito === "0.0" || credito === "0")) {
-            var tipo_transaccion = "d";
+            var tipo_transaccion = "D";
 
             var monto = debito;
 

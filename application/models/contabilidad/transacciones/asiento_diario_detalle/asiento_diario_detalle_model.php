@@ -10,7 +10,7 @@ class Asiento_diario_detalle_model extends CI_Model {
             $idasiento_diario,$numero_transacciones,$idcuenta_contable, $naturaleza_cuenta_contable,$monto_moneda_nacional,
             $monto_moneda_extranjera) {
         $this->db->query("INSERT INTO asiento_diario_detalle
-               (idasiento_diario,numero_transaccion,idcuenta_contable, naturaleza_cuenta_contable,monto_moneda_nacional, monto_moneda_extranjera) 
+               (idasiento_diario,numero_transaccion,idcuenta_contable, naturaleza_transaccion,monto_moneda_nacional, monto_moneda_extranjera) 
                VALUES('".$idasiento_diario."',".$numero_transacciones.",'".$idcuenta_contable."','".$naturaleza_cuenta_contable."',".$monto_moneda_nacional.",".$monto_moneda_extranjera.")");
     }
     
@@ -35,7 +35,7 @@ class Asiento_diario_detalle_model extends CI_Model {
             $monto_moneda_extranjera) {
         $this->db->query("UPDATE asiento_diario_detalle SET
             idcuenta_contable = '".$idcuenta_contable.
-                "', naturaleza_cuenta_contable = '".$naturaleza_cuenta_contable.
+                "', naturaleza_transaccion = '".$naturaleza_cuenta_contable.
                 "',monto_moneda_nacional = ".$monto_moneda_nacional.
                 ", monto_moneda_extranjera = ".$monto_moneda_extranjera."
             WHERE (idasiento_diario = '".$idasiento_diario."') AND (numero_transaccion =".$numero_transacciones.")");
