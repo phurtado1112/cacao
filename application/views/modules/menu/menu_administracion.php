@@ -6,12 +6,12 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/smoke.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-
+        
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/logo.ico" />
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
     <body>
-
         <nav class="navbar navbar-fixed-top" role="navigation">
             <!-- El logotipo y el icono que despliega el menú se agrupan
                  para mostrarlos mejor en los dispositivos móviles -->
@@ -69,14 +69,19 @@
                     <ul class="nav navbar-nav">
                         <li ><a href="<?php echo base_url(); ?>">Operaciones</a></li>
                     </ul>
-
-                    <ul class="nav navbar-nav">
-                        <li class=""><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir">Cerrar sesion</a></li>
-                    </ul>
-
-                        
-                    <!-- ////////////////////////////////////////////////////-->
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>&nbsp;&nbsp;<?= $this->session->userdata('user') ?><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Salir</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"></a></li>
+                </ul>
+                
                 </div>
-                <h5 style="text-align: center">Bienvenido de nuevo <?= $this->session->userdata('user') ?></h5>
             </div>
         </nav>

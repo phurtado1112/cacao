@@ -84,7 +84,7 @@ if (!empty($consulta_cuentas)) {
                                 </nav>
                                 </div>";
 } else {
-    echo '<h4 class="col-lg-offset-5">No se encontraron categorias de cuentas</h4>';
+    echo '<h4 class="col-lg-offset-5">No se encontraron cuentas</h4>';
 }
 
 

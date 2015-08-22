@@ -41,13 +41,9 @@ class Catalogo_cuentas_model extends CI_Model {
     }
 
     //listar activos e inactivos 
-    public function catalogo_cuentas_lista($estado) {
-        $datos = $this->db->query('SELECT idcuenta_contable,cuenta_contable FROM catalogo_cuenta WHERE estado=' . $estado . ' AND idcuenta_contable > 0 ');
-        return $datos->result_array();
-    }
     
     public function catalogo_cuentas_paginacion($estado, $inicio, $num_por_pagina) {
-        $datos = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . ' AND idcuenta_contable > 0 ORDER BY idcuenta_contable LIMIT ' . $inicio . ',' . $num_por_pagina . '');
+        $datos = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . ' ORDER BY idcuenta_contable LIMIT ' . $inicio . ',' . $num_por_pagina . '');
         return $datos->result_array();
     }
 
@@ -55,17 +51,6 @@ class Catalogo_cuentas_model extends CI_Model {
     public function numero_catalogo_cuentas($estado) {
         $numero_registros = $this->db->query('SELECT idcuenta_contable,cuenta,naturaleza,grupo_cuenta FROM catalogo_cuenta_view WHERE estado=' . $estado . '');
         return $numero_registros->num_rows();
-    }
-
-    //lista catalogo de cuentas
-    function catalogo_lista() {
-        $query_cuentas = $this->db->query('select idcuenta_contable,cuenta_contable from catalogo_cuenta WHERE estado > 0');
-        $dropdowns = $query_cuentas->result_array();
-        foreach ($dropdowns as $dropdown) {
-            $lista[$dropdown['idcuenta_contable']] = $dropdown['cuenta_contable'];
-        }
-        $option = $lista;
-        return $option;
     }
 
     //busqueda por ajax
@@ -92,6 +77,7 @@ class Catalogo_cuentas_model extends CI_Model {
          
         $this->db->query('DELETE FROM catalogo_cuenta WHERE idcuenta_contable="'.$idcuenta.'"');
     }
+    
 
 }
 

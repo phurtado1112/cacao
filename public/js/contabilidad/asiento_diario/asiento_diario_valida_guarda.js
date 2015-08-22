@@ -1,22 +1,5 @@
 /* global smoke */
 
-// var idmoneda;
-//if( $("#moneda>select").length>0) {
-//    idmoneda = $("#moneda>select").val();
-//}else{
-//    idmoneda = $("#moneda>input").val();
-//}
-//
-//var idorigen_asiento_diario;
-//if( $("select#idorigen_asiento_diario").length>0) {
-//    idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
-//}else{
-//    idorigen_asiento_diario = $("input#valor_origen_ad").val();
-//}
-
-//falta hacer que se muestre el nombre el lugar de el numero
-
-
 function generar_num_ad() {
     var idorigen_asiento_diario = $("select#idorigen_asiento_diario").val();
     var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
@@ -147,13 +130,13 @@ function validar_transacciones() {
 
         var debito = $(this).find(".campo_debito").val();
         var credito = $(this).find(".campo_credito").val();
-        var idcuenta_contable = $(this).find(".idcuenta_contable").val();
+        var cuenta_contable = $(this).find(".descripcion_cuenta_contable").val();
 
 
         if (debito === "" || credito === "") {
             montos_vacios++;
         }
-        else if (idcuenta_contable === "") {
+        else if (cuenta_contable === "") {
             idcuenta_contable_not++;
 
         } else if (debito == 0 && credito == 0) {

@@ -1,3 +1,5 @@
+/* global smoke */
+
 function buscar_tasa_por_fecha(fecha_buscada, idmoneda, uso_valores) {
 
     $.ajax({
@@ -26,7 +28,7 @@ function buscar_tasa_por_fecha(fecha_buscada, idmoneda, uso_valores) {
             }
         },
         error: function () {
-            alert("Error al consultar la tasa de cambio");
+            smoke.alert("Error al consultar la tasa de cambio");
         }
     });
 
@@ -46,13 +48,13 @@ function agregar_tasa_cambio() {
                 + "&fecha_tipo_cambio=" + fecha_tipo_cambio
                 + "&tasa_cambio=" + tasa_cambio,
         success: function () {
-            alert("Tasa de cambio agregada con exito");
+            smoke.alert("Tasa de cambio agregada con exito");
             $("#intro_tasa_cambio input").val("");
             $("#intro_tasa_cambio").hide();
             
         },
         error: function () {
-            alert('Error al agregar tasa de cambio');
+            smoke.alert('Error al agregar tasa de cambio');
         }
 
     }).done(function () {
@@ -115,8 +117,7 @@ $(document).ready(function () {
     }
 
     //////////////seleccion de moneda/cambio ///////////////
-
-
+    
     $("#moneda>select").change(function () {
 
         var fecha_fiscal = $("#fecha_fiscal").val();
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
 
         } else if ((idmoneda > 1) && fecha_fiscal === '') {
-            alert("Usted necesita introducir fecha fiscal");
+            smoke.alert("Usted necesita introducir fecha fiscal");
             $("#tasa_cambio").val("ND");
 
         } else if (idmoneda === 1 && fecha_fiscal !== '') {

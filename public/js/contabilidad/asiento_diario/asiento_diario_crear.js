@@ -117,7 +117,12 @@ $(document).ready(function () {
         $("#intro_tasa_cambio input").val("");
         $("#intro_tasa_cambio").hide();
     });
-
+    
+    buscar_tasa_por_fecha($("#fecha_fiscal").val(),"2", function (arreglo) {
+                $("#valor_moneda_extranjera").val(arreglo[0]);
+            }
+    );
+    
     $("#moneda>select").change(function () {
 
         var fecha_fiscal = $("#fecha_fiscal").val();

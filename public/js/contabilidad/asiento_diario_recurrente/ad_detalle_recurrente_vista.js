@@ -1,4 +1,6 @@
 
+/* global smoke */
+
 function generar_transacciones() {
     scrollWin();
 
@@ -27,7 +29,7 @@ function generar_transacciones() {
 
     var id_descripcion_defecto = creado.find('#descripcion_cuenta_contable_').attr('id');
     var id_descripcion_cuenta_final = id_descripcion_defecto + id_padre;
-    creado.find('td:nth-child(3)>input').attr('id', id_descripcion_cuenta_final).attr('name', id_descripcion_cuenta_final);
+    creado.find('td:nth-child(3)>input').attr('id', id_descripcion_cuenta_final);
 
     var id_debito_defecto = 'balance_debito_';
     var id_debito_final = id_debito_defecto + id_padre;
@@ -57,7 +59,7 @@ function quitar_transacciones() {
         $(this).find(".idcuenta_contable").attr("id", "idcuenta_contable_" + i).attr("name", "idcuenta_contable_" + i);
         $(this).find('td:nth-child(2)>div>span>button').attr('id', "b_" + i).attr('name', "b_" + i);
 
-        $(this).find('td:nth-child(3)>input').attr('id', "descripcion_cuenta_contable_" + i).attr('name', "descripcion_cuenta_contable_" + i);
+        $(this).find('td:nth-child(3)>input').attr('id', "descripcion_cuenta_contable_" + i);
 
         $(this).find('td:nth-child(4)>input').attr('id', "balance_debito_" + i).attr('name', "balance_debito_" + i);
 
@@ -71,16 +73,17 @@ function quitar_transacciones() {
     calcular_total2();
 }
 
-function busqueda_cuenta() {
-
+function busqueda_cuenta(valor_input) {
+    var campo = $('#campo_busqueda').val();
     var tag = '#cuenta_contable_buscar';
-
+    $(tag).val(valor_input);
+    
     var valor = $(tag).val();
-
+    
     $.ajax({
         url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_cuentas_buscar",
         type: "post",
-        data: "valor=" + valor + "&campo=idcuenta_contable",
+        data: "valor=" + valor + "&campo="+campo,
         success: function (data) {
 
             $("#resultado").html(data);
@@ -103,8 +106,8 @@ function asig_valores() {
         });
 
         $('#cuenta_contable_buscar').val("");
-
-        $('#listar').fadeOut('slow');
+        $("#campo_busqueda").find("option[value=idcuenta_contable]").attr("selected", "selected");
+        $('#listar').hide();
 
         var campo_cuenta = "#idcuenta_contable_" + val;
         var campo_descripcion = "#descripcion_cuenta_contable_" + val;
@@ -157,11 +160,12 @@ function calcular_total2() {
     $("#total_credito").val(debito_total);
 }
 
-function mostrar() {
-    $("#listar").fadeIn("fast");
-    busqueda_cuenta();
+function mostrar(valor_input) {
+    $("#listar").show();
+    busqueda_cuenta(valor_input);
 
 }
+
 
 (function (a) {
     a.fn.validarCampoNumero = function (b) {
@@ -212,31 +216,13 @@ $(document).ready(function () {
         calcular_total();
 
     });
-
-    $('#buscar_cuenta').on("click", function () {
-        busqueda_cuenta();
-
-    });
-
-    $('#cuenta_contable_buscar').on("keypress", function () {
-        busqueda_cuenta();
-
-    });
-
-    $("#campos_agregados").on("click", ".buscar_cuenta", function () {
-        var referencia = $(this).attr("id");
-        var valor_ref = referencia.charAt(referencia.length - 1);
-
-        mostrar();
-
-        $("body").data("id_ref", valor_ref);
-
-    });
+    
     
     $("#resultado").on("click", "tr#buscar_c", asig_valores);
 
     $("#cerrar_pop").on("click", function () {
         $('#cuenta_contable_buscar').val("");
+        $("#campo_busqueda").find("option[value=idcuenta_contable]").attr("selected", "selected");
         $("#listar").hide();
     });
 
@@ -248,11 +234,80 @@ $(document).ready(function () {
     $("#campos_agregados").on("keyup", ".campo_credito", function () {
         calcular_total2();
     });
+    
+    /////////////////////////////////////////////////////////
+     $("#campos_agregados").on("focus", ".idcuenta_contable", function () {
+        $(this).validarCampoNumero('-0123456789');
+         
+     });
+     
+     $("#campos_agregados").on("keyup", ".idcuenta_contable", function () {
+        if($(this).val().length < 10){
+            var num = $(this).attr("id");
+            $("#descripcion_cuenta_contable_"+num.charAt(num.length - 1)).val("");
+        }
+         
+     });
+     
+     $("#campos_agregados").on("click", ".buscar_cuenta", function () {
+         //boton
+        var referencia = $(this).attr("id");
+        var valor_ref = referencia.charAt(referencia.length - 1);
+        
+        if($("#idcuenta_contable_"+valor_ref).val().length === 10){
+            //cuentas
+            $("#campos_agregados input.idcuenta_contable").each(function(){
+                var idcampo = $(this).attr("id");
+                
+                if($(this).val()=== $("#idcuenta_contable_"+valor_ref).val() && idcampo.charAt(idcampo.length - 1) !== referencia.charAt(referencia.length - 1)){
+                             
+                    smoke.alert("La cuenta "+$("#idcuenta_contable_"+valor_ref).val()+" ya esta en uso");
+                    $("#idcuenta_contable_"+valor_ref).val("");
+                    exit();
+                }
+        });
+        
+            $.ajax({
+            url: "http://localhost/cacao/index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_cuenta_unica",
+            type: "post",
+            data: "valor=" + $("#idcuenta_contable_"+valor_ref).val(),
+            success: function (data) {
+                if(data!=="0"){
+                    $("#descripcion_cuenta_contable_"+valor_ref).val(data);
+                    
+                }else if(data==="0"){
+                    alert("No se encontro ninguna cuenta");
+                }
+                
+            }
+            });
+            
+        }else{
+            mostrar($("#idcuenta_contable_"+valor_ref).val());
+            //valor referencia para ubicar valores en transaccion 
+            $("body").data("id_ref", valor_ref);
+        }
+        
+        
+    });
+    
+    // pop
+    
+    $("#buscar_cuenta").on("click",function(){
+    busqueda_cuenta( $('#cuenta_contable_buscar').val());
+    });
+    
+    $('#cuenta_contable_buscar').on("keyup",function(){
+        busqueda_cuenta($(this).val());
+    });
+    
+    $('#campo_busqueda').on("change",function(){
+        busqueda_cuenta($('#cuenta_contable_buscar').val());
+    });
+    /////////////////////////////////////////////////////////
 
     $(".campo_debito").validarCampoNumero('.0123456789');
     $(".campo_credito").validarCampoNumero('.0123456789');
-    //////busqueda de pop-up/////////////
-    $("#cuenta_contable_buscar").validarCampoNumero('-0123456789');
 
 
 

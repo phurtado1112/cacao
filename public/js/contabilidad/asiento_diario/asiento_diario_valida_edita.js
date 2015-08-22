@@ -108,12 +108,12 @@ function validar_transacciones() {
 
         var debito = $(this).find(".campo_debito").val();
         var credito = $(this).find(".campo_credito").val();
-        var idcuenta_contable = $(this).find(".idcuenta_contable").val();
+        var cuenta_contable = $(this).find(".descripcion_cuenta_contable").val();
 
         if (debito === "" || credito === "") {
             montos_vacios++;
         }
-        else if (idcuenta_contable === "") {
+        else if (cuenta_contable === "") {
             idcuenta_contable_not++;
 
         }

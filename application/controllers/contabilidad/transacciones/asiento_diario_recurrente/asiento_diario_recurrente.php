@@ -71,7 +71,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $idorigen_asiento_diario = array(
             'name' => 'idorigen_asiento_diario',
             'id' => 'idorigen_asiento_diario',
-            'class' => 'form-group',
+            'class' => 'form-control',
         );
         $data['idorigen_asiento_diario'] = $idorigen_asiento_diario;
 

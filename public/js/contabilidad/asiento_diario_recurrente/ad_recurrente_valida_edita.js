@@ -7,7 +7,7 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
     var balance_credito = $("#total_credito").val();
     var balance_debito = $("#total_debito").val();
     var fecha_edicion = $("#fecha_edicion_nueva").val();
-    var idmoneda = $("#idmoneda").val();
+    var idmoneda = $("select[name=idmoneda]").val();
 
 
     var tasa_cambio = $("#tasa_cambio").val();
@@ -15,7 +15,6 @@ function editar_asiento_diario(numero_transacciones_totales_inicio) {
 
     var numero_transacciones_totales = $(".numero_transaccion_editar:last").val();
 
-alert(id_ad_recurrente+"--"+idorigen_asiento_diario+"--"+descripcion_asiento_diario+"--"+usuario_edicion+"--"+balance_credito+"--"+balance_debito+"--"+fecha_edicion+"--"+idmoneda);
     if (descripcion_asiento_diario === null || descripcion_asiento_diario.length === 0) {
         alert('Es necesario el campo de descripcion');
     }
@@ -71,12 +70,12 @@ function validar_transacciones() {
 
         var debito = $(this).find(".campo_debito").val();
         var credito = $(this).find(".campo_credito").val();
-        var idcuenta_contable = $(this).find(".idcuenta_contable").val();
+        var cuenta_contable = $(this).find(".descripcion_cuenta_contable").val();
 
         if (debito === "" || credito === "") {
             montos_vacios++;
         }
-        else if (idcuenta_contable === "") {
+        else if (cuenta_contable === "") {
             idcuenta_contable_not++;
 
         }
