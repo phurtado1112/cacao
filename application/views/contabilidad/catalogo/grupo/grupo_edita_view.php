@@ -35,7 +35,8 @@
                           <input id="idnivel_anterior" type="hidden" value="<?php echo $lista_por_id[0]['idnivel_anterior'] ?>">
                           <?=form_dropdown('idnivel_anterior','','class="form-control"');?>
                         </div></div>
-                      <div class="form-group">
+                    <div class="form-group" id="radio_button">
+                        <input id="acepta_cuenta_actual" type="hidden" value="<?php echo $lista_por_id[0]['acepta_cuenta']?>">
                         <label class="col-lg-3 control-label col-lg-offset-2">Aceptar cuentas</label>
                          <label class="col-lg-1">No</label>
                                 <input class="col-lg-1" style="margin-left: -30px;" type = "radio" name = "acepta_cuenta"  value = "0"  checked = "checked" />
