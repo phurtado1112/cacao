@@ -186,8 +186,8 @@ class Asiento_diario extends CI_Controller {
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
         $naturaleza_cuenta_contable = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
-        $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
-        $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
+        $monto_moneda_nacional = round(filter_input(INPUT_POST, 'monto_moneda_nacional'),4);
+        $monto_moneda_extranjera = round(filter_input(INPUT_POST, 'monto_moneda_extranjera'),4);
 
 //        echo $idasiento_diario. "  " . $numero_transacciones . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " . $monto_moneda_nacional . "  " . $monto_moneda_extranjera;
 
@@ -366,8 +366,8 @@ class Asiento_diario extends CI_Controller {
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transacciones');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
         $tipo_transaccion = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
-        $monto_moneda_nacional = filter_input(INPUT_POST, 'monto_moneda_nacional');
-        $monto_moneda_extranjera = filter_input(INPUT_POST, 'monto_moneda_extranjera');
+        $monto_moneda_nacional = round(filter_input(INPUT_POST, 'monto_moneda_nacional'),4);
+        $monto_moneda_extranjera = round(filter_input(INPUT_POST, 'monto_moneda_extranjera'),4);
 
 
 //        echo $idasiento_diario."--".$numero_transacciones."--".$idcuenta_contable."--".$tipo_transaccion."--".$monto_moneda_nacional."--". $monto_moneda_extranjera;

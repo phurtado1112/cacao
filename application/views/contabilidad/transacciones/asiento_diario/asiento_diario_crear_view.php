@@ -92,8 +92,8 @@
                                 </div>
                             </td>
                             <td><input id="descripcion_cuenta_contable_" class='descripcion_cuenta_contable form-control' disabled readonly="readonly" maxlength=120 size=50 placeholder='Descripcion Cta. Contable'></td>
-                            <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_debito' placeholder='0.0'></td>
-                            <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_credito' placeholder='0.0'></td>
+                            <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_debito' placeholder='0.00'></td>
+                            <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='14' size='10' class='form-control campo_credito' placeholder='0.00'></td>
 
                             <td><a class="btn btn-primary quitar fa fa-ban fa-sm" role="button" style="margin-left:5px;"></a></td>
                         </tr> 
@@ -132,8 +132,8 @@
                                         $credito = $monto;
                                     }
 
-                                    echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
-                                  <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                                    echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.00'></td>
+                                  <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.00'></td>
                                       
                                   <td><a class='btn btn-primary quitar fa fa-ban fa-sm' role='button' style='margin-left:5px;'></a></td>
                         </tr>";
@@ -153,8 +153,8 @@
                     </td>
 
                     <td><input id="descripcion_cuenta_contable_1" class ="descripcion_cuenta_contable form-control" disabled readonly="readonly" maxlength=120 size=50 placeholder="Descripcion Cta. Contable"></td>
-                    <td><input id="balance_debito_1" name ="balance_debito_0" type="text" value="" maxlength=14 size=10 class="form-control campo_debito" placeholder="0.0"></td>
-                    <td><input id="balance_credito_1" name ="balance_credito_0" type="text" value="" maxlength=14 size=10 class="form-control campo_credito" placeholder="0.0"></td>
+                    <td><input id="balance_debito_1" name ="balance_debito_0" type="text" value="" maxlength=14 size=10 class="form-control campo_debito" placeholder="0.00"></td>
+                    <td><input id="balance_credito_1" name ="balance_credito_0" type="text" value="" maxlength=14 size=10 class="form-control campo_credito" placeholder="0.00"></td>
                     
                     <td><a class="btn btn-primary quitar fa fa-ban fa-sm" role="button" style="margin-left:5px;"></a></td>
                 </tr>
@@ -169,8 +169,8 @@
                     </td>
 
                     <td><input id="descripcion_cuenta_contable_2" class ="descripcion_cuenta_contable form-control" disabled readonly="readonly" maxlength=120 size=50 placeholder="Descripcion Cta. Contable"></td>
-                    <td><input id="balance_debito_2" name ="balance_debito_1" type="text" value="" maxlength=14 size=10 class="form-control campo_debito" placeholder="0.0"></td>
-                    <td><input id="balance_credito_2" name ="balance_credito_1" type="text" value="" maxlength=14 size=10 class="form-control campo_credito" placeholder="0.0"></td>
+                    <td><input id="balance_debito_2" name ="balance_debito_1" type="text" value="" maxlength=14 size=10 class="form-control campo_debito" placeholder="0.00"></td>
+                    <td><input id="balance_credito_2" name ="balance_credito_1" type="text" value="" maxlength=14 size=10 class="form-control campo_credito" placeholder="0.00"></td>
                    
                     <td><a class="btn btn-primary quitar fa fa-ban fa-sm" role="button" style="margin-left:5px;"></a></td>
                 </tr>';
@@ -190,12 +190,12 @@
                         <input id="total_debito" name ='total_debito' value="<?php if ($asiento_diario_recurrente != "") {
                                 echo $asiento_diario_recurrente[0]['balance_debito'];
                             } else {
-                                echo "0.0";
+                                echo "0.00";
                             } ?>" type="text" readonly class='col-lg-4 col-lg-pull-1'>
                         <input id="total_credito" name ='total_credito' value="<?php if ($asiento_diario_recurrente != "") {
                                 echo $asiento_diario_recurrente[0]['balance_credito'];
                             } else {
-                                echo "0.0";
+                                echo "0.00";
                             } ?>" readonly class='col-lg-4'>
                     </div>
                 </div>

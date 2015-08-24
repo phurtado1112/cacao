@@ -91,8 +91,8 @@
                             </div>
                         </td>
                         <td><input id="descripcion_cuenta_contable_" disabled class='descripcion_cuenta_contable form-control' readonly="readonly" maxlength=120 size=50 placeholder='Descripcion Cta. Contable'></td>
-                        <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.0'></td>
-                        <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.0'></td>
+                        <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.00'></td>
+                        <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.00'></td>
                         <td><a class="btn btn-primary quitar fa fa-ban fa-sm" role="button" style="margin-left:5px;"></a></td>
                     </tr> 
                     <!--------------------------------------------------------------------------------------------------------->                
@@ -125,15 +125,15 @@
                                 
                             }
                             if ($ad_detalle['naturaleza_transaccion'] == "D") {
-                                $debito = $monto;
-                                $credito = 0.0;
+                                $debito = number_format(round($monto,2) , 2);
+                                $credito = "0.00";
                                 
                             } else if ($ad_detalle['naturaleza_transaccion'] == "C") {
-                                $debito = 0.0;
-                                $credito = $monto;
+                                $debito = "0.00";
+                                $credito =  number_format(round($monto,2) , 2);
                             }
-                            echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.0'></td>
-                                  <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                            echo "<td><input id='balance_debito_" . $i . "' name ='balance_debito_" . $i . "' type='text' value='" . $debito . "' maxlength=10 size=10 class='form-control campo_debito' placeholder='0.00'></td>
+                                  <td><input id='balance_credito_" . $i . "' name ='balance_credito_" . $i . "' type='text' value='" . $credito . "' maxlength=10 size=10 class='form-control campo_credito' placeholder='0.00'></td>
                                       
                                   <td><a class='btn btn-primary quitar fa fa-ban fa-sm' role='button' style='margin-left:5px;'></a></td>
                         </tr>";
@@ -149,8 +149,8 @@
                     <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario/asiento_diario/index" class="btn btn-success btn-lg fa fa-close fa-lg" role="button">Cancelar</a>
                 </div>
                 <div class="form-group col-lg-5 col-lg-push-2">
-                    <input id="total_debito" name ='total_debito' value="<?php echo $balance_debito; ?>" type="text" readonly class='col-lg-4 col-lg-pull-1'>
-                    <input id="total_credito" name ='total_credito' value="<?php echo $balance_credito; ?>" readonly class='col-lg-4'>
+                    <input id="total_debito" name ='total_debito' value="<?php echo number_format(round($balance_debito,2) , 2); ?>" type="text" readonly class='col-lg-4 col-lg-pull-1'>
+                    <input id="total_credito" name ='total_credito' value="<?php echo number_format(round($balance_credito,2) , 2); ?>" readonly class='col-lg-4'>
                 </div>
            </div>     
         </div>

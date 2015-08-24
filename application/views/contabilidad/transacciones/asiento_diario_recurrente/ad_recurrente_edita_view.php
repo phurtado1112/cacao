@@ -98,8 +98,8 @@
                                 </div>
                             </td>
                             <td><input id="descripcion_cuenta_contable_" readonly="readonly" maxlength=120 size=50 class='form-control descripcion_cuenta_contable' placeholder='Descripcion Cta. Contable'></td>
-                            <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.0'></td>
-                            <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.0'></td>
+                            <td><input id="balance_debito_" name ='balance_debito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_debito' placeholder='0.00'></td>
+                            <td><input id="balance_credito_" name ='balance_credito_'  type="text" value="" maxlength='10' size='10' class='form-control campo_credito' placeholder='0.00'></td>
 
                             <td><a class="btn btn-primary quitar fa fa-ban fa-sm" role="button" style="margin-left:5px;"></a></td>
                         </tr> 
@@ -134,16 +134,16 @@
                                     $monto = $ad_detalle['monto_transaccion'];
 
                                     if ($ad_detalle['naturaleza_cuenta_contable'] == "D") {
-                                        $debito = $monto;
-                                        $credito = 0.0;
+                                        $debito =number_format(round($monto,2) , 2);
+                                        $credito = "0.00";
                                     } else if ($ad_detalle['naturaleza_cuenta_contable'] == "C") {
-                                        $debito = 0.0;
-                                        $credito = $monto;
+                                        $debito = "0.00";
+                                        $credito = number_format(round($monto,2) , 2);
                                     }
                                     ?>
 
-                                    <td><input id="balance_debito_<?php echo $i ?>" name ="balance_debito_<?php echo $i ?>" type='text' value="<?php echo $debito ?>" maxlength=10 size=10 class='form-control campo_debito ' placeholder='0.0'></td>
-                                    <td><input id="balance_credito_<?php echo $i ?>" name ="balance_credito_<?php echo $i ?>" type='text' value="<?php echo $credito ?>" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.0'></td>
+                                    <td><input id="balance_debito_<?php echo $i ?>" name ="balance_debito_<?php echo $i ?>" type='text' value="<?php echo $debito ?>" maxlength=10 size=10 class='form-control campo_debito ' placeholder='0.00'></td>
+                                    <td><input id="balance_credito_<?php echo $i ?>" name ="balance_credito_<?php echo $i ?>" type='text' value="<?php echo $credito ?>" maxlength=10 size=10 class='form-control campo_credito' placeholder='0.00'></td>
 
                                     <td><a class='btn btn-primary quitar fa fa-ban fa-sm' role='button' style='margin-left:5px;'></a></td>
                                 </tr>
@@ -162,8 +162,8 @@
                     <a href="<?php echo base_url(); ?>index.php/contabilidad/transacciones/asiento_diario_recurrente/asiento_diario_recurrente/index" class="btn btn-success btn-lg fa fa-close fa-lg" role="button">Cancelar</a>
                 </div>
                 <div class="form-group col-lg-5 col-lg-push-2">
-                    <input disabled id="total_debito" name ='total_debito' value="<?php echo $asiento_diario[0]['balance_debito']; ?>" type="text" size=15 readonly class='col-lg-4 col-lg-pull-1'>
-                    <input disabled id="total_credito" name ='total_credito' value="<?php echo $asiento_diario[0]['balance_credito']; ?>" type="text" size=15 readonly class='col-lg-4'>
+                    <input disabled id="total_debito" name ='total_debito' value="<?php echo number_format(round($asiento_diario[0]['balance_debito'],2) , 2); ?>" type="text" size=15 readonly class='col-lg-4 col-lg-pull-1'>
+                    <input disabled id="total_credito" name ='total_credito' value="<?php echo number_format(round($asiento_diario[0]['balance_credito'],2) , 2); ?>" type="text" size=15 readonly class='col-lg-4'>
                 </div>
                  </div>  
              </div>

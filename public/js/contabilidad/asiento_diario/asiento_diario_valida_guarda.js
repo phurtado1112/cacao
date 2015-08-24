@@ -157,17 +157,17 @@ function guardar_transacciones(idasiento_diario_creado) {
         var numero_transacciones = $(this).find(".numero_transaccion").val();
         var idcuenta_contable = $(this).find(".idcuenta_contable").val();
 
-        var debito = $(this).find(".campo_debito").val();
-        var credito = $(this).find(".campo_credito").val();
+        var debito = Number($(this).find(".campo_debito").val());
+        var credito = Number($(this).find(".campo_credito").val());
 
         var idmoneda = $("#moneda>select").val();
 
-        if ((debito === "0.0" || debito === "0") && credito !== "0.0") {
+        if ((debito == 0 || debito == 0) && credito != 0) {
             var tipo_transaccion = "C";
 
             var monto = credito;
 
-        } else if (debito !== "0.0" && (credito === "0.0" || credito === "0")) {
+        } else if (debito != 0 && (credito == 0 || credito == 0)) {
             var tipo_transaccion = "D";
 
             var monto = debito;

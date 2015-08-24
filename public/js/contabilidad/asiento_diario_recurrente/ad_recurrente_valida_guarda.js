@@ -100,12 +100,12 @@ function guardar_transacciones(idasiento_diario_creado) {
 
         var idmoneda = $("#moneda>select").val();
 
-        if (debito === "0.0" && credito !== "0.0") {
+        if (debito == 0 && credito != 0) {
             var tipo_transaccion = "C";
 
             var monto_transaccion = credito;
 
-        } else if (debito !== "0.0" && credito === "0.0") {
+        } else if (debito != 0 && credito == 0) {
             var tipo_transaccion = "D";
 
             var monto_transaccion = debito;

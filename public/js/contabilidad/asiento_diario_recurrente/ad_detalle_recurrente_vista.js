@@ -136,7 +136,7 @@ function calcular_total() {
             }
     );
 
-    $("#total_debito").val(debito_total);
+    $("#total_debito").val(Number(debito_total).toFixed(2));
 }
 
 function calcular_total2() {
@@ -157,7 +157,7 @@ function calcular_total2() {
             }
     );
 
-    $("#total_credito").val(debito_total);
+    $("#total_credito").val(Number(debito_total).toFixed(2));
 }
 
 function mostrar(valor_input) {
@@ -199,9 +199,12 @@ $(document).ready(function () {
         var campo = '#balance_credito_' + idcampo;
         var campo_vecino = '#balance_debito_' + idcampo;
 
-        $(campo).val("0.0");
+        $(campo).val("0.00");
         calcular_total2();
-
+        
+        $(this).on('focusout', function () {
+            $(this).val((Math.round( Number($(this).val()) * 100 ) / 100).toFixed(2));
+        });
     });
 
     $("#campos_agregados").on('keyup', ".campo_credito", function () {
@@ -212,9 +215,12 @@ $(document).ready(function () {
         var campo = '#balance_debito_' + idcampo;
         var campo_vecino = '#balance_credito_' + idcampo;
 
-        $(campo).val("0.0");
+        $(campo).val("0.00");
         calcular_total();
-
+        
+        $(this).on('focusout', function () {
+            $(this).val((Math.round( Number($(this).val()) * 100 ) / 100).toFixed(2));
+        });
     });
     
     

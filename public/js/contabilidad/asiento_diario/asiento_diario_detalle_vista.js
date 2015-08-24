@@ -109,8 +109,8 @@ function calcular_total() {
 
             }
     );
-
-    $("#total_debito").val(debito_total);
+    
+    $("#total_debito").val(Number(debito_total).toFixed(2));
 }
 
 function calcular_total2() {
@@ -130,8 +130,8 @@ function calcular_total2() {
 
             }
     );
-
-    $("#total_credito").val(debito_total);
+    
+    $("#total_credito").val(Number(debito_total).toFixed(2));
 }
 
 function asig_valores() {
@@ -150,7 +150,7 @@ function asig_valores() {
         
         $('#cuenta_contable_buscar').val("");
         $("#campo_busqueda").find("option[value=idcuenta_contable]").attr("selected", "selected");
-        $('#listar').fadeOut('slow');
+        $('#listar').hide();
 
         var campo_cuenta = "#idcuenta_contable_" + val;
         var campo_descripcion = "#descripcion_cuenta_contable_" + val;
@@ -185,30 +185,38 @@ $(document).ready(function () {
 
 /////validacion que solo debito o solo credito
 
-    $("#campos_agregados").on('keypress', ".campo_debito", function () {
+    $("#campos_agregados").on('keyup', ".campo_debito", function () {
         var id_original = $(this).attr("id");
         var idcampo = parseInt(id_original.substr(id_original.length - 1, id_original.length));
 
         var campo = '#balance_credito_' + idcampo;
         var campo_vecino = '#balance_debito_' + idcampo;
-
-        $(campo).val("0.0");
+        
+        $(campo).val("0.00");
         calcular_total2();
+        $(this).on('focusout', function () {
+            $(this).val((Math.round( Number($(this).val()) * 100 ) / 100).toFixed(2));
+        });
 
     });
 
-    $("#campos_agregados").on('keypress', ".campo_credito", function () {
+    $("#campos_agregados").on('keyup', ".campo_credito", function () {
         var id_original = $(this).attr("id");
         var idcampo = parseInt(id_original.substr(id_original.length - 1, id_original.length));
 
         var campo = '#balance_debito_' + idcampo;
         var campo_vecino = '#balance_credito_' + idcampo;
-
-        $(campo).val("0.0");
+        
+        $(campo).val("0.00");
         calcular_total();
+        
+        $(this).on('focusout', function () {
+            $(this).val((Math.round( Number($(this).val()) * 100 ) / 100).toFixed(2));
+        });
 
     });
-
+    
+    
     //////////////seleccion de cuentas///////////////
     /////////////////////////////////////////////////////////
      $("#campos_agregados").on("focus", ".idcuenta_contable", function () {
