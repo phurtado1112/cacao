@@ -4,46 +4,54 @@
                     <div class="navbar navbar-inner block-header">
                         <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar Grupo de cuentas</h4></br>
                     </div>
-                    <div class="block-content collapse in valor" style="width: 80%; margin: auto; padding:0px 10px;">
-                        <?php 
-                            echo form_open();
-                            echo form_hidden('idgrupo_cuenta',$idgrupo);
-                        ?>
+                    <form class="form-horizontal" method="POST">
+                <?php
+                  echo form_open();
+                  echo form_hidden('idgrupo_cuenta',$idgrupo);
+                ?>
+                <div class="alert alert-success cacao valor" role="alert" style="width: 80%; margin-left:10%;"> 
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label col-lg-offset-2">Nombre del grupo</label>
+                        <div class="col-lg-3">                              
+                            <input name='grupo_cuenta' class="form-control" value="<?php echo $lista_por_id[0]['grupo_cuenta'] ?>" autocomplete="off" maxlength="50">                           
+                            <?php echo form_error('grupo_cuenta');
+                            ?>
+                        </div></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label col-lg-offset-2">Nivel</label>                   
+                        <div class="col-lg-3"> 
+                            <input id="nivel" type="hidden" value="<?php echo $lista_por_id[0]['nivel'] ?>">
+                                    <?=form_dropdown('nivel',$nivel,'','class="form-control"');?>                       
+                        </div> </div> 
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label col-lg-offset-2">Categoria</label>
+                        <div class="col-lg-3 dropdown"> 
+                               <input id="categoria_grupo" type="hidden" value="<?php echo $lista_por_id[0]['categoria'] ?>">
+                               <?=form_dropdown('idcategoria_cuenta',$categoria,'','class="form-control"');?>
+                        </div> </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label col-lg-offset-2">Nivel Superior</label>
+                        <div class="col-lg-3 dropdown"> 
+                          <input id="idnivel_anterior" type="hidden" value="<?php echo $lista_por_id[0]['idnivel_anterior'] ?>">
+                          <?=form_dropdown('idnivel_anterior','','class="form-control"');?>
+                        </div></div>
+                    <div class="form-group" id="radio_button">
+                        <input id="acepta_cuenta_actual" type="hidden" value="<?php echo $lista_por_id[0]['acepta_cuenta']?>">
+                        <label class="col-lg-3 control-label col-lg-offset-2">Aceptar cuentas</label>
+                         <label class="col-lg-1">No</label>
+                                <input class="col-lg-1" style="margin-left: -30px;" type = "radio" name = "acepta_cuenta"  value = "0"  checked = "checked" />
+                         <label class="col-lg-1">Si</label>  
+                                <input class="col-lg-1" style="margin-left: -30px;" type = "radio" name = "acepta_cuenta"  value = "1"  />
                         
-                        <table class="table table-striped ">
-                            <tr>
-                                <th>Nombre del Grupo</th>
-                                <th><?php echo form_input('grupo_cuenta',$lista_por_id[0]['grupo_cuenta']); echo form_error('grupo_cuenta');?></th>
-                            </tr>
-                            <tr>
-                                <th>Nivel</th>
-                                <th>
-                                    <input id="nivel" type="hidden" value="<?php echo $lista_por_id[0]['nivel'] ?>">
-                                    <?=form_dropdown('nivel',$nivel);?>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Categoria</th>
-                                <th>
-                                    <input id="categoria_grupo" type="hidden" value="<?php echo $lista_por_id[0]['categoria'] ?>">
-                                    <?=form_dropdown('idcategoria_cuenta',$categoria);?>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Nivel superior</th>
-                                <th>
-                                    <input id="idnivel_anterior" type="hidden" value="<?php echo $lista_por_id[0]['idnivel_anterior'] ?>">
-                                    <?=form_dropdown('idnivel_anterior');?>
-                                </th>
-                            </tr>
-                        </table>
-                        
+                    
                     </div>
-                <div style="margin:0px auto; width: 250px;">
-                <?php echo form_submit('botonSubmit', '  Editar  ', 'class="btn btn-success "'); ?>
-                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success">Cancelar</a>
-                <?php echo form_close(); ?>
-            </div>
                 </div>
-            </div>
+                <button class="btn btn-success fa fa-pencil-square-o fa-lg col-lg-offset-4">Editar</button>
+                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/grupo/grupo/index/1" class="btn btn-success fa fa-close fa-lg col-lg-offset-1">Cancelar</a>
+                <?php echo form_close(); ?>
+            </form>
         </div>
+    </div>
+</div>       
+
+             

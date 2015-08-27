@@ -71,7 +71,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $idorigen_asiento_diario = array(
             'name' => 'idorigen_asiento_diario',
             'id' => 'idorigen_asiento_diario',
-            'class' => 'form-group',
+            'class' => 'form-control',
         );
         $data['idorigen_asiento_diario'] = $idorigen_asiento_diario;
 
@@ -116,8 +116,8 @@ class Asiento_diario_recurrente extends CI_Controller {
         $fecha_creacion = filter_input(INPUT_POST, 'fecha_creacion');
         $usuario_creacion = filter_input(INPUT_POST, 'usuario_creacion');
         $idmoneda = filter_input(INPUT_POST, 'idmoneda');
-        $balance_debito = filter_input(INPUT_POST, 'balance_debito');
-        $balance_credito = filter_input(INPUT_POST, 'balance_credito');
+        $balance_debito = round(filter_input(INPUT_POST, 'balance_debito'),4);
+        $balance_credito = round(filter_input(INPUT_POST, 'balance_credito'),4);
        
 //        echo $idorigen_asiento_diario."  ".$descripcion_asiento_diario."  ".$fecha_creacion."  ".$usuario_creacion."  ".$idmoneda."  ".$balance_debito."  ".$balance_credito;
 
@@ -151,7 +151,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $numero_transaccion = filter_input(INPUT_POST, 'numero_transaccion');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
         $tipo_transaccion = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
-        $monto_transaccion = filter_input(INPUT_POST, 'monto_transaccion');
+        $monto_transaccion = round(filter_input(INPUT_POST, 'monto_transaccion'),4);
 
 //        echo $idasiento_diario_recurrente. "  " . $numero_transaccion . "  " .$idcuenta_contable . "  " .$tipo_transaccion . "  " .$monto_transaccion;
 
@@ -284,8 +284,8 @@ class Asiento_diario_recurrente extends CI_Controller {
         $fecha_edicion = filter_input(INPUT_POST, 'fecha_edicion');
         $usuario_edicion = filter_input(INPUT_POST, 'usuario_edicion');
         $idmoneda = filter_input(INPUT_POST, 'idmoneda');
-        $balance_debito = filter_input(INPUT_POST, 'balance_debito');
-        $balance_credito = filter_input(INPUT_POST, 'balance_credito');
+        $balance_debito = round(filter_input(INPUT_POST, 'balance_debito'),4);
+        $balance_credito = round(filter_input(INPUT_POST, 'balance_credito'),4);
         $idorigen_asiento_diario = filter_input(INPUT_POST, 'origen_asiento_diario');
         
 
@@ -302,7 +302,7 @@ class Asiento_diario_recurrente extends CI_Controller {
         $numero_transacciones = filter_input(INPUT_POST, 'numero_transaccion');
         $idcuenta_contable = filter_input(INPUT_POST, 'idcuenta_contable');
         $naturaleza_cuenta_contable = filter_input(INPUT_POST, 'naturaleza_cuenta_contable');
-        $monto_transaccion = filter_input(INPUT_POST, 'monto_transaccion');
+        $monto_transaccion = round(filter_input(INPUT_POST, 'monto_transaccion'),4);
 
 
 //        echo $idasiento_diario_recurrente."--".$numero_transacciones."--".$idcuenta_contable."--".$naturaleza_cuenta_contable."--".$monto_transaccion;

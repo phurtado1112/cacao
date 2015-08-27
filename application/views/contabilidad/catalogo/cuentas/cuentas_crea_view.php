@@ -1,50 +1,58 @@
+<?php 
+//      $=array(
+//            'size'=>'',
+//        );
+?>
+
 <div class="container">
     <div class="row">
         <div class="span3 well">
             <div class="navbar navbar-inner block-header">
                 <h4 class="fa fa-pencil-square-o fa-lg col-lg-offset-5"> Crear Nueva Cuenta</h4><br>
             </div>
-            <div class="block-content collapse in valor" style="width: 80%; margin: auto; padding:0px 10px;">
+            <form class="form-horizontal" method="POST">
                 <?php
                 echo form_open();
                 ?>
-
-                <table class="table">
-                    <tr>
-                        <th>Numero de la Cuenta</th>
-                        <th>
-                            <?php echo form_input($idcuenta_contable);
+                <div class="alert alert-success cacao valor" role="alert" style="width: 80%; margin-left:10%;"> 
+                <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Número de la cuenta</label>
+                    <div class="col-lg-3"> 
+                         <?php echo form_input($idcuenta_contable,'','class="form-control"');
                             echo form_error('idcuenta_contable');
                             ?>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Nombre de la Cuenta</th>
-                        <th>
-                            <input name='cuenta_contable' autocomplete="off">
+                    </div> </div>
+                    <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Nombre de la cuenta</label>
+                    <div class="col-lg-3"> 
+                        <input name='cuenta_contable' class="form-control" autocomplete="off" maxlength="50">
                             <?php echo form_error('cuenta_contable');?>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Naturaleza de la cuenta</th>
-                        <th>
-                            <?= form_dropdown('naturaleza_cuenta_contable', $tipocuenta); ?>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Grupo</th>
-                        <th><?= form_dropdown('idgrupo_cuenta', $idgrupo_cuenta); ?></th>
-                    </tr>
-                </table>
-            </div>
-            <div style="margin:0px auto; width: 250px;">
-            <?php
-            echo form_submit('botonSubmit', '  Crear  ', 'class="btn btn-success"'); ?>
-            <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success">Cancelar</a>
-            <?php
-            echo form_close();
-            ?>
+                    </div> </div>
+                    <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Naturaleza de la cuenta</label>
+                    <div class="col-lg-3 dropdown"> 
+                         <?= form_dropdown('naturaleza_cuenta_contable', $tipocuenta,'','class="form-control"'); ?>
+                    </div> </div>
+                    <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Grupo</label>
+                    <div class="col-lg-3 dropdown"> 
+                         <?= form_dropdown('idgrupo_cuenta', $idgrupo_cuenta,'','class="form-control"'); ?>
+                    </div>
+                </div>
+              </div>
+              <button class="btn btn-success fa fa-pencil-square-o fa-lg col-lg-offset-4">Crear</button>
+            <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/cuentas/cuentas/index/1" class="btn btn-success fa fa-close fa-lg col-lg-offset-1">Cancelar</a>
+            <?php echo form_close(); ?>
+            </form>
             </div>
         </div>
     </div>
-</div>
+
+
+
+
+
+
+
+
+

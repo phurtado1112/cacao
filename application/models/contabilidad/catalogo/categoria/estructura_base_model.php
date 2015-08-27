@@ -7,13 +7,10 @@ class Estructura_base_model extends CI_Model{
         $this->load->database();
     }
     
-     function lista_dropdown() {
+     function estructura_base() {
         $tags = $this->db->query('select distinct idestructura_base,descripcion_estructura_base from estructura_base WHERE idestructura_base > 0');
-        $dropdowns = $tags->result_array();
-        foreach ($dropdowns as $dropdown) {
-          $dropdownlist[$dropdown['idestructura_base']] = $dropdown['descripcion_estructura_base'];
-        }
-        $finaldropdown = $dropdownlist;
-        return $finaldropdown;
+        
+        return $tags->result_array();
+        
       }
 }

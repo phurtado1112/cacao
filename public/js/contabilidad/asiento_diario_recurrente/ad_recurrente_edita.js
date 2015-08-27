@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#idorigen_asiento_diario").find("option[value="+valor_origen+"]").attr("selected","selected");
     
     var idmoneda = $("#idmoneda_actual").val();
-    $("select#idmoneda").find("option[value="+idmoneda+"]").attr("selected","selected");
+    $("select[name=idmoneda]").find("option[value="+idmoneda+"]").attr("selected","selected");
     
       
 });

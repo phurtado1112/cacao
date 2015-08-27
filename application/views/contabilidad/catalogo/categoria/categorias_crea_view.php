@@ -5,32 +5,31 @@
                 <h4 class="fa fa-pencil-square-o fa-lg col-lg-offset-5"> Crear Nueva Categoría</h4></br>
                 
             </div>
-            <div class="block-content collapse in " style="width: 80%; margin: auto; padding:0px 10px;">
+                <form class="form-horizontal" method="POST">
                 <?php
                 echo form_open();
                 echo form_hidden('estado', 1);
                 ?>
-
-                <table class="table table-striped  valor">
-                    <tr>
-                        <th>Nombre de la Categoría</th>
-                    
-                    <th><?php echo form_input('categoria_cuenta');echo form_error('categoria_cuenta'); ?></th>
-               
-                    </tr>
-                    <tr>
-                        <th>Tipo</th>
-                        <th><?= form_dropdown('idestructura_base', $idestructura_base); ?></th>
-                    </tr>
-                </table>
-                 <div style="margin:0px auto; width: 250px;">
-                <?php
-                echo form_submit('botonSubmit', 'Crear', "class='btn btn-success botones'");
-                echo '<a href="index/1" class="btn btn-success" id="botones">Cancelar</a>';
-                echo form_close();
-                ?>
-                 </div>
-            </div>
+                <div class="alert alert-success cacao valor" role="alert" style="width: 80%; margin-left:10%;"> 
+                <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Nombre de la Categoría</label>
+                    <div class="col-lg-3"> 
+                        <input name="categoria_cuenta" class="form-control" autocomplete="off" maxlength="50">
+                    <?php echo form_error('categoria_cuenta'); ?>
+                    </div> </div>                   
+                    <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Tipo</label>
+                    <div class="col-lg-3 dropdown"> 
+                        <?= form_dropdown('idestructura_base', $idestructura_base,'','class="form-control"'); ?>
+                    </div>
+                </div>
+              </div>
+              <button class="btn btn-success fa fa-pencil-square-o fa-lg col-lg-offset-4">Crear</button>
+            <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/categoria/categoria/index/1" class="btn btn-success fa fa-close fa-lg col-lg-offset-1">Cancelar</a>
+            <?php echo form_close(); ?>
+            
+            </form>
+            
         </div>
     </div>
 </div>
