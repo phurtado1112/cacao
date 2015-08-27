@@ -1,3 +1,5 @@
+/* global smoke */
+
 function lista_grupo(url1, url2, url_actual) {
 
     if (url_actual === url1) {
@@ -20,6 +22,7 @@ function valores_edicion_grupo(url1, url2, url3, url_actual) {
     var nivel_busqueda_recuperado = parseInt(nivel) - 1;
     var categoria_grupo = $("#categoria_grupo").val();
     var nivel_anteriror = $("#idnivel_anterior").val();
+    var acepta_cuenta_actual = $("#acepta_cuenta_actual").val();
     /// seleccion nivel
     $("select[name=nivel]").find("option[value=" + nivel + "]").attr("selected", "selected");
     /// seleccion categoria
@@ -42,6 +45,8 @@ function valores_edicion_grupo(url1, url2, url3, url_actual) {
     select_nivel_superior(nivel_busqueda_recuperado, idcategoria_grupo);
 
     $("select[name=idnivel_anterior]").find("option[value=" + nivel_anteriror + "]").attr("selected", "selected");
+    
+    $("#radio_button").find("input[value=" + acepta_cuenta_actual + "]").attr("checked", "checked");
 
 }
 
@@ -56,19 +61,19 @@ function select_nivel_superior(nivel, categoria) {
             if (data !== "0") {
                 $("select[name=idnivel_anterior]").html(data);
             } else {
-                alert("No se ecnontro ningun grupo con estas caracteristicas");
+                smoke.alert("No se ecnontro ningun grupo con estas caracteristicas");
                 $("select[name=idnivel_anterior]").html("<option value='' ></option>");
             }
         },
         error: function () {
-            alert("error al consultar niveles anteriories");
+            smoke.alert("error al consultar niveles anteriories");
         }
 
     });
 }
 
 function busqueda(val, camp) {
-
+    
     $.ajax({
         url: "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupos_buscar",
         type: "post",
@@ -90,30 +95,31 @@ function valida_campo_valor() {
         busqueda(valor, campo);
 
     } else if (valor !== "" && isNaN(valor) && ( campo === "nivel")) {
-        alert("Solo se aceptan numeros para esta busqueda");
+        smoke.alert("Solo se aceptan numeros para esta busqueda");
 
     } else if (valor !== "" && isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
         busqueda(valor, campo);
 
     } else if (valor !== "" && !isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
-        alert("Solo se aceptan caracteres alfanumericos para esta busqueda");
+        smoke.alert("Solo se aceptan caracteres alfanumericos para esta busqueda");
 
     } else if (valor === "") {
-        busqueda(valor, campo);
+        location.reload();
     }
 }
 
 function confirmar_inactivar(val) {
-    var res = confirm("¿Esta seguro que desea desactivar esta categoria?");
+    smoke.confirm("¿Esta seguro que desea desactivar esta categoria?",function(res){
     if (res === true) {
         window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_cambiar_estado/" + val + "/0";
     } else if (res === false) {
         return 0;
     }
+    });
 }
 
 function confirmar_eliminar(val) {
-    var res = confirm("¿Esta seguro que desea eliminar este grupo?");
+    smoke.confirm("¿Esta seguro que desea eliminar este grupo?",function(res){
 
     if (res === true) {
         $.ajax({
@@ -126,13 +132,13 @@ function confirmar_eliminar(val) {
                     window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/grupo/grupo/grupo_eliminar/" + val;
 
                 } else if (data > 0) {
-                    alert("No puede eliminar un grupo que esta siendo utilizado");
+                    smoke.alert("No puede eliminar un grupo que esta siendo utilizado");
                 }
 
             },
             error: function (data) {
-                alert(data);
-                alert('Error al consultar dependecias');
+                smoke.alert(data);
+                smoke.alert('Error al consultar dependecias');
             }
 
         });
@@ -140,6 +146,7 @@ function confirmar_eliminar(val) {
     } else if (res === false) {
         return 0;
     }
+    });
 
 }
 
@@ -182,8 +189,14 @@ $(document).ready(function () {
         valida_campo_valor();
     });
 
-    $("#valor").on('keypress', function () {
+    $("#valor").on('keyup', function () {
         valida_campo_valor();
+    });
+    
+     $("#campo").on('change', function () {
+        if($("#valor").val() !== ""){
+        valida_campo_valor();
+    }
     });
 
     $("#resultado").on('click', ".inactivar", function () {

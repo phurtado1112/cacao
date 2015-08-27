@@ -24,6 +24,11 @@ div.container.catalogo{
     box-shadow: 0px 0px 18px 0px rgba(48,50,50,0.48);
     border-radius: 6%;
 }
+.alert-success.cacao{
+  color: #3c763d;
+  background-color: rgba(150, 102, 7, 0.10);
+  border-color: #d6e9c6;
+}
 #avatar {
     margin: 0px auto 10px;
     display: block;
@@ -33,14 +38,11 @@ div.container.catalogo{
     color: #009926;
 }
 
-div.divboton{
-    margin-top: 15px;
-}
 /*BOTONES DE LAS VISTAS*/
 #botones , .btn-success{
     background-color:#713517 !important;   
     border-color:#954500 !important; 
-    width: 120px !important;
+    
 }
 .aceptar{
 background-color:#009926 !important;
@@ -68,20 +70,15 @@ a.btn.btn-primary.quitar.fa.fa-ban.fa-sm{
 #refescar{  
     background-color:#fff;   
     border-color:#954500; 
-    width: 30px;
-    height: 25px;
     color: #713517;
+    height: 33px;
 }
 a#refescar{
     position: absolute;
 }
-a#buscar{
-    position: absolute;
-}
+
 #buscar{  
     border-color:#954500; 
-    width: 30px;
-    height: 25px;
 }
 #buscar:hover{
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);                   
@@ -95,8 +92,7 @@ a#buscar{
 
 /*DROPDOWNS e imputs*/
 
-#valor, .valor,input#fecha_fiscal.hasDatepicker,textarea#descripcion_asiento_diario.textarea, input#nunmero_asiento_diario,
-input#idcuenta_contable, input{
+#valor, .valor{
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
@@ -131,23 +127,31 @@ input#fecha_fiscal{
     width: 105px !important;
 }
 .textarea{
-    width: 200px;
-    height: 90px;
-    max-width: 200px;
-    max-height: 90px;
+    width: 390px;
+    height: 38px;
+    resize: none;
+    border-radius: 5px;
 }
-#numero_asiento_diario, #tasa_cambio, input#total_debito,input#total_credito{
+.textarearecurrente{
+    width: 800px;
+       height: 38px;
+        border-radius: 5px;
+        resize: none;
+}
+#numero_asiento_diario, input#total_debito,input#total_credito{
     border-radius: 5px !important;
     height: 30px;
 }
-#campo,select{
-    height: 25px;
+#campo:hover{
+    height: 33px !important;}
+#campo{
+    height: 33px;
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
 }
-#idorigen_asiento_diario, div#moneda.col-md-4 select{
-    height: 25px;
+#idorigen_asiento_diario{
+ 
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
@@ -158,8 +162,7 @@ input#cuenta_contable_buscar {
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.28);
 }
-#idorigen_asiento_diario:hover, div#moneda.col-md-4 select:hover{
-    height: 25px;
+#idorigen_asiento_diario:hover{
     -webkit-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.48);                   
     -moz-box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.48);
     box-shadow: 0px 0px 18px 0px rgba(128,85,23,0.48);
@@ -249,14 +252,34 @@ img.grande{
 
 /*popup*/
 .overlay-container {
-    overflow: auto;
+    overflow: visible;
     z-index: 3;
-    margin-top: 10%;
-    margin-left: 20%;
+    margin-top: 0;
+    margin-left: 0;
     display: none;
     content: " ";
-    height: 60%;
-    width: 60%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(127,127,127,0.3) 0%, rgba(127,127,127,0.9) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(127,127,127,0)), color-stop(100%,rgba(127,127,127,0.9)));
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(127,127,127,0.3) 0%,rgba(127,127,127,0.9) 100%);
+    background: -o-radial-gradient(center, ellipse cover,  rgba(127,127,127,0.3) 0%,rgba(127,127,127,0.9) 100%);
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(127,127,127,0.3) 0%,rgba(127,127,127,0.9) 100%);
+    background: radial-gradient(center, ellipse cover,  rgba(127,127,127,0.3) 0%,rgba(127,127,127,0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007f7f7f', endColorstr='#e67f7f7f',GradientType=0 );
+}
+.overlay-container-busqueda {
+    overflow: visible;
+    z-index: 3;
+    margin-top: 0px;
+    margin-left: 0;
+    display: none;
+    content: " ";
+    height: 100%;
+    width: 100%;
     position: absolute;
     left: 0;
     top: 0;
@@ -269,12 +292,14 @@ img.grande{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007f7f7f', endColorstr='#e67f7f7f',GradientType=0 );
 }
 
-div#resultado.centered.valor{font-size:20px;}
+div#resultado.centered.valor{font-size:20px;
+height: 611px;
+}
 .window-container {
     display: block;
     background: #fcfcfc;
     margin: auto;
-    width: 100%;
+    width: 60%;
     padding: 10px 20px 20px;
     text-align: left;
     z-index: 4;
@@ -306,10 +331,21 @@ div#resultado.centered.valor{font-size:20px;}
     margin: 1em 0 0.5em;
     font-family: "Oleo Script";
     font-weight: normal;
-    font-size: 25px;
+    font-size: 35px;
     text-align: center;
 }
-
+.window-container {
+    font-size: 20px;
+    text-align: center;
+}
+.window-container input {
+    font-size: 20px;
+    text-align: center;
+}
+.window-container select {
+    font-size: 20px;
+    text-align: center;
+}
 .close:active {
     margin:  auto;
     display: block;

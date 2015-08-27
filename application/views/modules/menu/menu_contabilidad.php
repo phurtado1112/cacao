@@ -8,7 +8,8 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/smoke.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>public/font-awesome-4.3.0/css/font-awesome.min.css">
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>public/img/leaf.ico"> 
+        
+        <link rel="shortcut icon"  href="<?php echo base_url(); ?>public/img/logo.ico" />
         <meta charset="UTF-8">
         <title><?php echo $titulo; ?></title>
     </head>
@@ -85,7 +86,7 @@
                             <li><a href="<?php echo base_url(); ?>">Asiento de Mayor</a></li>
                             <li><a href="<?php echo base_url(); ?>">Saldo de cuentas</a></li>
                             <li><a href="<?php echo base_url(); ?>">Catálogo de Cuentas</a></li>
-                            <li class="divider"></li>
+                            <li class="divider"></li><li class="divider"></li>
                             <li><a href="<?php echo base_url(); ?>">Informes a los donantes</a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo base_url(); ?>">Activos Fijos</a></li>
@@ -109,11 +110,20 @@
                         <!-- ////-->
                     </li>
                 </ul>
-                
+<!--                
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir">Cerrar sesion</a></li>
+                    <li class=""><a href="<?php echo base_url(); ?>index.php/cacao/logout_ci">Cerrar sesion</a></li>
+                </ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>&nbsp;&nbsp;<?= $this->session->userdata('user') ?><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url(); ?>index.php/administracion/usuario/usuario/salir"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Salir</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"></a></li>
                 </ul>
-                
-                <h5 style="text-align: center">Bienvenido de nuevo <?= $this->session->userdata('user') ?></h5>
             </div>
         </nav>

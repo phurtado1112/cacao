@@ -1,4 +1,6 @@
 
+/* global smoke */
+
 function lista_categoria() {
     var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/index/1";
     var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/index/0";
@@ -24,8 +26,8 @@ function lista_categoria() {
 function busqueda_categoria() {
     var valor = $('#valor').val();
     var campo = $('#campo option:selected').val();
-
-    if (isNaN(valor) || valor === "") {
+    
+    if (isNaN(valor) && valor !== "") {
         $.ajax({
             url: "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/categorias_buscar",
             type: "post",
@@ -36,15 +38,18 @@ function busqueda_categoria() {
             }
 
         });
-    } else {
-        alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
+    }else if(valor === "" ){
+        location.reload();
+        
+    }else {
+        smoke.alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
     }
 
 }
 
 
 function confirmar_inactivar(val) {
-    var res = confirm("¿Esta seguro que desea desactivar esta categoria?");
+    smoke. confirm("¿Esta seguro que desea desactivar esta categoria?",function(res){
 
     if (res === true) {
         window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/categoria_cambiar_estado/" + val + "/0";
@@ -52,11 +57,12 @@ function confirmar_inactivar(val) {
     } else if (res === false) {
         return 0;
     }
+    });
 
 }
 
 function confirmar_eliminar(val) {
-    var res = confirm("¿Esta seguro que desea eliminar esta categoria?");
+    smoke.confirm("¿Esta seguro que desea eliminar esta categoria?", function(res){
 
     if (res === true) {
         $.ajax({
@@ -69,12 +75,12 @@ function confirmar_eliminar(val) {
                     window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/categoria/categoria/categoria_eliminar/" + val;
 
                 } else if (data > 0) {
-                    alert("No puede eliminar una categoria que esta siendo utilizada");
+                    smoke.alert("No puede eliminar una categoria que esta siendo utilizada");
                 }
 
             },
             error: function () {
-                alert('Error al consultar dependecias');
+                smoke.alert('Error al consultar dependecias');
             }
 
         });
@@ -82,6 +88,7 @@ function confirmar_eliminar(val) {
     } else if (res === false) {
         return 0;
     }
+    });
 
 }
 
@@ -96,8 +103,8 @@ function categoria_asignar_valores() {
         }
     });
 
-    var estructura_base = $("#nivel_anterior").val();
-    $("select[name=nivel_anterior] option").each(function () {
+    var estructura_base = $("#estructura_base").val();
+    $("select[name=idestructura_base] option").each(function () {
 
         var text_option = $(this).text();
 
@@ -116,8 +123,13 @@ $(document).on("ready", function () {
     $("#buscar").on('click', function () {
         busqueda_categoria();
     });
-    $("#valor").on('keypress', function () {
+    $("#valor").on('keyup', function () {
         busqueda_categoria();
+    });
+     $("#campo").on('change', function () {
+        if($("#valor").val() !== ""){
+        busqueda_categoria();
+    }
     });
     $("#resultado").on('click', ".inactivar", function () {
         confirmar_inactivar($(this).attr("value"));

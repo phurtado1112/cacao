@@ -5,33 +5,32 @@
                 <h4 class="fa fa-align-justify fa-lg col-lg-offset-5"> Editar Categoría cuenta</h4></br>
                 
             </div>
-            <div class="block-content collapse in " style="width: 80%; margin: auto; padding:0px 10px;">
+                <form class="form-horizontal" method="POST">
                 <?php
-                echo form_open();
+                    echo form_open();
                 echo form_hidden('idcategoria_cuenta', $idcategorias);
+                
                 ?>
-
-                <table class="table table-striped valor">
-                    <tr>
-                        <th>Nombre de la Categoría</th>
-                        <th><?php echo form_input('categoria_cuenta', $lista_por_id[0]['categoria']);
-                        echo form_error('categoria_cuenta'); ?></th>
-                    </tr>
-                    <tr>
-                        <th>Estructura Base</th>
-                        <td>
-                            <input id="estructura_base" type="hidden" value="<?php echo $lista_por_id[0]['nombre'] ?>">
-                            <?= form_dropdown('idestructura_base', $idestructurabase); ?>
-                        </td>
-                    </tr>
-                </table>
-                <div style="margin:0px auto; width: 250px;">
-                <?php
-                echo form_submit('botonSubmit', '  Editar  ', "class='btn btn-success'");?>
-                <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/categoria/categoria/index/1" class="btn btn-success">Cancelar</a>
-                <?php echo form_close();
-                ?>
-            </div></div>
+                <div class="alert alert-success cacao valor" role="alert" style="width: 80%; margin-left:10%;"> 
+                <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Nombre de la Categoría</label>
+                    <div class="col-lg-3"> 
+                        <input name="categoria_cuenta" class="form-control" autocomplete="off" maxlength="50" value="<?=$lista_por_id[0]['categoria']; ?>">
+                    <?php echo form_error('categoria_cuenta'); ?>
+                    </div> </div>                   
+                    <div class="form-group">
+                    <label class="col-lg-3 control-label col-lg-offset-2">Estructura Base</label>
+                    <div class="col-lg-3 dropdown"> 
+                         <input id="estructura_base" type="hidden" value="<?php echo $lista_por_id[0]['nombre'] ?>">
+                            <?= form_dropdown('idestructura_base', $idestructura_base,'','class="form-control"'); ?>
+                    </div>
+                </div>
+              </div>
+              <button class="btn btn-success fa fa-pencil-square-o fa-lg col-lg-offset-4">Editar</button>
+            <a href="<?php echo base_url(); ?>index.php/contabilidad/catalogo/categoria/categoria/index/1" class="btn btn-success fa fa-close fa-lg col-lg-offset-1">Cancelar</a>
+            <?php echo form_close(); ?>
+            </form>
+            
         </div>
     </div>
 </div>

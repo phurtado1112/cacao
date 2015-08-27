@@ -1,4 +1,6 @@
 
+/* global smoke */
+
 function lista_cuentas() {
     var url1 = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/index/1";
     var url2 = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/index/0";
@@ -37,12 +39,13 @@ function busqueda_cuentas(campo, valor) {
 }
 
 function desactivar_confirmar(val) {
-    var res = confirm("¿Esta seguro que desea desactivar esta cuenta?");
+    smoke.confirm("¿Esta seguro que desea desactivar esta cuenta?",function(res){
     if (res === true) {
         window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_cambiar_estado/" + val + "/0";
     } else if (res === false) {
         return 0;
     }
+    });
 }
 
 function validar_busqueda() {
@@ -50,17 +53,20 @@ function validar_busqueda() {
     var valor = $('#valor').val();
     var campo = $('#campo').val();
 
-    if ((!isNaN(valor) || valor === "") && campo === "idcuenta_contable") {
+    if ((!isNaN(valor) && valor !== "") && campo === "idcuenta_contable") {
         busqueda_cuentas(campo, valor);
 
     } else if (isNaN(valor) && campo === "idcuenta_contable") {
-        alert("Busqueda por numero de cuenta solo admite valores numericos");
+        smoke.alert("Busqueda por numero de cuenta solo admite valores numericos");
 
-    } else if ((isNaN(valor) || valor === "") && (campo === "cuenta" || campo === "naturaleza" || campo === "grupo_cuenta")) {
+    } else if ((isNaN(valor) && valor !== "") && (campo === "cuenta" || campo === "naturaleza" || campo === "grupo_cuenta")) {
         busqueda_cuentas(campo, valor);
 
     } else if ((!isNaN(valor)) && (campo === "cuenta" || campo === "naturaleza" || campo === "grupo_cuenta")) {
-        alert("Este tipo de busqueda solo admite valores no numericos");
+        smoke.alert("Este tipo de busqueda solo admite valores no numericos");
+        
+    }else if(valor === ""){
+        location.reload();
     }
 
 }
@@ -82,7 +88,7 @@ function cuenta_asignar_valores() {
 }
 
 function confirmar_eliminar(val) {
-    var res = confirm("¿Esta seguro que desea eliminar esta cuenta?");
+    smoke.confirm("¿Esta seguro que desea eliminar esta cuenta?",function(res){
     if (res === true) {
         
         $.ajax({
@@ -95,17 +101,18 @@ function confirmar_eliminar(val) {
                     window.location.href = "http://localhost/cacao/index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_eliminar/" + val;
 
                 } else if (data > 0) {
-                    alert("No puede eliminar una cuenta que esta siendo utilizada");
+                    smoke.alert("No puede eliminar una cuenta que esta siendo utilizada");
                 }
             },
             error: function () {
-                alert('Error al consultar dependecias');
+                smoke.alert('Error al consultar dependecias');
             }
         });
 
     } else if (res === false) {
         return 0;
     }
+    });
 }
 
 function consulta_cuenta_id(id) {
@@ -115,10 +122,10 @@ function consulta_cuenta_id(id) {
             type: 'POST',
             data: "idgrupo=" + id,
             success: function (data) {
-                alert(data);
+                smoke.alert(data);
             },
             error: function () {
-                alert('Error');
+                smoke.alert('Error');
             }
         });
 }
@@ -137,7 +144,9 @@ $(document).on("ready", function () {
     });
 
     $("#campo").on('change', function () {
+        if($("#valor").val() !== ""){
         validar_busqueda();
+    }
     });
 
     $("#resultado").on('click', ".inactivar", function () {

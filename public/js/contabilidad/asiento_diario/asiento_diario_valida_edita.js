@@ -108,12 +108,12 @@ function validar_transacciones() {
 
         var debito = $(this).find(".campo_debito").val();
         var credito = $(this).find(".campo_credito").val();
-        var idcuenta_contable = $(this).find(".idcuenta_contable").val();
+        var cuenta_contable = $(this).find(".descripcion_cuenta_contable").val();
 
         if (debito === "" || credito === "") {
             montos_vacios++;
         }
-        else if (idcuenta_contable === "") {
+        else if (cuenta_contable === "") {
             idcuenta_contable_not++;
 
         }
@@ -154,17 +154,17 @@ function editar_transacciones(idasiento_diario_editado) {
         var numero_transacciones = $(this).find(".numero_transaccion_editar").val();
         var idcuenta_contable = $(this).find(".idcuenta_contable").val();
 
-        var debito = $(this).find(".campo_debito").val();
-        var credito = $(this).find(".campo_credito").val();
+       var debito = Number($(this).find(".campo_debito").val());
+        var credito = Number($(this).find(".campo_credito").val());
 
         var idmoneda = $("#moneda>select").val();
 
-        if ((debito === "0" && credito !== "0") || (debito === "0.0" && credito !== "0.0")) {
+        if ((debito == 0 && credito != 0) || (debito == 0 && credito != 0)) {
             var tipo_transaccion = "C";
 
             var monto = Number(credito);
 
-        } else if ((debito !== "0" && credito === "0") || (debito !== "0.0" && credito === "0.0")) {
+        } else if ((debito != 0 && credito == 0 ) || (debito != 0 && credito == 0 )) {
             var tipo_transaccion = "D";
 
             var monto = Number(debito);
@@ -233,12 +233,12 @@ function guardar_transacciones(idasiento_diario_creado) {
 
         var idmoneda = $("#moneda>select").val();
 
-        if ((debito === "0.0" ||debito==="0") && credito !== "0.0") {
+        if ((debito == 0 ||debito == 0) && credito != 0) {
             var tipo_transaccion = "C";
 
             var monto = credito;
 
-        } else if (debito !== "0.0" && (credito === "0.0" || credito === "0")) {
+        } else if (debito != 0 && (credito == 0 || credito == 0)) {
             var tipo_transaccion = "D";
 
             var monto = debito;
