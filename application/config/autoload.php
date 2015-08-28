@@ -60,7 +60,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 
-$autoload['libraries'] = array('session','form_validation','database','table','Jquery_pagination');
+$autoload['libraries'] = array('session','form_validation','database','table','Jquery_pagination','tcpdf');
 
 
 /*

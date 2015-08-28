@@ -17,7 +17,6 @@ if (!empty($consulta_cuentas)) {
         $id = $cat['idcuenta_contable'];
         if ($cat['naturaleza'] == "A") {
             $naturaleza = "Acreedora";
-            
         } else if ($cat['naturaleza']) {
             $naturaleza = "Deudora";
         }
@@ -69,7 +68,7 @@ if (!empty($consulta_cuentas)) {
                         <td>" . $cate['naturaleza'] . "</td>
                         <td>" . $cate['grupo_cuenta'] . "</td>
                         <td>" . '<a href="' . base_url() . 'index.php/contabilidad/catalogo/cuentas/cuentas/cuenta_cambiar_estado/' . $id . '/1 " class="fa fa-retweet fa-fw"></a></td>' .
-                        '<td><a class="fa fa-trash fa-fw eliminar" value="'.$id.'"></a></td>' .
+        '<td><a class="fa fa-trash fa-fw eliminar" value="' . $id . '"></a></td>' .
         "</tr>";
 
         $i++;
