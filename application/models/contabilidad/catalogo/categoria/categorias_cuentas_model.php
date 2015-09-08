@@ -92,14 +92,23 @@ class Categorias_cuentas_model extends CI_Model {
 
 /// metodo para listar por nombre
 
-    function categoria_lista() {
-        $query = $this->db->query('select idcategoria_cuenta,categoria_cuenta from categoria_cuenta WHERE estado = 1');
+    function categoria_lista($estado='1') {
+        $query = $this->db->query('select idcategoria_cuenta,categoria_cuenta from categoria_cuenta WHERE estado = '.$estado);
         return $query->result_array();
     }
 
     public function eliminar_categoria($idcategorias) {
 
         $this->db->query('DELETE FROM categoria_cuenta WHERE idcategoria_cuenta=' . $idcategorias);
+    }
+    
+    ///// reporte 
+    
+    public function encontrar_por_campo_reporte($idestructura_base, $estado) {
+        
+        $query = $this->db->query('SELECT * FROM categoria_cuenta WHERE idestructura_base="' .$idestructura_base .'" AND estado = "' .$estado. '" ');
+        
+        return $query->result_array();
     }
 
 }

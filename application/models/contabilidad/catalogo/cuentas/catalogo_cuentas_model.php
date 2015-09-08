@@ -15,6 +15,10 @@ class Catalogo_cuentas_model extends CI_Model {
         
         $this->db->insert('catalogo_cuenta', $form_data);
     }
+    
+    
+       ///////////////////////////////////////////////////////////
+    
 
     public function encontrar_por_id($idcuenta = NULL) {
         if ($idcuenta != NULL) {
@@ -77,6 +81,25 @@ class Catalogo_cuentas_model extends CI_Model {
          
         $this->db->query('DELETE FROM catalogo_cuenta WHERE idcuenta_contable="'.$idcuenta.'"');
     }
+    //reporte
+    
+    public function cuentas_lista( $estado=1) {
+        $query = $this->db->where('estado', $estado);
+        $query = $this->db->get('catalogo_cuenta');
+            
+        return $query->result_array();
+    }
+    /////////////////
+     public function encontrar_por_idgrupo($idgrupo_cuenta, $estado=1 ){
+        if ($idgrupo_cuenta != NULL) {
+
+            $query = $this->db->where('idgrupo_cuenta', $idgrupo_cuenta);
+            $query = $this->db->where('estado', $estado);
+            $query = $this->db->get('catalogo_cuenta');
+        }
+        return $query->result_array();
+    }
+    
     
 
 }

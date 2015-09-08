@@ -106,6 +106,31 @@ class Grupo_cuentas_model extends CI_Model {
     public function eliminar_grupo($idgrupo) {
         $this->db->query('DELETE FROM grupo_cuenta WHERE idgrupo_cuenta =' . $idgrupo);
     }
+    /// reportes
+    
+     public function grupo_lista( $idgrupo_cuenta) {
+        $query = $this->db->where('idgrupo_cuenta', $idgrupo_cuenta);
+        $query = $this->db->get('grupo_cuenta');
+            
+        return $query->result_array();
+    }
+    
+    ////////////////////////////
+    public function buscar_grupo_reporte($campo, $valor) {
+        $numero_registros = $this->db->query("SELECT * FROM grupo_cuenta WHERE idcategoria_cuenta=".$campo." AND nivel=".$valor." ");
+        return $numero_registros->result_array();
+    }
+    
+    public function buscar_grupo_reporte_niveles($campo, $valor) {
+        $numero_registros = $this->db->query("SELECT * FROM grupo_cuenta WHERE idnivel_anterior=".$campo." AND nivel=".$valor." ");
+        return $numero_registros->result_array();
+    }
+    
+//    function lista_grupo_reporte() {
+//        $query = $this->db->query('select idgrupo_cuenta,grupo_cuenta from grupo_cuenta WHERE estado > 0 AND idgrupo_cuenta >0 AND acepta_cuenta = 1');
+//        return $query->result_array();
+//        
+//    }
 
 }
 
