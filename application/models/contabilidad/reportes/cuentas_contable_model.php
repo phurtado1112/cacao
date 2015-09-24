@@ -40,5 +40,11 @@ class Cuentas_contable_model extends CI_Model {
         $datos = $this->db->get();
         return $datos->num_rows();
     }
+    
+    public function buscar_cuenta_contable_saldos($cuenta ,$periodo) {
+        $cuentas_saldos = $this->db->query('select '.$periodo.' from saldos where idcuenta_contable="'.$cuenta.'"');
+        $cuetas_en_saldos = $cuentas_saldos->result_array();
+        return $cuetas_en_saldos;
+    }
 
 }

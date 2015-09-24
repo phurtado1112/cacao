@@ -16,6 +16,14 @@ class Cuentas_contable extends CI_Controller {
         $this->load->model('contabilidad/catalogo/categoria/Categorias_cuentas_model');
         $this->load->model('contabilidad/catalogo/categoria/Estructura_base_model');
     }
+    
+    
+    public function index() {
+        $data['titulo'] = 'Catalogo Cuentas';
+        $this->load->view('modules/menu/menu_contabilidad', $data);
+        $this->load->view('contabilidad/reportes/cuentas_contables_rep_view');
+        $this->load->view('modules/foot/contabilidad/reporte_foot');
+    }
 
     public function generar_excel() {
 
@@ -217,14 +225,7 @@ class Cuentas_contable extends CI_Controller {
         header('Cache-Control: max-age=0');
         $objWriter->save('php://output');
     }
-
-    public function index() {
-        $data['titulo'] = 'Catalogo Cuentas';
-        $this->load->view('modules/menu/menu_contabilidad', $data);
-        $this->load->view('contabilidad/reportes/cuentas_contables_rep_view');
-        $this->load->view('modules/foot/contabilidad/reporte_foot');
-    }
-
+    
     public function cuentas_contables_reporte($inicio = 0) {
         //configuramos la url de la paginacion
         $config['base_url'] = base_url() . 'index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte';
@@ -411,7 +412,7 @@ class Cuentas_contable extends CI_Controller {
         $html .= "h2{text-align:center}";
 
         $html .= "</style>";
-        $html .= '<h2>Catalogo de Cuentas</h2><h5>Total de cuentas: ' . "" . '</h5>';
+        $html .= '<h2>Catalogo de Cuentas</h2><h5>Total de cuentas: ' . $this->cuentas_contable_model->cantidad_cuentas_contables() . '</h5>';
 //        
         $html .= '<table>';
         $html .= '<tr><th colspan="2">Cuenta</th><th colspan="3">Descripcion</th></tr><br>';
@@ -493,8 +494,7 @@ class Cuentas_contable extends CI_Controller {
         $html .= "</table>";
 
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-//    $pdf->writeHTML($html, true, false, true, false, '');
-// Este método tiene varias opciones, consulte la documentación para más información.
+
         $nombre_archivo = utf8_decode("Catalogo de cuentas.pdf");
 
         $pdf->Output($nombre_archivo, "I");

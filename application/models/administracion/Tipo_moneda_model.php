@@ -11,4 +11,10 @@ function lista_moneda() {
         
     }
 
+function lista_moneda_por_id($idmoneda) {
+        $lista_moneda = $this->db->query('select * from tipo_moneda where idmoneda='.$idmoneda);
+        return $lista_moneda->result_array();
+        
+    }    
+
 }

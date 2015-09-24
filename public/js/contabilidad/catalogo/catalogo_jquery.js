@@ -58,12 +58,14 @@ function validar_busqueda() {
 
     } else if (isNaN(valor) && campo === "idcuenta_contable") {
         smoke.alert("Busqueda por numero de cuenta solo admite valores numericos");
+         $('#valor').blur();
 
     } else if ((isNaN(valor) && valor !== "") && (campo === "cuenta" || campo === "naturaleza" || campo === "grupo_cuenta")) {
         busqueda_cuentas(campo, valor);
 
     } else if ((!isNaN(valor)) && (campo === "cuenta" || campo === "naturaleza" || campo === "grupo_cuenta")) {
         smoke.alert("Este tipo de busqueda solo admite valores no numericos");
+         $('#valor').blur();
         
     }else if(valor === ""){
         location.reload();

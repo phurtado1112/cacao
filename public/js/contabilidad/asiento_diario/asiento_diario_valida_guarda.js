@@ -50,37 +50,46 @@ function guardar_asiento_diario(num_ad) {
     var origen_asiento_diario = $("select#idorigen_asiento_diario").find("option[value=" + idorigen_asiento_diario + "]").text();
 
     if (descripcion_asiento_diario == null || descripcion_asiento_diario.length == 0) {
+         $('button').blur();
         smoke.alert('Es necesario el campo de descripcion');
     }
     else if (fecha_creacion == null || fecha_creacion.length == 0) {
+          $('button').blur();
         smoke.alert('Es necesario el campo de Fecha Creacion');
     }
     else if (fecha_fiscal == null || fecha_fiscal.length == 0) {
+          $('button').blur();
         smoke.alert('Es necesario el campo de Fecha Fiscal');
 
     }
     else if (tasa_cambio === "ND" || tasa_cambio.length == 0) {
+          $('button').blur();
         smoke.alert('El tipo de cambio no es valido');
         comfirmar_tasa();
 
     }
     else if (transacciones[0] > 0 && transacciones[1] === 0) {
+          $('button').blur();
         smoke.alert("Usted tiene " + transacciones[0] + " transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (transacciones[1] > 0 && transacciones[0] === 0) {
+          $('button').blur();
         smoke.alert("Usted tiene " + transacciones[1] + " transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion.");
 
     }
     else if (transacciones[1] > 0 && transacciones[0] > 0) {
+          $('button').blur();
         smoke.alert("Usted tiene transacciones sin cuentas seleccionadas:\n\-Debe seleccionar una cuenta para cada transaccion." +
                 "\n\ \n\Usted tiene transaccion sin monto:\n\-Debe establecer los montos con cualquier numero mayor a cero.");
 
     }
     else if (balance_credito !== balance_debito) {
+          $('button').blur();
         smoke.alert("Usted debe balancear el asiento para poder guardarlo");
 
     } else if ($("#valor_moneda_extranjera").val() === "") {
+          $('button').blur();
         smoke.alert("No se a encontrado tipo de cambio extranjero asociado a esta fecha fiscal");
         comfirmar_tasa();
 
@@ -206,6 +215,7 @@ function guardar_transacciones(idasiento_diario_creado) {
                 }
             },
             error: function () {
+                  $('button').blur();
                 smoke.alert("Error en el proceso de guradado de transacciones");
             }
         });

@@ -101,7 +101,7 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      * @throws 	PHPExcel_Exception
      * @return PHPExcel_Worksheet_Drawing
      */
-    public function setPath($pValue = '', $pVerifyFile = true) {
+    public function setPath($pValue =  '', $pVerifyFile = true) {
     	if ($pVerifyFile) {
 	    	if (file_exists($pValue)) {
 	    		$this->_path = $pValue;
