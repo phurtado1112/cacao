@@ -77,8 +77,8 @@
                         <!-- ////-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url(); ?>">Estado de Balance</a></li>
-                            <li><a href="<?php echo base_url(); ?>">Estado de Resultados</a></li>
+                            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/reportes/estado_resultado">Estado de Resultado</a></li>
+                            <li><a href="<?php echo base_url(); ?>index.php/contabilidad/reportes/estado_situacion">Estado de Situacion</a></li>
                             <li><a href="<?php echo base_url(); ?>">Balanza de Comprobación</a></li>
                             <li><a href="<?php echo base_url(); ?>">Flujo de efectivo</a></li>
                             <li class="divider"></li>

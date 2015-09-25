@@ -43,6 +43,7 @@ function busqueda_categoria() {
         
     }else {
         smoke.alert("Solo se aceptan caracteres alfaberticos para esta busqueda");
+         $('#valor').blur();
     }
 
 }

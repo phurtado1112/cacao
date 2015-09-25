@@ -102,8 +102,8 @@ if (!defined('K_PATH_IMAGES')) {
 
 if (!defined('PDF_HEADER_LOGO')) {
 	$tcpdf_header_logo = '';
-	if (@file_exists(K_PATH_IMAGES.'tcpdf_logo.jpg')) {
-		$tcpdf_header_logo = 'tcpdf_logo.jpg';
+	if (@file_exists(K_PATH_IMAGES.'bannernormal.png')) {
+		$tcpdf_header_logo = 'bannernormal.png';
 	}
 	define ('PDF_HEADER_LOGO', $tcpdf_header_logo);
 }
@@ -133,7 +133,7 @@ if (!defined('PDF_PAGE_FORMAT')) {
 }
 
 if (!defined('PDF_PAGE_ORIENTATION')) {
-	define ('PDF_PAGE_ORIENTATION', 'P');
+	define ('PDF_PAGE_ORIENTATION', 'L');
 }
 
 if (!defined('PDF_CREATOR')) {

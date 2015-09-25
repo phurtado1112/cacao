@@ -78,7 +78,8 @@
 				buttons = '<div class="dialog-buttons">';
 				if (f.type === 'alert') {
 					buttons +=
-						'<button id="alert-ok-'+f.newid+'">'+ok+'</button>';
+						'<button class="ok_smoke" id="alert-ok-'+f.newid+'">'+ok+'</button>';
+                                        
 				}
 				 else if (f.type === 'quiz') {
 	
@@ -107,10 +108,10 @@
 					if (f.params.reverseButtons) {
 						buttons +=
 							'<button id="'+f.type+'-ok-'+f.newid+'">'+ok+'</button>' +
-							'<button id="'+f.type+'-cancel-'+f.newid+'" class="cancel">'+cancel+'</button>';				
+							'<button  class="cancel_smoke" id="'+f.type+'-cancel-'+f.newid+'" class="cancel">'+cancel+'</button>';				
 					} else {
 						buttons +=
-							'<button id="'+f.type+'-cancel-'+f.newid+'" class="cancel">'+cancel+'</button>'+
+							'<button class="cancel_smoke" id="'+f.type+'-cancel-'+f.newid+'" class="cancel">'+cancel+'</button>'+
 							'<button id="'+f.type+'-ok-'+f.newid+'">'+ok+'</button>';
 					}
 				}

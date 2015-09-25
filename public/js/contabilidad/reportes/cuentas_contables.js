@@ -4,7 +4,7 @@
 function lista_cuentas() {
 
     $.ajax({
-        url: 'http://localhost/cacao/index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte/',
+        url: 'http://localhost/cacao/index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte',
         type: 'POST',
         success: function (data) {
             $("#resultado").html(data);
@@ -13,23 +13,34 @@ function lista_cuentas() {
     });
 }
 
-function busqueda_cuentas(campo, valor) {
+//function lista_cuentas() {
+//
+//    $.ajax({
+//        url: 'http://localhost/cacao/index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte/',
+//        type: 'POST',
+//        success: function (data) {
+//            $("#resultado").html(data);
+//        }
+//
+//    });
+//}
 
-    $.ajax({
-        url: "http://localhost/cacao/index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte/cuentas_buscar",
-        type: "post",
-        data: "valor=" + valor + "&campo=" + campo,
-        success: function (data) {
-
-            $("#resultado").html(data);
-        }
-
-    });
-
-}
+//function busqueda_cuentas(campo, valor) {
+//
+//    $.ajax({
+//        url: "http://localhost/cacao/index.php/contabilidad/reportes/cuentas_contable/cuentas_contables_reporte",
+//        type: "post",
+//        data: "valor=" + valor + "&campo=" + campo,
+//        success: function (data) {
+//
+//            $("#resultado").html(data);
+//        }
+//
+//    });
+//
+//}
 
 function validar_busqueda() {
-
     var valor = $('#valor').val();
     var campo = $('#campo').val();
 

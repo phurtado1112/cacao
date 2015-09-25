@@ -402,7 +402,7 @@ class Asiento_diario extends CI_Controller {
         $this->Tasa_cambio_model->tasa_cambio_agregar($idmoneda, $fecha_tipo_cambio, $tasa_cambio);
     }
     
-    public function asiento_diario_mayorizar($idasiento_diario) {
+     public function asiento_diario_mayorizar($idasiento_diario) {
         $this->load->model('contabilidad/transacciones/asiento_mayor/Asiento_mayor_model');
         $this->load->model('contabilidad/catalogo/cuentas/Catalogo_cuentas_model');
         

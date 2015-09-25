@@ -32,7 +32,7 @@ if (!empty($consulta_asiento_diario)) {
                         <td class='tabletext'>" . $ad['balance_credito_nacional'] . "</td>
                         <td class='ad'>" . '<a  class="fa fa-pencil fa-sm" href="' . base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_modificar/'.$id_ad.'">&nbsp;Editar</a> | '
                               . '<a class="eliminar_ad fa fa-trash fa-sm" value="'.$id_ad.'">&nbsp;Eliminar</a> | ' 
-                              . '<a class="fa fa-external-link fa-sm" value="'.$id_ad.'">&nbsp;Mayorizar</a>'."</td>
+                              . '<a class="fa fa-external-link fa-sm" href="'. base_url() . 'index.php/contabilidad/transacciones/asiento_diario/asiento_diario/asiento_diario_mayorizar/'.$id_ad.'">&nbsp;Mayorizar</a>'."</td>
                         </tr>";
                     }
                     

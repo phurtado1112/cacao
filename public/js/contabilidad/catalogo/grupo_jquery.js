@@ -96,12 +96,14 @@ function valida_campo_valor() {
 
     } else if (valor !== "" && isNaN(valor) && ( campo === "nivel")) {
         smoke.alert("Solo se aceptan numeros para esta busqueda");
+        $('#valor').blur();
 
     } else if (valor !== "" && isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
         busqueda(valor, campo);
 
     } else if (valor !== "" && !isNaN(valor) && (campo === "grupo_cuenta" || campo === "categoria" || campo === "nivel_anterior")) {
         smoke.alert("Solo se aceptan caracteres alfanumericos para esta busqueda");
+        $('#valor').blur();
 
     } else if (valor === "") {
         location.reload();
