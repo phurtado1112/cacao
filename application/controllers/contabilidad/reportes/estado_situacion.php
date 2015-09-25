@@ -296,7 +296,8 @@ class Estado_situacion extends CI_Controller {
         $html4 .= "*{font-size:12px;}";
         $html4 .= "td.balance{ text-align:right;}";
         $html4 .= "td.balance-categoria{ border-bottom: 1px solid black; border-top: 1px solid black;text-align:right;}";
-        $html4 .= "td.balance-activo{background-color:#7DCA82;text-align:right;}";
+        $html4 .= "td.balance-final-suma{background-color:#7DCA82;text-align:right;border-bottom: 1px solid black; }";
+        $html4 .= "td.balance-final{background-color:#7DCA82;text-align:right;}";
 
         $html4 .= "</style>";
 
@@ -305,8 +306,8 @@ class Estado_situacion extends CI_Controller {
 
         $suma_p_c = number_format(t_pasivo + t_capital, 2, '.', ',');
         $html4 .= '<tr>'
-                . '<td colspan ="4" style=" text-align:left;"  class="balance-activo">Total Activos</td><td  class="balance-activo">' . $simbolo . '</td><td  class="balance-activo">' . t_activo . '</td>'
-                . '<td colspan ="4" style=" text-align:left;"  class="balance-activo">Total Pasivo + Capital</td><td  class="balance-activo">' . $simbolo . '</td><td  class="balance-activo">' . $suma_p_c . '</td>'
+                . '<td colspan ="4" style=" text-align:left;"  class="balance-final">Total Activos</td><td  class="balance-final-suma">' . $simbolo . '</td><td  class="balance-final-suma">' . t_activo . '</td>'
+                . '<td colspan ="4" style=" text-align:left;"  class="balance-final">Total Pasivo + Capital</td><td  class="balance-final-suma">' . $simbolo . '</td><td  class="balance-final-suma">' . $suma_p_c . '</td>'
                 . '</tr>';
 
         $html4 .= "</table>";
@@ -317,8 +318,8 @@ class Estado_situacion extends CI_Controller {
 
         $pdf->writeHTML($html4, $ln = true, $fill = false, $reseth = false, $cell = false, $align = 'center');
 
-        $nombre_archivo = utf8_decode("Estado_situacion.pdf");
-        $pdf->Output($nombre_archivo, "I");
+        $nombre_archivo = utf8_decode("E_S_INDEF_".date("d_m_Y").".pdf");
+        $pdf->Output($nombre_archivo, "D");
     }
 
     public function mostrar_reporte() {
@@ -340,7 +341,7 @@ class Estado_situacion extends CI_Controller {
         $html2 .= "table{font-size:12px;}";
         $html2 .= "th{color: white ;font-weight: bold; background-color: #7DCA82; text-align:center;}";
         $html2 .= "td.balance{ text-align:right;}";
-        $html2 .= "td.balance-categoria{ border-bottom: 1px solid black; border-top: 1px solid black;text-align:right;}";
+        $html2 .= "td.balance-categoria{ margin-top:10px;border-bottom: 1px solid black;border-top:solid black 1px;;text-align:right;}";
         $html2 .= "td.balance-activo{background-color:#7DCA82;text-align:right;}";
         $html2 .= ".categoria{background-color: gray; color:white; border-bottom: 1px solid black; text-align:center;}";
         $html2 .= ".estructura_base{background-color: white; text-align:center; border: 1px solid black;font-size:16px;}";
@@ -407,8 +408,9 @@ class Estado_situacion extends CI_Controller {
                         $saldo_grupo_total_final += $saldo_grupo_total;
                     }
                     $saldo_grupo_total_final_format = number_format($saldo_grupo_total_final, 2, '.', ',');
-                    $html2 .= '<tr><td colspan ="3"></td><td class="balance">' . $simbolo . '</td><td  class="balance-categoria">' . $saldo_grupo_total_final_format . '</td></tr>';
-//                    $html2 .= '<br><br>';
+                    $html2 .= '<tr><td colspan ="3"></td><td class="balance-categoria">' . $simbolo . '</td><td  class="balance-categoria">' . $saldo_grupo_total_final_format . '</td></tr>';
+                    $html2 .= '<tr><td colspan ="5" style=" text-align:left; height:10px" ></td></tr>';
+                    
                     $saldo_grupo_total_activos += $saldo_grupo_total_final;
                 }
                 $saldo_grupo_total_activos_format = number_format($saldo_grupo_total_activos, 2, '.', ',');
@@ -479,9 +481,10 @@ class Estado_situacion extends CI_Controller {
                         $saldo_grupo_total_final += $saldo_grupo_total;
                     }
 
-                    $saldo_grupo_total_final_format = number_format($saldo_grupo_total_final, 2, '.', ','); ////
-                    $html3 .= '<tr><td colspan ="3">Total ' . $c_l["categoria_cuenta"] . '</td><td class="balance">' . $simbolo . '</td><td  class="balance-categoria">' . $saldo_grupo_total_final_format . '</td></tr>';
-//                    $html3 .= '<br><br>';
+                    $saldo_grupo_total_final_format = number_format($saldo_grupo_total_final, 2, '.', ',');
+                    $html3 .= '<tr><td colspan ="3">Total ' . $c_l["categoria_cuenta"] . '</td><td class="balance-categoria">' . $simbolo . '</td><td  class="balance-categoria">' . $saldo_grupo_total_final_format . '</td></tr>';
+                    $html3 .= '<tr><td colspan ="5" style=" text-align:left; height:10px" ></td></tr>'; 
+                    
                     $saldo_grupo_total_cat += $saldo_grupo_total_final;
                 }
                 $saldo_grupo_total_cat_format = number_format($saldo_grupo_total_cat, 2, '.', ',');
@@ -502,11 +505,9 @@ class Estado_situacion extends CI_Controller {
 
         $html4 .= "<style type=text/css>";
 
-        $html4 .= "#comparacion{width:1080px;heigth:100px;border:double; margin-}";
-        $html4 .= "*{font-size:12px;}";
+        $html4 .= "#comparacion{width:1080px;heigth:100px;font-size:12px;}";
         $html4 .= "td.balance{ text-align:right;}";
-        $html4 .= "td.balance-categoria{ border-bottom: 1px solid black; border-top: 1px solid black;text-align:right;}";
-        $html4 .= "td.balance-activo{background-color:#7DCA82;text-align:right;}";
+        $html4 .= "td.balance_final{background-color:#7DCA82;text-align:right;border-bottom:double;}";
 
         $html4 .= "</style>";
 
@@ -514,10 +515,12 @@ class Estado_situacion extends CI_Controller {
         $html4 .= '<table id="comparacion">';
 
         $suma_p_c = number_format(t_pasivo + t_capital, 2, '.', ',');
-
+        
+        $html4 .= '<tr><td colspan ="7" style=" text-align:left; height:10px" ></td></tr>'; 
         $html4 .= '<tr>'
-                . '<td colspan ="4" style=" text-align:left;"  class="balance-activo">Total Activos</td><td  class="balance-activo">' . $simbolo . '</td><td  class="balance-activo">' . t_activo . '</td>'
-                . '<td colspan ="4" style=" text-align:left;"  class="balance-activo">Total Pasivo + Capital</td><td  class="balance-activo">' . $simbolo . '</td><td  class="balance-activo">' . $suma_p_c . '</td>'
+                . '<td colspan ="2" style=" text-align:left;"  class="balance-activo">Total Activos</td><td  class="balance_final">' . $simbolo . '</td><td  class="balance_final">' . t_activo . '</td>'
+                . '<td colspan ="1" class="balance-activo" style=" width:20px;"></td>'
+                . '<td colspan ="2" style=" text-align:left;"  class="balance-activo">Total Pasivo + Capital</td><td  class="balance_final">' . $simbolo . '</td><td  class="balance_final">' . $suma_p_c . '</td>'
                 . '</tr>';
 
         $html4 .= "</table>";

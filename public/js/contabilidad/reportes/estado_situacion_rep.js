@@ -164,7 +164,7 @@ $(document).on("ready", function () {
             mostrar_balance_general(arr);
         }
     });
-//
+    
     $("#periodo").on('change', function () {
          if ( $("#moneda").val() !== "1") {
             buscar_tasa_por_fecha();

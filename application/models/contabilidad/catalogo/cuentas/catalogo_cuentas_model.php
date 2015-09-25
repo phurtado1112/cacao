@@ -76,6 +76,10 @@ class Catalogo_cuentas_model extends CI_Model {
         $query = $this->db->query("select * from catalogo_cuenta WHERE " . $campo . "=" . $valor . "");
         return $query->result_array();
     }
+    public function cuenta_dependencia_campo($campo, $valor) {
+        $query = $this->db->query("select * from catalogo_cuenta WHERE " . $campo . "=" . $valor . "");
+        return $query->result_array();
+    }
    
      public function eliminar_cuenta($idcuenta){
          
